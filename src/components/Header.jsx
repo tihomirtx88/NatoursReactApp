@@ -10,7 +10,7 @@ const Header = () => {
           <span className="heading-primary--sub">Is where life is happens</span>
         </h1>
         <a href="#" className="btn btn--white btn--animated">
-          Discover your tours
+          Discover all tours
         </a>
       </div>
     </header>

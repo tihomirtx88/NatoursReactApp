@@ -208,4 +208,4 @@ const SingleTour = () => {
   );
 };
 
-export default SingleTour();
+export default SingleTour;
