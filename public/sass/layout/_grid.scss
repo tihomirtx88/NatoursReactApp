@@ -1,0 +1,27 @@
+.row{
+    margin: 0 auto;
+    max-width: $grid-width;
+    display: flex;
+
+    &:not(:last-child){
+        margin-bottom: $gutter-vertical;
+    }
+
+    @include clearfix;
+    
+    //Select all element with atribute class witch one start with col
+    [class^="col-"]{
+        float: left;
+        &:not(:last-child){
+            margin-right: $horizontal-gutter;
+        }
+    }
+
+    .col-1-of-2{
+        width: calc((100% - #{$horizontal-gutter}) / 2);
+    }
+
+    .col-1-of-3{
+        width: calc((100% - 2 * #{$horizontal-gutter}) / 3);
+    }
+}
