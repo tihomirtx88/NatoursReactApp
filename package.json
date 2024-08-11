@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "compile:sass": "node-sass sass/main.scss css/style.css -w",
+    "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w",
     "start": "live-server --port=8080 --no-browser"
   },
   "dependencies": {

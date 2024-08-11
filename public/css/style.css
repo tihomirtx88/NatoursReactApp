@@ -583,7 +583,11 @@ body {
   .header__logo-box {
     position: absolute;
     top: 4rem;
-    left: 4rem; }
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem; }
   .header__logo {
     height: 3.5rem; }
   .header__text-box {
@@ -593,6 +597,15 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center; }
+  .header__container {
+    display: flex; }
+    .header__container--login, .header__container--register {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.5rem;
+      text-decoration: none;
+      color: #fff; }
 
 .row {
   margin: 0 auto;
