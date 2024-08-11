@@ -3,10 +3,19 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TourPage from "./pages/TourPage";
 
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+      },
+    },
+  });
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route element={<Main />}>
@@ -17,7 +26,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
