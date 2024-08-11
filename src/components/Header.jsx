@@ -4,8 +4,8 @@ const Header = () => {
       <div className="header__logo-box">
         <img src="img/logo-white.png" alt="Logo" className="header__logo" />
         <div className="header__container">
-          <a href="#" className="header__container--login">Login</a>
-          <a href="#" className="header__container--register">Register</a>
+          <a href="#" className="header__container--login btn btn--white btn--animated">Login</a>
+          <a href="#" className="header__container--register btn btn--white btn--animated">Register</a>
 
       </div>
       </div>
