@@ -1,21 +1,23 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./components/Main";
 import Navigation from "./components/Navigation";
-import Popup from "./components/Popup";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Tours from "./components/Tours";
 
 function App() {
   return (
     <>
-      <Navigation />
-
-      <Header />
-
-      <Main />
-
-      <Footer />
-
-      <Popup />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Main />}>
+            <Route index element={<Navigation replace to="dashboard" />} />
+            <Route path="bookings" element={<Tours />} />
+          </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
