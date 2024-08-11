@@ -3,7 +3,7 @@ const SingleTour = () => {
     <>
       <section className="section-header">
         <div className="header__hero">
-          <div className="header__hero-overlay"> </div>
+          <div className="header__hero-overlay"></div>
           <img
             src="/img/tour-5-cover.jpg"
             alt="Tour 5"
