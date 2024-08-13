@@ -3,11 +3,11 @@ import { getTour } from "../../services/apiTours";
 import { useParams } from "react-router";
 
 export function useTour() {
-    const { bookingId } = useParams();
-    
+  const {tourId} = useParams();
+
   const { data: tour = {}, error } = useQuery({
-    queryKey: ["tour", bookingId],
-    queryFn: () => getTour(bookingId),
+    queryKey: ["tour", tourId],
+    queryFn: () => getTour(tourId),
     retry: false,
   });
 

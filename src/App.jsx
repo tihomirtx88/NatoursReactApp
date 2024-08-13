@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import TourPage from "./pages/TourPage";
+import TourDetailsPage from "./pages/tourDetailsPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -21,6 +21,7 @@ function App() {
           <Route element={<Main />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboard/:tourId" element={<TourDetailsPage/>}/>
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

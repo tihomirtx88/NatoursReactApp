@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__logo-box">
         <img
-          src="./img/logo-green-2x.png"
+          src="/img/logo-green-2x.png"
           alt="Full logo"
           className="footer__logo"
         />

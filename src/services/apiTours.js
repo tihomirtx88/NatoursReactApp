@@ -14,19 +14,22 @@ export async function getTours() {
   }
 }
 
-export async function getTour(id) {
+export async function getTour(tourId) {
   try {
-    const response = await fetch(`http://127.0.0.1:3000/api/v1/tours/${id}`);
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/tours/${tourId}`
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
+    } else {
+      const data = await response.json();
 
-    return data;
-    
+      return data;
+    }
   } catch (error) {
-    console.error(error.message);
+    console.log(error);
+
     throw new Error("Bookings could not be loaded");
   }
 }

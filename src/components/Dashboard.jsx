@@ -2,9 +2,9 @@ import TourCard from "../features/tours/tourCard";
 import { useTours } from "../features/tours/useTours";
 
 const Dashboard = () => {
-  const { tours, error } = useTours();
+  const { tours } = useTours();
   const readingData = tours?.data?.tours || [];
- console.log(readingData, 'from data');
+
  
   return (
     <div className="card-container">
