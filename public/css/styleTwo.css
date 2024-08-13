@@ -330,7 +330,7 @@ body {
     margin-bottom: 1.5rem;
   }
 }
-/* 
+
 .section-header {
   position: relative;
   height: 38vw;
@@ -383,7 +383,7 @@ body {
   top: 35%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-} */
+}
 .heading-box__group {
   color: #f7f7f7;
   margin-top: 3rem;
