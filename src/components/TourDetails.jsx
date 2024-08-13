@@ -1,4 +1,6 @@
+import ImageTourCard from "../features/tours/ImageTourCard";
 import LeadGuidesCard from "../features/tours/LeadGuidesCard";
+import ReviewCard from "../features/tours/ReviewCard";
 import { useTour } from "../features/tours/useTour";
 import { formatDate } from "../utils/helper";
 
@@ -12,13 +14,11 @@ const TourDetails = () => {
     if (error) return <div>Error loading tour details: {error.message}</div>;
   
     // Access the tour data
-    const { id, imageCover, startDates, description, name, duration, difficulty, startLocation, maxGroupSize, ratingsAverage, guides } = tour.data.data;
+    const { imageCover, images, reviews, startDates, description, name, duration, difficulty, startLocation, maxGroupSize, ratingsAverage, guides } = tour.data.data;
     console.log(tour);
 
-    const splitDescription = description.split('\n')
-    
-    
-    
+    const splitDescription = description.split('\n');
+
     return (
       <>
         <section className="section-header">
@@ -103,86 +103,42 @@ const TourDetails = () => {
           </div>
         </section>
         <section className="section-pictures">
-          <div className="picture-box">
-            <img
-              src="/img/tour-5-1.jpg"
-              alt="The Park Camper Tour 1"
-              className="picture-box__img picture-box__img--1"
-            />
-          </div>
-          <div className="picture-box">
-            <img
-              src="/img/tour-5-2.jpg"
-              alt="The Park Camper Tour 1"
-              className="picture-box__img picture-box__img--2"
-            />
-          </div>
-          <div className="picture-box">
-            <img
-              src="/img/tour-5-3.jpg"
-              alt="The Park Camper Tour 1"
-              className="picture-box__img picture-box__img--3"
-            />
-          </div>
+          {images.map((img, index) => (
+             <ImageTourCard key={index} img={img} index={index}/>
+          ))}
         </section>
+
         <section className="section-map">
           <div id="map" />
         </section>
+
         <section className="section-reviews">
           <div className="reviews">
-            <div className="reviews__card">
-              <div className="reviews__avatar">
-                <img
-                  src="/img/users/user-7.jpg"
-                  alt="Jim Brown"
-                  className="reviews__avatar-img"
-                />
-                <h6 className="reviews__user">Jim Brown</h6>
-              </div>
-              <p className="reviews__text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-                dignissimos sint quo commodi corrupti accusantium veniam saepe
-                numquam.
-              </p>
-              <div className="reviews__rating">
-                <svg className="reviews__star reviews__star--active">
-                  <use href="/img/icons.svg#icon-star" />
-                </svg>
-                <svg className="reviews__star reviews__star--active">
-                  <use href="/img/icons.svg#icon-star" />
-                </svg>
-                <svg className="reviews__star reviews__star--active">
-                  <use href="/img/icons.svg#icon-star" />
-                </svg>
-                <svg className="reviews__star reviews__star--active">
-                  <use href="/img/icons.svg#icon-star" />
-                </svg>
-                <svg className="reviews__star reviews__star--active">
-                  <use href="/img/icons.svg#icon-star" />
-                </svg>
-              </div>
-            </div>
+             {reviews.map((singleReview) => (
+              <ReviewCard singleReview={singleReview} key={singleReview._id}/>
+             ))}
           </div>
         </section>
+
         <section className="section-cta">
           <div className="cta">
             <div className="cta__img cta__img--logo">
-              <img src="/img/logo-white.png" alt="Natours logo" />
+              <img src='/img/logo-white.png' alt="Natours logo" />
             </div>
             <img
-              src="/img/tour-5-2.jpg"
-              alt=""
+              src={`/img/tours/${images[1]}`}
+              alt="Tour Picture"
               className="cta__img cta__img--1"
             />
             <img
-              src="/img/tour-5-1.jpg"
-              alt=""
+              src={`/img/tours/${images[2]}`}
+              alt="Tour Picture"
               className="cta__img cta__img--2"
             />
             <div className="cta__content">
               <h2 className="heading-secondary">What are you waiting for?</h2>
               <p className="cta__text">
-                10 days. 1 adventure. Infinite memories. Make it yours today!
+                {`${duration} days. 1 adventure. Infinite memories. Make it yours today!`}
               </p>
               <button className="btn btn--green span-all-rows">
                 Book tour now!
