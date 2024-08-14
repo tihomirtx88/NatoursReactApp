@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router";
 import { formatDate } from "../../utils/helper";
 import { HiArrowDownOnSquare } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const TourCard = ({ tour }) => {
-  const navigate = useNavigate();
 
   const { id, imageCover, name, duration, description, startLocation, locations, maxGroupSize, ratingsAverage, price } = tour;
 
@@ -66,13 +65,13 @@ const TourCard = ({ tour }) => {
             rating ({tour.ratingsQuantity})
           </span>
         </p>
-        <a
+        <Link
+          to={`/tours/${id}`}
           className="btn btn--green btn--small"
           icon={<HiArrowDownOnSquare />}
-          onClick={() => navigate(`/dashboard/${id}`)}
         >
           Details
-        </a>
+        </Link>
       </div>
     </div>
   );
