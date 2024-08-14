@@ -1,26 +1,21 @@
-// import About from "./About";
-// import Book from "./Book";
-// import Features from "./Features";
-// import Stories from "./Stories";
-// import Tours from "./Tours";
-import Header from "./Header";
+import About from "./About";
+
+import Features from "./Features";
+import Stories from "./Stories";
+import Tours from "./Tours";
 import Footer from "./Footer";
-// import Popup from "./Popup";
-import { Outlet } from "react-router";
+import Popup from "./Popup";
+
 
 const Main = () => {
   return (
     <>
-      <Header/>
-      <main className="main">
-         <Outlet/>
-      </main>
-      {/* <About />
+    
+       <About />
       <Features />
       <Tours />
       <Stories />
-      <Book />
-      <Popup/> */}
+      <Popup/> 
       <Footer/>
     </>
   );

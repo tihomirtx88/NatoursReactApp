@@ -1,3 +1,6 @@
+
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <header className="header">
@@ -15,9 +18,9 @@ const Header = () => {
           <span className="heading-primary--main">Outdoors</span>
           <span className="heading-primary--sub">Is where life is happens</span>
         </h1>
-        <a href="#" className="btn btn--white btn--animated">
+        <Link to="/tours" className="btn btn--white btn--animated">
           Discover all tours
-        </a>
+        </Link>
       </div>
     </header>
   );
