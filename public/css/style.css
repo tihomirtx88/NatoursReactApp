@@ -235,7 +235,7 @@ body {
   perspective: 150rem;
   -moz-perspective: 150rem;
   position: relative;
-  height: 60rem; }
+  height: 50rem; }
   .card__side {
     height: 52rem;
     font-size: 2rem;
@@ -595,10 +595,16 @@ body {
   .header__text-box {
     position: absolute;
     /* Center box in center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center; }
+    .header__text-box a {
+      max-width: 50rem;
+      margin: 10px auto; }
   .header__container {
     display: flex;
     gap: 20px; }
