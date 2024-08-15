@@ -10,7 +10,7 @@ export async function getTours() {
     return data;
   } catch (error) {
     console.error(error.message);
-    throw new Error("Bookings could not be loaded");
+    throw new Error("Tours could not be loaded");
   }
 }
 
@@ -30,6 +30,24 @@ export async function getTour(tourId) {
   } catch (error) {
     console.log(error);
 
-    throw new Error("Bookings could not be loaded");
+    throw new Error("Tour could not be loaded");
+  }
+}
+
+export async function getMontlyTours(year) {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/tours/montly-plan/${year}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Montly tours could not be loaded");
   }
 }
