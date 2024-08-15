@@ -11,21 +11,18 @@ import mapboxgl from "mapbox-gl"; // Import the Mapbox GL library
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGlob21pcnR4ODgiLCJhIjoiY2x6Zm56aHM2MG9scTJxczhncmdmYTdsdCJ9.j58GCkLB_4iTCvBIKINBeA";
 
-  // Default coordinates
-  const defaultCoordinates = [27.910543, 43.204666];
+// Default coordinates
+const defaultCoordinates = [27.910543, 43.204666];
 
 const TourDetails = () => {
   const { tour, error } = useTour();
   const mapContainerRef = useRef(null);
 
-
   useEffect(() => {
     if (!tour || !tour.data || error) {
-      // Do not proceed with the map logic if tour data isn't available or there's an error
       return;
     }
 
-    // Ensure the map container ref is available
     if (!mapContainerRef.current) {
       console.error("Map container ref is not available");
       return;
@@ -43,54 +40,58 @@ const TourDetails = () => {
 
     // Access the tour data
     const { startLocation } = tour.data.data;
-    console.log(tour.data.data);
-    
 
-    // Assume startLocation has a property called `coordinates`
-    const locations = startLocation.coordinates ? [startLocation] : [];
-    locations.forEach((loc) => {
-      let coordinates = loc.coordinates;
+    // Ensure startLocation is an array with valid coordinate objects
+    const locations = startLocation?.coordinates?.length ? [startLocation] : [];
 
-      // Validate coordinates: check if it's an array of two numbers
-      if (
-        !coordinates ||
-        !Array.isArray(coordinates) ||
-        coordinates.length !== 2 ||
-        typeof coordinates[0] !== "number" ||
-        typeof coordinates[1] !== "number"
-      ) {
-        console.warn(
-          "Invalid or missing coordinates. Using default coordinates:",
-          loc
-        );
-        coordinates = defaultCoordinates; // Default coordinates
-      } else {
-        console.log("Location coordinates:", coordinates);
-      }
-
-      // Create marker element
+    if (locations.length === 0) {
+      console.warn("No valid locations found. Using default coordinates.");
       const el = document.createElement("div");
       el.className = "marker";
-
-      // Add marker to map
-      new mapboxgl.Marker({
-        element: el,
-        anchor: "bottom",
-      })
-        .setLngLat(coordinates)
+      new mapboxgl.Marker({ element: el, anchor: "bottom" })
+        .setLngLat(defaultCoordinates)
         .addTo(map);
+      bounds.extend(defaultCoordinates);
+    } else {
+      locations.forEach((loc) => {
+        let coordinates = loc.coordinates;
 
-      // Add popup
-      new mapboxgl.Popup({
-        offset: 30,
-      })
-        .setLngLat(coordinates)
-        .setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`)
-        .addTo(map);
+        // Validate coordinates: check if it's an array of two numbers
+        if (
+          !coordinates ||
+          !Array.isArray(coordinates) ||
+          coordinates.length !== 2 ||
+          typeof coordinates[0] !== "number" ||
+          typeof coordinates[1] !== "number"
+        ) {
+          console.warn(
+            "Invalid or missing coordinates. Using default coordinates:",
+            loc
+          );
+          coordinates = defaultCoordinates; // Default coordinates
+        } else {
+          console.log("Location coordinates:", coordinates);
+        }
 
-      // Extend bounds
-      bounds.extend(coordinates);
-    });
+        // Create marker element
+        const el = document.createElement("div");
+        el.className = "marker";
+
+        // Add marker to map
+        new mapboxgl.Marker({ element: el, anchor: "bottom" })
+          .setLngLat(coordinates)
+          .addTo(map);
+
+        // Add popup
+        new mapboxgl.Popup({ offset: 30 })
+          .setLngLat(coordinates)
+          .setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`)
+          .addTo(map);
+
+        // Extend bounds
+        bounds.extend(coordinates);
+      });
+    }
 
     // Fit map to bounds
     map.fitBounds(bounds, {
@@ -100,7 +101,7 @@ const TourDetails = () => {
         left: 100,
         right: 100,
       },
-      maxZoom: 12, // Adjust this value to set the desired maximum zoom level
+      maxZoom: 12,
     });
 
     // Cleanup function to remove the map instance
@@ -109,10 +110,8 @@ const TourDetails = () => {
     };
   }, [tour, error]); // Re-run the effect whenever tour or error changes
 
-  // Handle loading state
   if (!tour || !tour.data) return <div>Loading...</div>;
 
-  // Handle error state
   if (error) return <div>Error loading tour details: {error.message}</div>;
 
   // Access the tour data
@@ -132,6 +131,7 @@ const TourDetails = () => {
   } = tour.data.data;
 
   const splitDescription = description.split("\n");
+  
   return (
     <>
       <section className="section-header">
