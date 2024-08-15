@@ -32,10 +32,18 @@
   &__text-box {
     position: absolute;
     /* Center box in center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+
+    a{
+      max-width: 50rem;
+      margin: 10px auto;
+    }
   }
   &__container {
     display: flex;

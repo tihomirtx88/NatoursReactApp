@@ -21,6 +21,9 @@ const Header = () => {
         <Link to="/tours" className="btn btn--white btn--animated">
           Discover all tours
         </Link>
+        <Link to="/montly-plan" className="btn btn--white btn--animated">
+          Check Montly Plan Tours
+        </Link>
       </div>
     </header>
   );
