@@ -1,8 +1,10 @@
+import Stories from "./Stories";
+
 const Dashboard = () => {
     return(
-        // TODO
+       
         <div>
-            TODO
+           <Stories/> 
         </div>
     );
 };
