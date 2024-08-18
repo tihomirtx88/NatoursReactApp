@@ -571,6 +571,35 @@ body {
   .popup__close:hover {
     color: #7ed56f; }
 
+.tours-info {
+  margin-top: 2rem;
+  text-align: center;
+  color: #fff;
+  background-image: linear-gradient(to right bottom, #55c57a, #098833);
+  padding: 2rem; }
+  .tours-info__heading {
+    font-size: 2rem;
+    margin-bottom: 1rem; }
+  .tours-info__description {
+    font-size: 1.6rem; }
+  .tours-info__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 1.8rem; }
+    .tours-info__list__item {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      color: #098833;
+      transition: background-color 0.3s ease; }
+      .tours-info__list__item:hover {
+        background-color: rgba(255, 255, 255, 0.3); }
+
 /* Header */
 .header {
   height: 95vh;

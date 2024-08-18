@@ -1,30 +1,31 @@
 import { useParams } from "react-router";
 import { useMontlyTours } from "../tours/useMontlyTours";
-import TourCard from "../tours/TourCard";
 import { useEffect, useState } from "react";
-const MontlyPlanTours = () => {
-  const year = useParams();
-  const [montlyTours, setMontlyTours] = useState([]);
+import MontlyToursCard from "./MontlyToursCard";
 
-  // Fetch tours for the month using the custom hook
-  const fetchedData = useMontlyTours(year);
+const MontlyPlanTours = () => {
+  const { year } = useParams();
+  const { montlyTours, error } = useMontlyTours(); // Use the custom hook
+  const [displayedTours, setDisplayedTours] = useState([]);
 
   useEffect(() => {
-    if (
-      fetchedData &&
-      fetchedData.montlyTours &&
-      fetchedData.montlyTours.data
-    ) {
-      setMontlyTours(fetchedData.montlyTours.data.plan);
+    if (montlyTours && montlyTours.data && montlyTours.data.plan) {
+      setDisplayedTours(montlyTours.data.plan);
     }
-  }, [fetchedData]);
+  }, [montlyTours]);
+
+  if (error) {
+    return <div>Error loading tours for {year}</div>;
+  }
 
   return (
     <div className="card-container">
-      {montlyTours.length > 0 ? (
-        montlyTours.map((tour, index) =>  <TourCard key={index} tour={tour} />)
+      {displayedTours.length > 0 ? (
+        displayedTours.map((tour, index) => (
+          <MontlyToursCard key={index} tour={tour} />
+        ))
       ) : (
-        <div className="TODO">{/* TODO */}</div>
+        <div>No tours available for {year}</div>
       )}
     </div>
   );
