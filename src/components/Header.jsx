@@ -1,21 +1,7 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  // Generate an array of the last ten years
-  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
-
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value);
-  };
-
-  const handleNavigate = () => {
-    navigate(`/montly-plan/${selectedYear}`);
-  };
 
   return (
     <header className="header">
@@ -45,25 +31,7 @@ const Header = () => {
         <Link to="/tours" className="btn btn--white btn--animated">
           Discover all tours
         </Link>
-        <div className="header__dropdown">
-          <select
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="btn btn--white btn--animated"
-          >
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={handleNavigate}
-            className="btn btn--white btn--animated"
-          >
-            Check Monthly Plan Tours
-          </button>
-        </div>
+       
       </div>
     </header>
   );
