@@ -8,12 +8,12 @@ const Header = () => {
       <div className="header__logo-box">
         <img src="/img/logo-white.png" alt="Logo" className="header__logo" />
         <div className="header__container">
-          <a
-            href="#"
+          <Link
+            to={"/login"}
             className="header__container--login btn btn--white btn--animated"
           >
             Login
-          </a>
+          </Link>
           <a
             href="#"
             className="header__container--register btn btn--white btn--animated"
