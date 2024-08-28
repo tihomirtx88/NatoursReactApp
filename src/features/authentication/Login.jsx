@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSignIn } from "./useSignIn";
 import { Link } from "react-router-dom";
+import SpinnerMini from "../../components/SpinnerMini";
 
 const Login = () => {
   const [ email, setEmail ] = useState("superadmin@abv.bg");
@@ -60,7 +61,7 @@ const Login = () => {
         </div>
         <div className="form__group">
           <button className="btn btn--green" disabled={isLoadingLogin}>
-            Login
+            {!isLoadingLogin ? "Log in" : < SpinnerMini/>}
           </button>
         </div>
         <div>
