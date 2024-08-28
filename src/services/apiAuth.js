@@ -1,5 +1,5 @@
 export async function apiLogin({ email, password }) {
-  const url = "http://127.0.0.1:3000/api/v1/tours/login";
+  const url = "http://127.0.0.1:3000/api/v1/users/login";
 
   try {
     const response = await fetch(url, {

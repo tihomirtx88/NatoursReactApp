@@ -10,8 +10,9 @@ export function useSignIn(){
         mutationFn: ({email, password}) => apiLogin({email, password}),
 
         onSuccess: (user) => {
+            
             // To prevent load user data again after success log in and save in react query cache
-            queryClient.setQueryData(['user'], user.user);
+            queryClient.setQueryData(['user'], user.data.user);
             navigate("/dashboard", {replace: true});
         },
 
