@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { apiLogin } from "../../services/apiAuth";
+import toast from "react-hot-toast";
 
 export function useSignIn(){
     const queryClient = useQueryClient();
@@ -13,11 +14,13 @@ export function useSignIn(){
             
             // To prevent load user data again after success log in and save in react query cache
             queryClient.setQueryData(['user'], user.data.user);
+            toast.success('You are successfuly login in your account');
             navigate("/dashboard", {replace: true});
         },
 
         onError: (err) => {
             console.log('ERROR', err);
+            toast.error('Provide email or passowrd are incorect');
         } 
     });
 
