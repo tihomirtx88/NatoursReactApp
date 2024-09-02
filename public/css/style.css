@@ -234,8 +234,7 @@ body {
 .card {
   perspective: 150rem;
   -moz-perspective: 150rem;
-  position: relative;
-  height: 50rem; }
+  position: relative; }
   .card__side {
     height: 52rem;
     font-size: 2rem;
@@ -600,6 +599,28 @@ body {
       .tours-info__list__item:hover {
         background-color: rgba(255, 255, 255, 0.3); }
 
+@keyframes rotate {
+  to {
+    transform: rotate(1turn); } }
+
+.spinner {
+  margin: 4.8rem auto;
+  width: 6.4rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, var(--color-brand-600) 94%, #0000) top/10px 10px no-repeat, conic-gradient(#0000 30%, var(--color-brand-600));
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 10px), #000 0);
+  animation: rotate 1.5s infinite linear; }
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn); } }
+
+.spinner-mini {
+  width: 2.4rem;
+  height: 2.4rem;
+  animation: rotate 1.5s infinite linear; }
+
 /* Header */
 .header {
   height: 95vh;
@@ -696,7 +717,7 @@ body {
   width: 100%;
   position: fixed;
   top: 0;
-  right: -50px;
+  right: -150px;
   z-index: 1500;
   transition: all .8s;
   opacity: 1;
@@ -712,7 +733,16 @@ body {
   width: 100%; }
 
 .navigation__item {
-  margin: 1rem; }
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.navigation__select {
+  padding: 15px;
+  border: none;
+  color: #55c57a;
+  outline: none; }
 
 .navigation__link:visited, .navigation__link:link {
   display: inline-block;
