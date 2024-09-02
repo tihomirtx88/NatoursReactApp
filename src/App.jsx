@@ -7,6 +7,7 @@ import AppLayout from "./components/AppLayout";
 import Tours from "./components/Tours";
 import MontlyPlanTours from "./features/tours/MontlyPlanTours";
 import LoginPage from "./pages/LoginPage";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
   const queryClient = new QueryClient({
@@ -31,6 +32,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Routes>
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

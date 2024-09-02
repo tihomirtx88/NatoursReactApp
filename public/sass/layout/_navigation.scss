@@ -39,7 +39,7 @@
     width: 100%;
     position: fixed;
     top: 0;
-    right: -50px;
+    right: -150px;
     z-index: 1500;
     transition: all .8s;
 
@@ -56,6 +56,16 @@
 
   &__item {
     margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__select{
+    padding: 15px;
+    border: none;
+   color: $color-primary-light;
+   outline: none;
   }
 
   &__link {
