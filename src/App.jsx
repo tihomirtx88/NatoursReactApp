@@ -1,13 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Register from "./components/Register";
-import Dashboard from "./components/Dashboard";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import Dashboard from "./components/Dashboard";
 import TourDetailsPage from "./pages/tourDetailsPage";
 import AppLayout from "./components/AppLayout";
 import Tours from "./components/Tours";
 import MontlyPlanTours from "./features/tours/MontlyPlanTours";
 import LoginPage from "./pages/LoginPage";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -29,7 +30,7 @@ function App() {
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
           </Route>
           <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<Register />} />
+          <Route path="register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

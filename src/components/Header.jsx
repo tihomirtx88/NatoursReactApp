@@ -14,12 +14,12 @@ const Header = () => {
           >
             Login
           </Link>
-          <a
-            href="#"
+          <Link
+            to="/register"
             className="header__container--register btn btn--white btn--animated"
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
 
