@@ -234,8 +234,7 @@ body {
 .card {
   perspective: 150rem;
   -moz-perspective: 150rem;
-  position: relative;
-  height: 50rem; }
+  position: relative; }
   .card__side {
     height: 52rem;
     font-size: 2rem;
@@ -718,7 +717,7 @@ body {
   width: 100%;
   position: fixed;
   top: 0;
-  right: -50px;
+  right: -150px;
   z-index: 1500;
   transition: all .8s;
   opacity: 1;
@@ -734,7 +733,16 @@ body {
   width: 100%; }
 
 .navigation__item {
-  margin: 1rem; }
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.navigation__select {
+  padding: 15px;
+  border: none;
+  color: #55c57a;
+  outline: none; }
 
 .navigation__link:visited, .navigation__link:link {
   display: inline-block;

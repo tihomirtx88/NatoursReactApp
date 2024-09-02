@@ -12,8 +12,8 @@
     "start": "live-server --port=8080 --no-browser"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.29.5",
-    "@tanstack/react-query-devtools": "^4.29.6",
+    "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query-devtools": "^4.36.1",
     "mapbox-gl": "^3.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

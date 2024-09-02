@@ -17,6 +17,7 @@ const Navigation = () => {
     setSelectedYear(year);
     setTimeout(() => {
       navigate(`/montly-plan/${year}`);
+      setIsChecked(false); // Uncheck the navigation checkbox to close the menu
     }, 0);
   };
 
