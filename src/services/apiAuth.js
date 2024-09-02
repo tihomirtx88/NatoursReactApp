@@ -23,13 +23,12 @@ export async function apiLogin({ email, password }) {
 }
 
 export async function apiRegister({
-  fullName,
+  name,
   email,
+  photo,
+  role,
   password,
-  nationality,
-  countryFlag,
-  nationalID,
-  admin,
+  passwordConfirm,
 }) {
   const response = await fetch("http://127.0.0.1:3000/api/v1/users/signup", {
     method: "POST",
@@ -37,13 +36,12 @@ export async function apiRegister({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      fullName,
+      name,
       email,
+      photo,
+      role,
       password,
-      nationality,
-      countryFlag,
-      nationalID,
-      adminRole: admin, // Assuming the server expects `adminRole` key
+      passwordConfirm,
     }),
   });
 
