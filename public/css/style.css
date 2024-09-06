@@ -150,6 +150,12 @@ body {
   .btn--green::after {
     background-color: #55c57a; }
 
+.btn--orange {
+  background-color: #f58258;
+  color: #f7f7f7; }
+  .btn--orange::after {
+    background-color: #ff4500; }
+
 .btn::after {
   content: "";
   display: inline-block;
