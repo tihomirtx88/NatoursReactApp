@@ -182,7 +182,7 @@ const Register = () => {
         </div>
 
         <div>
-          <Link to="/login"> If you have account already</Link>
+          <Link className="form__group__navigation--link" to="/login"> If you have account already</Link>
         </div>
 
         {/* <div className="form__group">
