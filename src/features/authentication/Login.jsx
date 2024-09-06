@@ -65,7 +65,7 @@ const Login = () => {
           </button>
         </div>
         <div>
-          <Link to="/dashboard"> If you dont have account yet</Link>
+          <Link className="form__group__navigation--link" to="/dashboard"> If you dont have account yet</Link>
         </div>
       </form>
     </div>
