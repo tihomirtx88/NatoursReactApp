@@ -25,8 +25,8 @@ export async function apiLogin({ email, password }) {
 export async function apiRegister({
   name,
   email,
-  photo,
-  role,
+  // photo,
+  // role,
   password,
   passwordConfirm,
 }) {
@@ -38,14 +38,17 @@ export async function apiRegister({
     body: JSON.stringify({
       name,
       email,
-      photo,
-      role,
+      // photo,
+      // role,
       password,
       passwordConfirm,
     }),
   });
 
   const result = await response.json();
+
+  console.log(result);
+  
 
   if (!response.ok) {
     console.error(result.message);
