@@ -1,28 +1,28 @@
 import { useForm } from "react-hook-form";
 import useRegister from "./useRegister";
+import { Link } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 const Register = () => {
-  const { signUp, isRegisterLoading} = useRegister();
+  const { signUp, isRegisterLoading } = useRegister();
 
   const { register, getValues, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
-  console.log(errors);
-  
 
-  function onSubmit(data){
+  function onSubmit(data) {
     const { name, email, password, passwordConfirm } = data;
     signUp(
-      {name, email, password, passwordConfirm},{
+      { name, email, password, passwordConfirm },
+      {
         onSettled: () => reset(),
         onSuccess: () => {
-          console.log('bravooooooooooo');
-        }
+          console.log("bravooooooooooo");
+        },
       }
     );
 
     console.log(name, email, password, passwordConfirm);
-    
-  };
+  }
 
   return (
     <div className="login-form">
@@ -39,11 +39,12 @@ const Register = () => {
             // onChange={(e) => setName(e.target.value)}
             disabled={isRegisterLoading}
             required
-            className="form__input"
+            className={`form__input ${errors.name ? "form__input--error" : ""}`}
             {...register("name", {
               required: "This field is required",
             })}
           />
+          {errors.name && <p className="form__error">{errors.name.message}</p>}
         </div>
 
         <div className="form__group">
@@ -57,7 +58,9 @@ const Register = () => {
             // value={email}
             // onChange={(e) => setEmail(e.target.value)}
             required
-            className="form__input"
+            className={`form__input ${
+              errors.email ? "form__input--error" : ""
+            }`}
             {...register("email", {
               required: "This field is required",
               pattern: {
@@ -66,6 +69,9 @@ const Register = () => {
               },
             })}
           />
+          {errors.email && (
+            <p className="form__error">{errors.email.message}</p>
+          )}
         </div>
 
         {/* <div className="form__group">
@@ -112,7 +118,9 @@ const Register = () => {
             // onChange={(e) => setPassword(e.target.value)}
             required
             minLength="8"
-            className="form__input"
+            className={`form__input ${
+              errors.password ? "form__input--error" : ""
+            }`}
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -121,9 +129,12 @@ const Register = () => {
               },
             })}
           />
+          {errors.password && (
+            <p className="form__error">{errors.password.message}</p>
+          )}
         </div>
 
-        <div className="form__group ma-bt-md">
+        <div className="form__group">
           <label htmlFor="passwordConfirm" className="form__label">
             Confirm Password
           </label>
@@ -134,21 +145,44 @@ const Register = () => {
             // onChange={(e) => setPasswordConfirm(e.target.value)}
             disabled={isRegisterLoading}
             required
-            className="form__input"
+            className={`form__input ${
+              errors.passwordConfirm ? "form__input--error" : ""
+            }`}
             {...register("passwordConfirm", {
               required: "This field is required",
               validate: (value) =>
                 value === getValues().password || "Password must to match",
             })}
           />
+          {errors.passwordConfirm && (
+            <p className="form__error">{errors.passwordConfirm.message}</p>
+          )}
         </div>
 
         {/* {error && <p className="form__error">{error}</p>} */}
 
-        <div className="form__group">
-          <button className="btn btn--green" type="submit" disabled={isRegisterLoading}>
-            Register
-          </button>
+        <div className="form__group--buttons">
+          {isRegisterLoading ? (
+            <Spinner /> // Show spinner when loading
+          ) : (
+            <>
+              <button className="btn btn--green" type="submit">
+                Register
+              </button>
+              <button
+                className="btn btn--orange"
+                type="reset"
+                disabled={isRegisterLoading}
+                onClick={reset}
+              >
+                Reset
+              </button>
+            </>
+          )}
+        </div>
+
+        <div>
+          <Link to="/login"> If you have account already</Link>
         </div>
 
         {/* <div className="form__group">

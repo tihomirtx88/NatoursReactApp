@@ -53,6 +53,15 @@
     }
   }
 
+  &--orange {
+    background-color: $oranged-color-light;
+    color: $color-gray-light-1;
+
+    &::after {
+      background-color: $oranged-color;
+    }
+  }
+
   &::after {
     content: "";
     display: inline-block;
