@@ -3,7 +3,7 @@ import { apiRegister } from "./../../services/apiAuth";
 import toast from "react-hot-toast";
 
 export default function useRegister(){
-  const { mutate: register, isLoading: isRegisterLoading } = useMutation({
+  const { mutate: signUp, isLoading: isRegisterLoading } = useMutation({
     mutationFn: apiRegister,
     onSuccess: () => {
         toast.success(
@@ -12,5 +12,5 @@ export default function useRegister(){
     }
   });
 
-  return {register, isRegisterLoading};
+  return {signUp, isRegisterLoading};
 };
