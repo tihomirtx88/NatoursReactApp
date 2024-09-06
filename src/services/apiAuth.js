@@ -48,7 +48,6 @@ export async function apiRegister({
   const result = await response.json();
 
   console.log(result);
-  
 
   if (!response.ok) {
     console.error(result.message);
@@ -56,4 +55,16 @@ export async function apiRegister({
   }
 
   return result;
+}
+
+export async function apiLogout() {
+  try {
+    const response = await fetch("http://127.0.0.1:3000/api/v1/users/logout");
+
+    const result = await response.json();
+
+    console.log(result);
+  } catch (error) {
+    console.error("Login failed:", error);
+  }
 }
