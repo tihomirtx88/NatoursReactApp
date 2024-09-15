@@ -2,17 +2,16 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, token, logout, isLogoutLoading } = useAuth();
 
-  console.log(user); // Check if user data is correctly fetched
+  console.log(user, token); // Check if user data is correctly fetched
 
   return (
     <header className="header">
       <div className="header__logo-box">
         <img src="/img/logo-white.png" alt="Logo" className="header__logo" />
         <div className="header__container">
-     
-          {/* {user ? (
+           {token ? (  
             <button
               onClick={logout}
               className="header__container--logout btn btn--white btn--animated"
@@ -20,7 +19,7 @@ const Header = () => {
             >
               {isLogoutLoading ? "Logging out..." : "Logout"}
             </button>
-          ) : (
+          ) : ( 
             <>
               <Link
                 to="/login"
@@ -35,7 +34,7 @@ const Header = () => {
                 Register
               </Link>
             </>
-          )} */}
+          )}
         </div>
       </div>
 

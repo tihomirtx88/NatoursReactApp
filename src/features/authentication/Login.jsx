@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useSignIn } from "./useSignIn";
 import { Link } from "react-router-dom";
 import SpinnerMini from "../../components/SpinnerMini";
+import { useAuth } from "../../context/AuthContext";
+
 
 const Login = () => {
   const [ email, setEmail ] = useState("superadmin@abv.bg");
   const [ password, setPassword ] = useState("test1234");
 
-  const { isLoadingLogin, loginData } = useSignIn();
+  const { loginData ,isLoadingLogin } = useSignIn();
+  const { login } = useAuth();
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,6 +24,7 @@ const Login = () => {
       {
         onSettled: () => {
           setEmail("");
+          login(email, password);
           setPassword("");
         },
       }

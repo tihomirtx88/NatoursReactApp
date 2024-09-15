@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useSignIn } from "../features/authentication/useSignIn";
 import { useLogout } from "../features/authentication/useLogout";
-import { apiRegister } from "../services/apiAuth";
+import { apiLogin, apiRegister } from "../services/apiAuth";
 
 const AuthContext = createContext();
 
@@ -10,39 +9,29 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(() => localStorage.getItem("jwt"));
 
-  const { loginData, isLoadingLogin } = useSignIn();
   const { logoutFn, isLogoutLoading } = useLogout();
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("jwt", token);
-    } else {
-      localStorage.removeItem("jwt");
-    }
-  }, [token]);
 
   useEffect(() => {
-    if (user) {
+    if (user || token) {
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
     }
   }, [user]);
 
+
   const login = async (email, password) => {
-    loginData(
-      { email, password },
-      {
-        onSuccess: (data) => {
-          setToken(data.token);
-          setUser(data.user);
-        },
-        onError: () => {
-          setToken(null);
-          setUser(null);
-        },
-      }
-    );
+    try {
+      const response = await apiLogin({ email, password });
+      const { token, data: { user } } = response;
+
+      setToken(token); 
+      setUser(user);  
+
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   const register = async (registerData) => {
@@ -54,15 +43,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    logoutFn(
-      {},
-      {
-        onSuccess: () => {
-          setToken(null);
-          setUser(null);
-        },
-      }
-    );
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("jwt");
   };
 
   return (
@@ -73,10 +57,10 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
-        isLoadingLogin,
+        logoutFn,
+        setUser,
         isLogoutLoading,
-        setUser, // Ensure these methods are exposed
-        setToken
+        setToken,
       }}
     >
       {children}
