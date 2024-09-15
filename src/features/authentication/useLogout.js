@@ -10,7 +10,7 @@ export function useLogout(){
         mutationFn: apiLogout,
         onSuccess: () => {
             // Remove user  from react query cache
-           queryClient.removeQueries();
+           queryClient.removeQueries(['user']);
            navigate('/login', {replace: true});
         }
     });
