@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useLogout } from "../features/authentication/useLogout";
 
 const Header = () => {
 
+   const { logoutFn, isLogoutLoading } = useLogout();
 
   return (
     <header className="header">
@@ -20,6 +22,13 @@ const Header = () => {
           >
             Register
           </Link>
+          <button
+            onClick={logoutFn} 
+            className="header__container--logout btn btn--white btn--animated"
+            disabled={isLogoutLoading} 
+          >
+            {isLogoutLoading ? "Logging out..." : "Logout"} 
+          </button>
         </div>
       </div>
 
