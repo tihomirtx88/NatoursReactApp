@@ -12,13 +12,18 @@ const Header = () => {
         <img src="/img/logo-white.png" alt="Logo" className="header__logo" />
         <div className="header__container">
            {token ? (  
+           <>
             <button
               onClick={logout}
               className="header__container--logout btn btn--white btn--animated"
               disabled={isLogoutLoading}
             >
               {isLogoutLoading ? "Logging out..." : "Logout"}
+
             </button>
+               <p className="header__container--avatar-name">{user.name}</p>
+               <img src={user.photo} alt="" />
+           </>
           ) : ( 
             <>
               <Link

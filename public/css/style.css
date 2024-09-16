@@ -715,7 +715,6 @@ body {
     opacity: 1;
     transform: translate(0); } }
 
-/* Header */
 .header {
   height: 95vh;
   background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(9, 136, 51, 0.8)), url(../img/hero.jpg);
@@ -759,6 +758,14 @@ body {
       letter-spacing: 0.3rem;
       text-decoration: none;
       color: #fff; }
+    .header__container--avatar-name {
+      font-size: 2.2rem;
+      color: #f7f7f7;
+      font-weight: 700;
+      max-width: 600px;
+      line-height: 1.8;
+      text-align: center;
+      align-self: center; }
 
 .row {
   margin: 0 auto;
