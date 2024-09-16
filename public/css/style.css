@@ -672,12 +672,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center; }
-  .page-not-found .paragraph {
+  .page-not-found .paragraph,
+  .page-not-found .paragraph-two {
     font-size: 1.6rem;
     color: #f7f7f7;
     margin-bottom: 4rem;
     max-width: 600px;
     line-height: 1.8; }
+  .page-not-found .paragraph-two {
+    margin: 1rem auto; }
 
 .link-home {
   font-size: 1.8rem;
