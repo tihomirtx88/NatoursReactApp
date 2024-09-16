@@ -18,12 +18,17 @@
     align-items: center;
   }
 
-  .paragraph {
+  .paragraph,
+  .paragraph-two {
     font-size: 1.6rem;  
     color: #f7f7f7; 
     margin-bottom: 4rem;  
     max-width: 600px;
     line-height: 1.8;
+  }
+
+  .paragraph-two{
+    margin: 1rem auto;  
   }
 }
 
