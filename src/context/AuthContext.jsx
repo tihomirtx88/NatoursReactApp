@@ -13,12 +13,20 @@ export const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    if (user || token) {
+    if (user) {
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
     }
   }, [user]);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("jwt", token);
+    } else {
+      localStorage.removeItem("jwt");
+    }
+  }, [token]);
 
 
   const login = async (email, password) => {
