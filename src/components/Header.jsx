@@ -4,8 +4,6 @@ import { useAuth } from "../context/AuthContext";
 const Header = () => {
   const { user, token, logout, isLogoutLoading } = useAuth();
 
-  console.log(user, token); // Check if user data is correctly fetched
-
   return (
     <header className="header">
       <div className="header__logo-box">
@@ -22,7 +20,11 @@ const Header = () => {
 
             </button>
                <Link to="/profile" className="header__container--avatar-name">{user.name}</Link>
-               <img src={user.photo} alt="" />
+               <img
+                src={`img/users/${user.photo}`}
+                alt="User photo"
+                className="form__user-photo"
+              />
            </>
           ) : ( 
             <>

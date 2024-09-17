@@ -1,6 +1,16 @@
+import { useAuth } from "../../context/AuthContext";
 import NavItem from "./NavItem";
+import { useUser } from "./useUser";
 
 export default function UserProfileComponent() {
+  const { user } = useAuth();
+  const { currentUser } = useUser();
+  const userData = currentUser?.data?.data || {}; // Fallback to empty object if undefined
+
+  // Extract the photo URL and other details
+  const { name, email, photo, role } = userData;
+  console.log(photo);
+
   return (
     <div className="user-view">
       <nav className="user-view__menu">
@@ -10,15 +20,17 @@ export default function UserProfileComponent() {
           <NavItem icon="icon-star" text="My reviews" />
           <NavItem icon="icon-credit-card" text="Billing" />
         </ul>
-        <div className="admin-nav">
-          <h5 className="admin-nav__heading">Admin</h5>
-          <ul className="side-nav">
-            <NavItem icon="icon-map" text="Manage tours" />
-            <NavItem icon="icon-users" text="Manage users" />
-            <NavItem icon="icon-star" text="Manage reviews" />
-            <NavItem icon="icon-briefcase" text="Manage bookings" />
-          </ul>
-        </div>
+        {user?.role === "admin" ? (
+          <div className="admin-nav">
+            <h5 className="admin-nav__heading">Admin</h5>
+            <ul className="side-nav">
+              <NavItem icon="icon-map" text="Manage tours" />
+              <NavItem icon="icon-users" text="Manage users" />
+              <NavItem icon="icon-star" text="Manage reviews" />
+              <NavItem icon="icon-briefcase" text="Manage bookings" />
+            </ul>
+          </div>
+        ) : null}
       </nav>
       <div className="user-view__content">
         <div className="user-view__form-container">
@@ -50,7 +62,7 @@ export default function UserProfileComponent() {
             </div>
             <div className="form__group form__photo-upload">
               <img
-                src="img/user.jpg"
+                src={`img/users/${photo}`}
                 alt="User photo"
                 className="form__user-photo"
               />
