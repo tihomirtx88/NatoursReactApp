@@ -31,10 +31,10 @@ function App() {
             <Route path="montly-plan/:year" element={<MontlyPlanTours />} />
             <Route path="tours" element={<Tours />} />
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
+            <Route path="profile" element={<UserProfilePage/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
-          <Route path="profile" element={<UserProfilePage/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
