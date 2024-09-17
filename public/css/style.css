@@ -765,7 +765,12 @@ body {
       max-width: 600px;
       line-height: 1.8;
       text-align: center;
-      align-self: center; }
+      align-self: center;
+      text-decoration: none; }
+      .header__container--avatar-name:hover {
+        background-position: 100%;
+        color: #777;
+        transform: translateX(1rem); }
 
 .row {
   margin: 0 auto;

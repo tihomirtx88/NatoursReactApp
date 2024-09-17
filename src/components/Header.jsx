@@ -21,7 +21,7 @@ const Header = () => {
               {isLogoutLoading ? "Logging out..." : "Logout"}
 
             </button>
-               <p className="header__container--avatar-name">{user.name}</p>
+               <Link to="/profile" className="header__container--avatar-name">{user.name}</Link>
                <img src={user.photo} alt="" />
            </>
           ) : ( 
