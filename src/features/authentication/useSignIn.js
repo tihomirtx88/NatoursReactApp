@@ -11,8 +11,8 @@ export function useSignIn() {
     mutationFn: ({ email, password }) => apiLogin({ email, password }),
 
     onSuccess: (user) => {
-      console.log(user, "from sing in");
 
+       
       queryClient.setQueryData(["user"], user.data.user);
 
       toast.success("You are successfully logged in your account");
@@ -20,7 +20,8 @@ export function useSignIn() {
     },
 
     onError: (err) => {
-      console.log("ERROR", err);
+       console.log(err);
+       
       toast.error("Provide email or password is incorrect");
     },
   });
