@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthContext";
 import PageNotFound from "./pages/PageNotFound";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -33,6 +34,7 @@ function App() {
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="profile" element={<UserProfilePage/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>

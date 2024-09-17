@@ -68,6 +68,14 @@
       line-height: 1.8;
       text-align: center;
       align-self: center;
+      text-decoration: none;
+
+      &:hover{
+        background-position: 100%;
+        color: $color-grey-dark;
+        transform: translateX(1rem);
+      }
     }
+    
   }
 }
