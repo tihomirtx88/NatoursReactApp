@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [ email, setEmail ] = useState("superadmin@abv.bg");
-  const [ password, setPassword ] = useState("test1234");
+  const [ password, setPassword ] = useState("12345678");
 
   const { loginData ,isLoadingLogin } = useSignIn();
   const { login } = useAuth();

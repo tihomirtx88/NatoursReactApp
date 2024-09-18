@@ -69,7 +69,11 @@ export async function apiLogout() {
   }
 }
 
-export async function updatePasswordApi({passwordCurrent, password, passwordConfirm}) {
+export async function updatePasswordApi({
+  passwordCurrent,
+  password,
+  passwordConfirm,
+}) {
   try {
     const token = localStorage.getItem("jwt");
 
@@ -88,10 +92,15 @@ export async function updatePasswordApi({passwordCurrent, password, passwordConf
         body: JSON.stringify({
           passwordCurrent,
           password,
-          passwordConfirm
-        }), 
+          passwordConfirm,
+        }),
       }
     );
+
+    // Check for unauthorized (401) error
+    if (response.status === 401) {
+      throw new Error("Unauthorized. Please check your credentials.");
+    }
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -101,6 +110,6 @@ export async function updatePasswordApi({passwordCurrent, password, passwordConf
 
     return data;
   } catch (error) {
-    console.log(error.response.data.message);
+    throw new Error(error.message || "Something went wrong while updating the password.");
   }
 }
