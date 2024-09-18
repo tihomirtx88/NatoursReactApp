@@ -20,8 +20,6 @@ const Register = () => {
         },
       }
     );
-
-    console.log(name, email, password, passwordConfirm);
   }
 
   return (
@@ -35,8 +33,6 @@ const Register = () => {
           <input
             id="name"
             type="text"
-            // value={name}
-            // onChange={(e) => setName(e.target.value)}
             disabled={isRegisterLoading}
             required
             className={`form__input ${errors.name ? "form__input--error" : ""}`}

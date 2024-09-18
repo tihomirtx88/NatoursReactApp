@@ -1,15 +1,32 @@
-import { useAuth } from "../../context/AuthContext";
+import { useForm } from "react-hook-form";
 import NavItem from "./NavItem";
+import useUpdateUserData from "./useUpdateUserData";
 import { useUser } from "./useUser";
+import Spinner from "../../components/Spinner";
 
 export default function UserProfileComponent() {
-  const { user } = useAuth();
+  const { updateUser, isUpdatingUser } = useUpdateUserData();
   const { currentUser } = useUser();
-  const userData = currentUser?.data?.data || {}; // Fallback to empty object if undefined
 
-  // Extract the photo URL and other details
-  const { name, email, photo, role } = userData;
-  console.log(photo);
+  const userData = currentUser?.data?.data || {};
+  const { photo, role } = userData;
+
+  const { register, getValues, formState, handleSubmit, reset } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    const { name, email } = data;
+
+    updateUser(
+      { name, email },
+      {
+        onSettled: () => reset(),
+        onSuccess: () => {
+          console.log("Update User");
+        },
+      }
+    );
+  }
 
   return (
     <div className="user-view">
@@ -20,7 +37,7 @@ export default function UserProfileComponent() {
           <NavItem icon="icon-star" text="My reviews" />
           <NavItem icon="icon-credit-card" text="Billing" />
         </ul>
-        {user?.role === "admin" ? (
+        {role === "admin" ? (
           <div className="admin-nav">
             <h5 className="admin-nav__heading">Admin</h5>
             <ul className="side-nav">
@@ -35,7 +52,10 @@ export default function UserProfileComponent() {
       <div className="user-view__content">
         <div className="user-view__form-container">
           <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
-          <form className="form form-user-data">
+          <form
+            className="form form-user-data"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="form__group">
               <label htmlFor="name" className="form__label">
                 Name
@@ -43,10 +63,18 @@ export default function UserProfileComponent() {
               <input
                 id="name"
                 type="text"
-                value="Jonas Schmedtmann"
+                disabled={isUpdatingUser}
                 required={true}
-                className="form__input"
+                className={`form__input ${
+                  errors.name ? "form__input--error" : ""
+                }`}
+                {...register("name", {
+                  required: "This field is required",
+                })}
               />
+              {errors.name && (
+                <p className="form__error">{errors.name.message}</p>
+              )}
             </div>
             <div className="form__group ma-bt-md">
               <label htmlFor="email" className="form__label">
@@ -55,10 +83,18 @@ export default function UserProfileComponent() {
               <input
                 id="email"
                 type="email"
-                value="admin@natours.io"
+                disabled={isUpdatingUser}
                 required={true}
-                className="form__input"
+                className={`form__input ${
+                  errors.email ? "form__input--error" : ""
+                }`}
+                {...register("email", {
+                  required: "This field is required",
+                })}
               />
+              {errors.email && (
+                <p className="form__error">{errors.email.message}</p>
+              )}
             </div>
             <div className="form__group form__photo-upload">
               <img
@@ -71,9 +107,23 @@ export default function UserProfileComponent() {
               </a>
             </div>
             <div className="form__group right">
-              <button className="btn btn--small btn--green">
-                Save settings
-              </button>
+              {isUpdatingUser ? (
+                <Spinner />
+              ) : (
+                <>
+                  <button className="btn btn--green" type="submit">
+                    Save settings
+                  </button>
+                  <button
+                    className="btn btn--orange"
+                    type="reset"
+                    disabled={isUpdatingUser}
+                    onClick={reset}
+                  >
+                    Reset
+                  </button>
+                </>
+              )}
             </div>
           </form>
         </div>
