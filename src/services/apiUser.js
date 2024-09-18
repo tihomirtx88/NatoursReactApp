@@ -26,7 +26,7 @@ export async function getCurrentUser() {
   }
 }
 
-export async function updateUserApi(name, email) {
+export async function updateUserApi({name, email}) {
   try {
     const token = localStorage.getItem("jwt");
 
@@ -42,10 +42,10 @@ export async function updateUserApi(name, email) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        data: {
+        body: JSON.stringify({
           name,
           email,
-        },
+        }), 
       }
     );
 
