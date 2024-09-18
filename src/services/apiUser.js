@@ -26,7 +26,7 @@ export async function getCurrentUser() {
   }
 }
 
-export async function updateUser(name, email) {
+export async function updateUserApi(name, email) {
   try {
     const token = localStorage.getItem("jwt");
 
