@@ -3,26 +3,58 @@ import NavItem from "./NavItem";
 import useUpdateUserData from "./useUpdateUserData";
 import { useUser } from "./useUser";
 import Spinner from "../../components/Spinner";
+import useUpdatePassword from "../authentication/useUpdatePassword";
 
 export default function UserProfileComponent() {
   const { updateUser, isUpdatingUser } = useUpdateUserData();
+  const { updateUserPassword, isUpdatingUserPassword } = useUpdatePassword();
   const { currentUser } = useUser();
 
   const userData = currentUser?.data?.data || {};
   const { photo, role } = userData;
 
-  const { register, getValues, formState, handleSubmit, reset } = useForm();
-  const { errors } = formState;
+  // Form hook for account settings
+  const {
+    register: registerAccount,
+    // getValues: getAccountValues,
+    formState: { errors: accountErrors },
+    handleSubmit: handleSubmitAccount,
+    reset: resetAccount,
+  } = useForm();
 
-  function onSubmit(data) {
+  // Form hook for password change
+  const {
+    register: registerPassword,
+    getValues: getPasswordValues,
+    formState: { errors: passwordErrors },
+    handleSubmit: handleSubmitPassword,
+    reset: resetPassword,
+  } = useForm();
+
+  function onSubmitAccount(data) {
     const { name, email } = data;
 
     updateUser(
       { name, email },
       {
-        onSettled: () => reset(),
+        onSettled: () => resetAccount(),
         onSuccess: () => {
-          console.log("Update User");
+          console.log("Account updated successfully");
+        },
+      }
+    );
+  }
+
+   // Submit handler for password change form
+   function onSubmitPassword(data) {
+    const { passwordCurrent, password, passwordConfirm } = data;
+
+    updateUserPassword(
+      { passwordCurrent, password, passwordConfirm },
+      {
+        onSettled: () => resetPassword(),
+        onSuccess: () => {
+          console.log("Password updated successfully");
         },
       }
     );
@@ -49,12 +81,14 @@ export default function UserProfileComponent() {
           </div>
         ) : null}
       </nav>
+
       <div className="user-view__content">
+        {/* Account Settings Form */}
         <div className="user-view__form-container">
           <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
           <form
             className="form form-user-data"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmitAccount(onSubmitAccount)}
           >
             <div className="form__group">
               <label htmlFor="name" className="form__label">
@@ -64,16 +98,16 @@ export default function UserProfileComponent() {
                 id="name"
                 type="text"
                 disabled={isUpdatingUser}
-                required={true}
+                required
                 className={`form__input ${
-                  errors.name ? "form__input--error" : ""
+                  accountErrors.name ? "form__input--error" : ""
                 }`}
-                {...register("name", {
+                {...registerAccount("name", {
                   required: "This field is required",
                 })}
               />
-              {errors.name && (
-                <p className="form__error">{errors.name.message}</p>
+              {accountErrors.name && (
+                <p className="form__error">{accountErrors.name.message}</p>
               )}
             </div>
             <div className="form__group ma-bt-md">
@@ -84,16 +118,16 @@ export default function UserProfileComponent() {
                 id="email"
                 type="email"
                 disabled={isUpdatingUser}
-                required={true}
+                required
                 className={`form__input ${
-                  errors.email ? "form__input--error" : ""
+                  accountErrors.email ? "form__input--error" : ""
                 }`}
-                {...register("email", {
+                {...registerAccount("email", {
                   required: "This field is required",
                 })}
               />
-              {errors.email && (
-                <p className="form__error">{errors.email.message}</p>
+              {accountErrors.email && (
+                <p className="form__error">{accountErrors.email.message}</p>
               )}
             </div>
             <div className="form__group form__photo-upload">
@@ -118,7 +152,7 @@ export default function UserProfileComponent() {
                     className="btn btn--orange"
                     type="reset"
                     disabled={isUpdatingUser}
-                    onClick={reset}
+                    onClick={resetAccount}
                   >
                     Reset
                   </button>
@@ -127,10 +161,16 @@ export default function UserProfileComponent() {
             </div>
           </form>
         </div>
+
         <div className="line"></div>
+
+        {/* Password Change Form */}
         <div className="user-view__form-container">
           <h2 className="heading-secondary ma-bt-md">Password change</h2>
-          <form className="form form-user-settings">
+          <form
+            className="form form-user-settings"
+            onSubmit={handleSubmitPassword(onSubmitPassword)}
+          >
             <div className="form__group">
               <label htmlFor="password-current" className="form__label">
                 Current password
@@ -139,9 +179,19 @@ export default function UserProfileComponent() {
                 id="password-current"
                 type="password"
                 placeholder="••••••••"
-                required={true}
-                className="form__input"
+                required
+                className={`form__input ${
+                  passwordErrors.passwordCurrent ? "form__input--error" : ""
+                }`}
+                {...registerPassword("passwordCurrent", {
+                  required: "This field is required",
+                })}
               />
+              {passwordErrors.passwordCurrent && (
+                <p className="form__error">
+                  {passwordErrors.passwordCurrent.message}
+                </p>
+              )}
             </div>
             <div className="form__group">
               <label htmlFor="password" className="form__label">
@@ -151,9 +201,21 @@ export default function UserProfileComponent() {
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                required={true}
-                className="form__input"
+                required
+                className={`form__input ${
+                  passwordErrors.password ? "form__input--error" : ""
+                }`}
+                {...registerPassword("password", {
+                  required: "This field is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password needs a minimum of 8 characters",
+                  },
+                })}
               />
+              {passwordErrors.password && (
+                <p className="form__error">{passwordErrors.password.message}</p>
+              )}
             </div>
             <div className="form__group ma-bt-lg">
               <label htmlFor="password-confirm" className="form__label">
@@ -163,14 +225,31 @@ export default function UserProfileComponent() {
                 id="password-confirm"
                 type="password"
                 placeholder="••••••••"
-                required={true}
-                className="form__input"
+                required
+                className={`form__input ${
+                  passwordErrors.passwordConfirm ? "form__input--error" : ""
+                }`}
+                {...registerPassword("passwordConfirm", {
+                  required: "This field is required",
+                  validate: (value) =>
+                    value === getPasswordValues("password") ||
+                    "Passwords must match",
+                })}
               />
+              {passwordErrors.passwordConfirm && (
+                <p className="form__error">
+                  {passwordErrors.passwordConfirm.message}
+                </p>
+              )}
             </div>
             <div className="form__group right">
-              <button className="btn btn--small btn--green">
-                Save password
-              </button>
+              {isUpdatingUserPassword ? (
+                <Spinner />
+              ) : (
+                <button className="btn btn--small btn--green" type="submit">
+                  Save password
+                </button>
+              )}
             </div>
           </form>
         </div>
