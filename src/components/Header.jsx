@@ -21,7 +21,8 @@ const Header = () => {
             </button>
                <Link to="/profile" className="header__container--avatar-name">{user.name}</Link>
                <img
-                src={`img/users/${user.photo}`}
+               crossOrigin="anonymous"
+                src={`http://localhost:3000/img/users/${user.photo}`}
                 alt="User photo"
                 className="form__user-photo"
               />
