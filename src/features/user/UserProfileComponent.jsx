@@ -35,6 +35,12 @@ export default function UserProfileComponent() {
     reset: resetPassword,
   } = useForm();
 
+    // Form hook for photo upload
+    const {
+      handleSubmit: handleSubmitPhoto,
+      reset: resetPhoto,
+    } = useForm();
+
   // Handle file input
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -81,6 +87,30 @@ export default function UserProfileComponent() {
     );
   }
 
+  function onSubmitPhoto() {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
+      updateUser(formData, {
+        onSettled: () => {
+          resetPhoto();
+          setSelectedFile(null); // Clear the file input after upload
+        },
+        onSuccess: (response) => {
+          if (response?.data) {
+            console.log("Photo updated successfully", response.data);
+          } else {
+            console.error("No data returned from server");
+          }
+        },
+        onError: (error) => {
+          console.error("Photo update failed:", error);
+        },
+      });
+    }
+  }
+
   return (
     <div className="user-view">
       <nav className="user-view__menu">
@@ -120,9 +150,7 @@ export default function UserProfileComponent() {
                 type="text"
                 disabled={isUpdatingUser}
                 required
-                className={`form__input ${
-                  accountErrors.name ? "form__input--error" : ""
-                }`}
+                className={`form__input ${accountErrors.name ? "form__input--error" : ""}`}
                 {...registerAccount("name", {
                   required: "This field is required",
                 })}
@@ -140,9 +168,7 @@ export default function UserProfileComponent() {
                 type="email"
                 disabled={isUpdatingUser}
                 required
-                className={`form__input ${
-                  accountErrors.email ? "form__input--error" : ""
-                }`}
+                className={`form__input ${accountErrors.email ? "form__input--error" : ""}`}
                 {...registerAccount("email", {
                   required: "This field is required",
                 })}
@@ -150,23 +176,6 @@ export default function UserProfileComponent() {
               {accountErrors.email && (
                 <p className="form__error">{accountErrors.email.message}</p>
               )}
-            </div>
-            <div className="form__group form__photo-upload">
-              <img
-                src={`http://localhost:3000/img/users/${photo}`}
-                alt="User photo"
-                crossOrigin="anonymous"
-                className="form__user-photo"
-              />
-              <input
-                id="photo"
-                type="file"
-                className="btn-text"
-                onChange={handleFileChange} // Handle file change
-              />
-              <label htmlFor="photo" className="btn-text">
-                Choose new photo
-              </label>
             </div>
             <div className="form__group right">
               {isUpdatingUser ? (
@@ -192,6 +201,44 @@ export default function UserProfileComponent() {
 
         <div className="line"></div>
 
+        {/* Photo Upload Form */}
+        <div className="user-view__form-container">
+          <h2 className="heading-secondary ma-bt-md">Update Profile Photo</h2>
+          <form
+            className="form form-photo-upload"
+            onSubmit={handleSubmitPhoto(onSubmitPhoto)}
+          >
+            <div className="form__group form__photo-upload">
+              <img
+                src={`http://localhost:3000/img/users/${photo}`}
+                alt="User photo"
+                crossOrigin="anonymous"
+                className="form__user-photo"
+              />
+              <input
+                id="photo"
+                type="file"
+                className="btn-text"
+                onChange={handleFileChange}
+              />
+              <label htmlFor="photo" className="btn-text">
+                Choose new photo
+              </label>
+            </div>
+            <div className="form__group right">
+              {isUpdatingUser ? (
+                <Spinner />
+              ) : (
+                <button className="btn btn--green" type="submit">
+                  Upload Photo
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+
+        <div className="line"></div>
+
         {/* Password Change Form */}
         <div className="user-view__form-container">
           <h2 className="heading-secondary ma-bt-md">Password change</h2>
@@ -208,17 +255,13 @@ export default function UserProfileComponent() {
                 type="password"
                 placeholder="••••••••"
                 required
-                className={`form__input ${
-                  passwordErrors.passwordCurrent ? "form__input--error" : ""
-                }`}
+                className={`form__input ${passwordErrors.passwordCurrent ? "form__input--error" : ""}`}
                 {...registerPassword("passwordCurrent", {
                   required: "This field is required",
                 })}
               />
               {passwordErrors.passwordCurrent && (
-                <p className="form__error">
-                  {passwordErrors.passwordCurrent.message}
-                </p>
+                <p className="form__error">{passwordErrors.passwordCurrent.message}</p>
               )}
             </div>
             <div className="form__group">
@@ -230,9 +273,7 @@ export default function UserProfileComponent() {
                 type="password"
                 placeholder="••••••••"
                 required
-                className={`form__input ${
-                  passwordErrors.password ? "form__input--error" : ""
-                }`}
+                className={`form__input ${passwordErrors.password ? "form__input--error" : ""}`}
                 {...registerPassword("password", {
                   required: "This field is required",
                   minLength: {
@@ -254,20 +295,15 @@ export default function UserProfileComponent() {
                 type="password"
                 placeholder="••••••••"
                 required
-                className={`form__input ${
-                  passwordErrors.passwordConfirm ? "form__input--error" : ""
-                }`}
+                className={`form__input ${passwordErrors.passwordConfirm ? "form__input--error" : ""}`}
                 {...registerPassword("passwordConfirm", {
                   required: "This field is required",
                   validate: (value) =>
-                    value === getPasswordValues("password") ||
-                    "Passwords must match",
+                    value === getPasswordValues("password") || "Passwords must match",
                 })}
               />
               {passwordErrors.passwordConfirm && (
-                <p className="form__error">
-                  {passwordErrors.passwordConfirm.message}
-                </p>
+                <p className="form__error">{passwordErrors.passwordConfirm.message}</p>
               )}
             </div>
             <div className="form__group right">
