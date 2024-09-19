@@ -26,8 +26,9 @@ export async function getCurrentUser() {
   }
 }
 
-export async function updateUserApi({name, email}) {
+export async function updateUserApi(formData) {
   try {
+
     const token = localStorage.getItem("jwt");
 
     if (!token) {
@@ -39,21 +40,20 @@ export async function updateUserApi({name, email}) {
       {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          name,
-          email,
-        }), 
+        body: formData, 
       }
     );
 
     if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error from server:', errorData);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log('Response data:', data);
 
     return data;
   } catch (error) {

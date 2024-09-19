@@ -8,6 +8,7 @@ export default function useUpdateUserData(){
     const { mutate: updateUser, isLoading: isUpdatingUser } = useMutation({
         mutationFn: updateUserApi,
         onSuccess: ({user}) => {
+          
             toast.success("User successfully updated");
           //Set manual data in query cache
             queryClient.setQueryData(['user'], user);

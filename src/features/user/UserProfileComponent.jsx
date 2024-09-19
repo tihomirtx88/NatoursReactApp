@@ -4,6 +4,7 @@ import useUpdateUserData from "./useUpdateUserData";
 import { useUser } from "./useUser";
 import Spinner from "../../components/Spinner";
 import useUpdatePassword from "../authentication/useUpdatePassword";
+import { useState } from "react";
 
 export default function UserProfileComponent() {
   const { updateUser, isUpdatingUser } = useUpdateUserData();
@@ -12,6 +13,9 @@ export default function UserProfileComponent() {
 
   const userData = currentUser?.data?.data || {};
   const { photo, role } = userData;
+  console.log("Photo URL:", `http://localhost:3000/img/users/${photo}`);
+
+  const [selectedFile, setSelectedFile] = useState(null);
 
   // Form hook for account settings
   const {
@@ -31,22 +35,39 @@ export default function UserProfileComponent() {
     reset: resetPassword,
   } = useForm();
 
+  // Handle file input
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   function onSubmitAccount(data) {
     const { name, email } = data;
 
-    updateUser(
-      { name, email },
-      {
-        onSettled: () => resetAccount(),
-        onSuccess: () => {
-          console.log("Account updated successfully");
-        },
-      }
-    );
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+
+    if (selectedFile) {
+      formData.append("photo", selectedFile);
+    }
+
+    updateUser(formData, {
+      onSettled: () => resetAccount(),
+      onSuccess: (response) => {
+        if (response?.data) {
+          console.log("Account updated successfully", response.data);
+        } else {
+          console.error("No data returned from server");
+        }
+      },
+      onError: (error) => {
+        console.error("Update failed:", error);
+      },
+    });
   }
 
-   // Submit handler for password change form
-   function onSubmitPassword(data) {
+  // Submit handler for password change form
+  function onSubmitPassword(data) {
     const { passwordCurrent, password, passwordConfirm } = data;
 
     updateUserPassword(
@@ -132,13 +153,20 @@ export default function UserProfileComponent() {
             </div>
             <div className="form__group form__photo-upload">
               <img
-                src={`img/users/${photo}`}
+                src={`http://localhost:3000/img/users/${photo}`}
                 alt="User photo"
+                crossOrigin="anonymous"
                 className="form__user-photo"
               />
-              <a href="" className="btn-text">
+              <input
+                id="photo"
+                type="file"
+                className="btn-text"
+                onChange={handleFileChange} // Handle file change
+              />
+              <label htmlFor="photo" className="btn-text">
                 Choose new photo
-              </a>
+              </label>
             </div>
             <div className="form__group right">
               {isUpdatingUser ? (
