@@ -138,8 +138,9 @@ const TourDetails = () => {
         <div className="header__hero">
           <div className="header__hero-overlay"></div>
           <img
-            src={`/img/tours/${imageCover}`}
+            src={`http://localhost:3000/img/tours/${imageCover}`}
             alt={`${name}`}
+              crossOrigin="anonymous"
             className="header__hero-img"
           />
         </div>
