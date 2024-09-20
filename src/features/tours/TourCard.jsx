@@ -13,8 +13,9 @@ const TourCard = ({ tour }) => {
         <div className="card__picture">
           <div className="card__picture-overlay"></div>
           <img
-            src={`img/tours/${imageCover}`}
+            src={`http://localhost:3000/img/tours/${imageCover}`}
             alt={tour.name}
+             crossOrigin="anonymous"
             className="card__picture-img"
           />
         </div>
