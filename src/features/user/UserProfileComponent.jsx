@@ -6,6 +6,8 @@ import Spinner from "../../components/Spinner";
 import useUpdatePassword from "../authentication/useUpdatePassword";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import InputField from "./InputField";
+import FileInput from "./FileInput";
 
 export default function UserProfileComponent() {
   const { updateUser, isUpdatingUser } = useUpdateUserData();
@@ -14,11 +16,10 @@ export default function UserProfileComponent() {
 
   const userData = currentUser?.data?.data || {};
   const { photo, role } = userData;
-  console.log("Photo URL:", `http://localhost:3000/img/users/${photo}`);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  // Form hook for account settings
+  // Form hooks
   const {
     register: registerAccount,
     // getValues: getAccountValues,
@@ -27,7 +28,6 @@ export default function UserProfileComponent() {
     reset: resetAccount,
   } = useForm();
 
-  // Form hook for password change
   const {
     register: registerPassword,
     getValues: getPasswordValues,
@@ -36,7 +36,6 @@ export default function UserProfileComponent() {
     reset: resetPassword,
   } = useForm();
 
-  // Form hook for photo upload
   const { handleSubmit: handleSubmitPhoto, reset: resetPhoto } = useForm();
 
   // Handle file input
@@ -45,14 +44,9 @@ export default function UserProfileComponent() {
   };
 
   // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   useEffect(() => {
-    if (isUpdatingUser || isUpdatingUserPassword) {
-      scrollToTop();
-    }
+    if (isUpdatingUser || isUpdatingUserPassword)
+      window.scrollTo({ top: 0, behavior: "smooth" });
   }, [isUpdatingUser, isUpdatingUserPassword]);
 
   function onSubmitAccount(data) {
@@ -153,46 +147,22 @@ export default function UserProfileComponent() {
             className="form form-user-data"
             onSubmit={handleSubmitAccount(onSubmitAccount)}
           >
-            <div className="form__group">
-              <label htmlFor="name" className="form__label">
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                disabled={isUpdatingUser}
-                required
-                className={`form__input ${
-                  accountErrors.name ? "form__input--error" : ""
-                }`}
-                {...registerAccount("name", {
-                  required: "This field is required",
-                })}
-              />
-              {accountErrors.name && (
-                <p className="form__error">{accountErrors.name.message}</p>
-              )}
-            </div>
-            <div className="form__group ma-bt-md">
-              <label htmlFor="email" className="form__label">
-                Email address
-              </label>
-              <input
-                id="email"
-                type="email"
-                disabled={isUpdatingUser}
-                required
-                className={`form__input ${
-                  accountErrors.email ? "form__input--error" : ""
-                }`}
-                {...registerAccount("email", {
-                  required: "This field is required",
-                })}
-              />
-              {accountErrors.email && (
-                <p className="form__error">{accountErrors.email.message}</p>
-              )}
-            </div>
+            <InputField
+              id="name"
+              label="Name"
+              type="text"
+              register={registerAccount}
+              error={accountErrors.name}
+              disabled={isUpdatingUser}
+            />
+            <InputField
+              id="email"
+              label="Email address"
+              type="email"
+              register={registerAccount}
+              error={accountErrors.email}
+              disabled={isUpdatingUser}
+            />
             <div className="form__group right">
               {isUpdatingUser ? (
                 <Spinner />
@@ -224,23 +194,11 @@ export default function UserProfileComponent() {
             className="form form-photo-upload"
             onSubmit={handleSubmitPhoto(onSubmitPhoto)}
           >
-            <div className="form__group form__photo-upload">
-              <img
-                src={`http://localhost:3000/img/users/${photo}`}
-                alt="User photo"
-                crossOrigin="anonymous"
-                className="form__user-photo"
-              />
-              <input
-                id="photo"
-                type="file"
-                className="btn-text"
-                onChange={handleFileChange}
-              />
-              <label htmlFor="photo" className="btn-text">
-                Choose new photo
-              </label>
-            </div>
+            <FileInput
+              photo={photo}
+              handleFileChange={handleFileChange}
+              isUpdatingUser={isUpdatingUser}
+            />
             <div className="form__group right">
               {isUpdatingUser ? (
                 <Spinner />
@@ -262,77 +220,31 @@ export default function UserProfileComponent() {
             className="form form-user-settings"
             onSubmit={handleSubmitPassword(onSubmitPassword)}
           >
-            <div className="form__group">
-              <label htmlFor="password-current" className="form__label">
-                Current password
-              </label>
-              <input
-                id="password-current"
-                type="password"
-                placeholder="••••••••"
-                required
-                className={`form__input ${
-                  passwordErrors.passwordCurrent ? "form__input--error" : ""
-                }`}
-                {...registerPassword("passwordCurrent", {
-                  required: "This field is required",
-                })}
-              />
-              {passwordErrors.passwordCurrent && (
-                <p className="form__error">
-                  {passwordErrors.passwordCurrent.message}
-                </p>
-              )}
-            </div>
-            <div className="form__group">
-              <label htmlFor="password" className="form__label">
-                New password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                required
-                className={`form__input ${
-                  passwordErrors.password ? "form__input--error" : ""
-                }`}
-                {...registerPassword("password", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 8,
-                    message: "Password needs a minimum of 8 characters",
-                  },
-                })}
-              />
-              {passwordErrors.password && (
-                <p className="form__error">{passwordErrors.password.message}</p>
-              )}
-            </div>
-            <div className="form__group ma-bt-lg">
-              <label htmlFor="password-confirm" className="form__label">
-                Confirm password
-              </label>
-              <input
-                id="password-confirm"
-                type="password"
-                placeholder="••••••••"
-                required
-                className={`form__input ${
-                  passwordErrors.passwordConfirm ? "form__input--error" : ""
-                }`}
-                {...registerPassword("passwordConfirm", {
-                  required: "This field is required",
-                  validate: (value) =>
-                    value === getPasswordValues("password") ||
-                    "Passwords must match",
-                })}
-              />
-              {passwordErrors.passwordConfirm && (
-                <p className="form__error">
-                  {passwordErrors.passwordConfirm.message}
-                </p>
-              )}
-            </div>
+            <InputField
+              id="passwordCurrent"
+              label="Current password"
+              type="password"
+              register={registerPassword}
+              error={passwordErrors.passwordCurrent}
+            />
+            <InputField
+              id="password"
+              label="New password"
+              type="password"
+              register={registerPassword}
+              error={passwordErrors.password}
+            />
+            <InputField
+              id="passwordConfirm"
+              label="Confirm password"
+              type="password"
+              register={registerPassword}
+              error={passwordErrors.passwordConfirm}
+              validate={(value) =>
+                value === getPasswordValues("password") ||
+                "Passwords must match"
+              }
+            />
             <div className="form__group right">
               {isUpdatingUserPassword ? (
                 <Spinner />
