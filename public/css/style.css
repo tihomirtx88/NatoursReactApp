@@ -783,6 +783,72 @@ body {
     margin: 0 auto;
     padding: 0 8rem; }
 
+.reset-password-view {
+  background-color: #f7f7f7;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0; }
+  .reset-password-view__content {
+    background-color: #fff;
+    padding: 4rem 5rem;
+    border-radius: 1rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+    max-width: 40rem;
+    width: 100%;
+    text-align: center; }
+  .reset-password-view .heading-secondary {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: #333; }
+  .reset-password-view form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .reset-password-view form input[type='password'] {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.05); }
+    .reset-password-view form input[type='password']:focus {
+      border-color: #28b487;
+      box-shadow: 0 0 0 3px rgba(40, 180, 135, 0.2); }
+    .reset-password-view form button {
+      width: 100%;
+      padding: 1.2rem;
+      font-size: 1.6rem;
+      color: #fff;
+      background-color: #28b487;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s; }
+      .reset-password-view form button:hover {
+        background-color: #219a75; }
+      .reset-password-view form button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed; }
+    .reset-password-view form .btn--resetting {
+      background-color: #fcb900; }
+      .reset-password-view form .btn--resetting:hover {
+        background-color: #d69e00; }
+  .reset-password-view .alert {
+    color: #d9534f;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem; }
+
 .header {
   height: 95vh;
   background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(9, 136, 51, 0.8)), url(../img/hero.jpg);
