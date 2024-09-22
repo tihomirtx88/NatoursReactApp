@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthContext";
 import PageNotFound from "./pages/PageNotFound";
 import UserProfilePage from "./pages/UserProfilePage";
+import ResetPasswordPage from "./features/email/ResetPasswordPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -33,6 +34,7 @@ function App() {
             <Route path="tours" element={<Tours />} />
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
             <Route path="profile" element={<UserProfilePage/>}/>
+            <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
