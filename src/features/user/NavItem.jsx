@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
+
 export default function NavItem({ icon, text, href = "#" }){
     return (
         <li>
-          <a href={href}>
+          <Link to={href}>
             <svg>
               <use href={`img/icons.svg#${icon}`} />
             </svg>
             {text}
-          </a>
+          </Link>
         </li>
       );
 };

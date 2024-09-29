@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
 import Dashboard from "./components/Dashboard";
+import Book from "./features/booking/Book";
 import TourDetailsPage from "./pages/tourDetailsPage";
 import AppLayout from "./components/AppLayout";
 import Tours from "./components/Tours";
@@ -32,6 +33,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="montly-plan/:year" element={<MontlyPlanTours />} />
             <Route path="tours" element={<Tours />} />
+            <Route path="create/booking" element={<Book/>}/>
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
