@@ -1,5 +1,5 @@
-import TourCard from "../features/tours/TourCard";
-import { useTours } from "../features/tours/useTours";
+import TourCard from "../../features/tours/TourCard";
+import { useTours } from "../../features/tours/useTours";
 
 const Tours = () => {
   const { tours } = useTours();
