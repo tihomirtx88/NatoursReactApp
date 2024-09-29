@@ -17,15 +17,22 @@ const Navigation = () => {
     setSelectedYear(year);
     setTimeout(() => {
       navigate(`/montly-plan/${year}`);
-      setIsChecked(false); // Uncheck the navigation checkbox to close the menu
+      setIsChecked(false); 
     }, 0);
   };
 
   const handleNavigate = () => {
     
-    setIsChecked(false);   // Uncheck the navigation checkbox
+    setIsChecked(false);   
     setTimeout(() => {
       navigate(`/montly-plan/${selectedYear}`);
+    }, 0);
+  };
+
+  const handleNavigateBooking = () => {
+    setIsChecked(false);   
+    setTimeout(() => {
+      navigate('/create/booking');
     }, 0);
   };
 
@@ -76,9 +83,9 @@ const Navigation = () => {
             </a>
           </li>
           <li className="navigation__item">
-            <a href="#" className="navigation__link">
+            <Link to='/create/booking' onClick={handleNavigateBooking} className="navigation__link">
               <span>05</span>Book now
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

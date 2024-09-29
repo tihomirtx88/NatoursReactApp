@@ -95,7 +95,7 @@ export async function updatePasswordApi({
       }
     );
 
-    // Check for unauthorized (401) error
+
     if (response.status === 401) {
       throw new Error("Unauthorized. Please check your credentials.");
     }
