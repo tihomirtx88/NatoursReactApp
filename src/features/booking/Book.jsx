@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import useCreateBooking from "./useCreateBooking";
 import toast from "react-hot-toast";
+import { useTours } from "../tours/useTours";
+import { useAuth } from "../../context/AuthContext";
 
 const Book = () => {
   // Initialize react-hook-form
@@ -11,14 +13,21 @@ const Book = () => {
     reset,
   } = useForm();
 
+  const { tours } = useTours();
+  const readingData = tours?.data?.tours || [];
+  const { user } = useAuth();
+
    const { createBooking, isloadingCreateBooking } = useCreateBooking();
 
    const onSubmit = (data) => {
 
     const bookingData = {
-      name: data.fullName,
+      fullName: data.fullName,
       email: data.email,
       groupSize: data.groupSize,
+      tour: data.tour,      
+      user: user._id,       
+      price: readingData.find(tour => tour.id === data.tour)?.price || 0, 
     };
 
     createBooking(bookingData, {
@@ -108,6 +117,34 @@ const Book = () => {
                     <span className="form__radio-button" />
                   </label>
                 </div>
+              </div>
+
+              <div className="form__group">
+                <select
+                  className="form__input"
+                  {...register("tour", { required: "Please select a tour" })}
+                >
+                  <option value="">Select a tour</option>
+                  {readingData.map((tour) => (
+                    <option key={tour.id} value={tour.id}>
+                      {tour.name} - ${tour.price}
+                    </option>
+                  ))}
+                </select>
+                {errors.tour && (
+                  <p className="form__error">{errors.tour.message}</p>
+                )}
+              </div>
+
+                {/* User ID (Readonly) */}
+                <div className="form__group">
+                <input
+                  type="text"
+                  className="form__input"
+                  value={user._id}
+                  readOnly
+                />
+                <label className="form__label">User ID</label>
               </div>
 
               <div className="form__group--button">

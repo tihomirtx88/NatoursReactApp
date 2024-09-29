@@ -15,28 +15,45 @@ export async function getBookingsApi() {
 }
 
 export async function createBookingsApi({
-    name,
-    email,
-    groupSize,
+  fullName,
+  email,
+  groupSize,
+  tour,
+  user,
+  price,
   }) {
+   try {
+    const token = localStorage.getItem("jwt");
+    
     const response = await fetch("http://127.0.0.1:3000/api/v1/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          name,
-          email,
+          fullName,  
+          email,     
           groupSize,
+          tour,      
+          user,      
+          price,     
         }),
       });
     
-      const result = await response.json();
-    
-      if (!response.ok) {
-        console.error(result.message);
-        throw new Error(result.message);
+      if (response.status === 401) {
+        throw new Error("Unauthorized. Please check your credentials.");
       }
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
     
-      return result;
+      return data;
+
+   } catch (error) {
+    throw new Error(error.message || "Something went wrong while creating the booking.");
+   }
   }
