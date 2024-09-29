@@ -47,8 +47,6 @@ export async function apiRegister({
 
   const result = await response.json();
 
-  console.log(result);
-
   if (!response.ok) {
     console.error(result.message);
     throw new Error(result.message);

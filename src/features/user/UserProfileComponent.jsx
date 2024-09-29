@@ -121,6 +121,7 @@ export default function UserProfileComponent() {
     <div className="user-view">
       <nav className="user-view__menu">
         <ul className="side-nav">
+          <NavItem icon="icon-briefcase" text="My bookings" href="/create/booking" />
           <NavItem icon="icon-settings" text="Settings" />
           <NavItem icon="icon-briefcase" text="My bookings" />
           <NavItem icon="icon-star" text="My reviews" />
