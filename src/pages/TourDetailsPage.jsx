@@ -1,4 +1,4 @@
-import TourDetails from "../components/TourDetails";
+import TourDetails from "../features/tours/TourDetails";
 
 const TourDetailsPage = () => {
     return(

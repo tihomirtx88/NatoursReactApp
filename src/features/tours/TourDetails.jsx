@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
-import ImageTourCard from "../features/tours/ImageTourCard";
-import LeadGuidesCard from "../features/tours/LeadGuidesCard";
-import ReviewCard from "../features/tours/ReviewCard";
-import { useTour } from "../features/tours/useTour";
-import { formatDate } from "../utils/helper";
+import ImageTourCard from "./ImageTourCard";
+import LeadGuidesCard from "./LeadGuidesCard";
+import ReviewCard from "./ReviewCard";
+import { useTour } from "./useTour";
+import { formatDate } from "../../utils/helper";
 
 import mapboxgl from "mapbox-gl"; // Import the Mapbox GL library
 
