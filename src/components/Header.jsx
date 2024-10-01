@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__logo-box">
-        <img src="/img/logo-white.png" alt="Logo" className="header__logo" />
+        <Link to="/dashboard"><img src="/img/logo-white.png" alt="Logo" className="header__logo" /></Link>
         <div className="header__container">
            {token ? (  
            <>
