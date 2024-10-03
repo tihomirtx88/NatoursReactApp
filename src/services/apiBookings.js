@@ -68,3 +68,23 @@ export async function createBookingsApi({
     );
   }
 }
+
+export async function getTour(bookingId) {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/bookings/${bookingId}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+
+    throw new Error("Booking could not be loaded");
+  }
+}
