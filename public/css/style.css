@@ -1008,6 +1008,155 @@ body {
     height: 3.5rem;
     margin-right: 1.25rem; }
 
+.section-pictures {
+  display: flex;
+  clip-path: polygon(0 var(--section-rotate), 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
+  -webkit-clip-path: polygon(0 var(--section-rotate), 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
+  margin-top: calc(0px - var(--section-rotate));
+  position: relative;
+  z-index: 1000; }
+
+.picture-box__img {
+  display: block;
+  width: 100%;
+  height: 110%;
+  object-fit: cover; }
+  .picture-box__img--1 {
+    padding-top: 15%; }
+  .picture-box__img--2 {
+    padding-bottom: 15%; }
+  .picture-box__img--3 {
+    padding-bottom: 27%; }
+
+.section-map {
+  position: relative;
+  height: 65rem;
+  margin-top: calc(0px - var(--section-rotate)); }
+  .section-map #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%; }
+  .section-map .marker {
+    background-image: url("../img/pin.png");
+    background-size: cover;
+    width: 32px;
+    height: 40px;
+    cursor: pointer; }
+  .section-map .mapboxgl-popup {
+    max-width: 25rem; }
+  .section-map .mapboxgl-popup-content {
+    text-align: center;
+    font-family: "Lato", sans-serif;
+    padding: 1.5rem !important;
+    font-size: 1.4rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important; }
+
+.section-reviews {
+  margin-top: calc(0px - var(--section-rotate));
+  padding: calc(5rem + var(--section-rotate)) 0;
+  position: relative;
+  z-index: 1000;
+  background: linear-gradient(to right bottom, #7dd56f, #28b487);
+  clip-path: polygon(0 var(--section-rotate), 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
+  -webkit-clip-path: polygon(0 var(--section-rotate), 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%); }
+
+.reviews {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; }
+  .reviews__card {
+    width: 30rem;
+    padding: 4rem;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .reviews__avatar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem; }
+    .reviews__avatar-img {
+      height: 4.5rem;
+      border-radius: 50%;
+      margin-right: 1.5rem; }
+  .reviews__user {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase; }
+  .reviews__text {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-weight: 400; }
+  .reviews__rating {
+    margin-top: auto;
+    display: flex; }
+    .reviews__rating__star {
+      height: 2rem;
+      width: 2rem;
+      margin-right: 1px; }
+      .reviews__rating__star--active {
+        fill: #55c57a; }
+      .reviews__rating__star--inactive {
+        fill: #bbb; }
+
+.section-cta {
+  margin-top: calc(0px - var(--section-rotate));
+  padding: 3rem;
+  padding-bottom: 11rem;
+  padding-top: calc(15rem + var(--section-rotate));
+  background-color: #f7f7f7; }
+
+.cta {
+  position: relative;
+  max-width: 105rem;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 9rem 5rem 9rem 21rem;
+  border-radius: 2rem;
+  box-shadow: 0 3rem 8rem 0.5rem rgba(0, 0, 0, 0.15); }
+  .cta__img {
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border-radius: 50%;
+    box-shadow: 1rem 0.5rem 3rem rgba(0, 0, 0, 0.15); }
+    .cta__img--logo {
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right bottom, #7dd56f, #28b487);
+      z-index: 10;
+      transform: translate(-35%, -50%); }
+      .cta__img--logo img {
+        width: 100%; }
+    .cta__img--1 {
+      transform: translate(-10%, -50%) scale(0.97);
+      z-index: 9; }
+    .cta__img--2 {
+      transform: translate(15%, -50%) scale(0.94);
+      z-index: 8; }
+  .cta__content {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr auto;
+    grid-gap: 0.7rem;
+    grid-auto-flow: column;
+    align-items: center; }
+  .cta__text {
+    font-size: 1.9rem;
+    font-weight: 400; }
+
 .header {
   height: 35vh;
   background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(9, 136, 51, 0.8)), url(../img/hero.jpg);
