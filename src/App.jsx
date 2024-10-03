@@ -16,6 +16,7 @@ import PageNotFound from "./pages/PageNotFound";
 import UserProfilePage from "./pages/UserProfilePage";
 import ResetPasswordPage from "./features/email/ResetPasswordPage";
 import BookingsPage from "./pages/BookingsPage";
+import BookingsDetailsPage from "./pages/BookingDetailsPage";
 
 function App() {
   const queryClient = new QueryClient({
@@ -39,6 +40,7 @@ function App() {
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
             <Route path="bookings" element={<BookingsPage/>}/>
+            <Route path="bookings/:bookingId" element={<BookingsDetailsPage/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
