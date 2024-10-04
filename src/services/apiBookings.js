@@ -69,17 +69,24 @@ export async function createBookingsApi({
   }
 }
 
-export async function getTour(bookingId) {
+export async function getBookingApi(bookingId) {
   try {
+    const token = localStorage.getItem("jwt");
     const response = await fetch(
-      `http://127.0.0.1:3000/api/v1/bookings/${bookingId}`
+      `http://127.0.0.1:3000/api/v1/bookings/${bookingId}`,{
+        method: "GEt",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      }
     );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
       const data = await response.json();
-
+      
       return data;
     }
   } catch (error) {

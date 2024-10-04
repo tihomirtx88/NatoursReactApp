@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useBooking } from "./useBooking";
 
-export default function BookingDetails({booking}) {
-    // const { tour, user, price, createdAt } = booking;
-    // console.log(tour);
-    // console.log(user);
-    
-    
-    
+export default function BookingDetails() {
+   const { booking } = useBooking();
+   console.log(booking, 'from booking');
+   
   return (
     <>
       <section className="section-header">
