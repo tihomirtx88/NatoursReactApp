@@ -51,3 +51,69 @@ export async function getMontlyTours(year) {
     throw new Error("Montly tours could not be loaded");
   }
 }
+
+export async function createTourApi({
+  name,
+  slug,
+  duration,
+  maxGroupSize,
+  difficulty,
+  price,
+  priceDiscount,
+  summary,
+  description,
+  imageCover,
+  images,
+  startDates,
+  secretTour,
+  startLocation,
+  locations,
+  guides
+}){
+  try {
+    const token = localStorage.getItem("jwt");
+
+    const response = await fetch("http://127.0.0.1:3000/api/v1/tours", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        slug,
+        duration,
+        maxGroupSize,
+        difficulty,
+        price,
+        priceDiscount,
+        summary,
+        description,
+        imageCover,
+        images,
+        startDates,
+        secretTour,
+        startLocation,
+        locations,
+        guides
+      }),
+    });
+
+    if (response.status === 401) {
+      throw new Error("Unauthorized. Please check your credentials.");
+    }
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data;
+    
+  } catch (error) {
+    throw new Error(
+      error.message || "Something went wrong while creating the tour."
+    );
+  }
+}
