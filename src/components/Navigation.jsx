@@ -36,6 +36,13 @@ const Navigation = () => {
     }, 0);
   };
 
+  const handleNavigateTour = () => {
+    setIsChecked(false);
+    setTimeout(()=> {
+       navigate('/create/tour');
+    }, 0);
+  };
+
   return (
     <div className="navigation">
       <input
@@ -68,9 +75,9 @@ const Navigation = () => {
             </select>
           </li>
           <li className="navigation__item">
-            <a href="#" className="navigation__link">
-              <span>02</span>Your benefits
-            </a>
+            <Link to='/create/tour' onClick={handleNavigateTour} className="navigation__link">
+              <span>02</span>Create Tour
+            </Link>
           </li>
           <li className="navigation__item">
             <a href="#" className="navigation__link">
