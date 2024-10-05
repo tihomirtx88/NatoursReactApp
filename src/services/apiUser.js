@@ -47,13 +47,11 @@ export async function updateUserApi(formData) {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error from server:', errorData);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('Response data:', data);
+
 
     return data;
   } catch (error) {
