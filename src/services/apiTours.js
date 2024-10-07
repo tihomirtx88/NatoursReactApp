@@ -52,94 +52,19 @@ export async function getMontlyTours(year) {
   }
 }
 
-export async function createTourApi({
-  name,
-  slug,
-  duration,
-  maxGroupSize,
-  difficulty,
-  price,
-  priceDiscount,
-  summary,
-  description,
-  imageCover,
-  images,
-  startDates,
-  secretTour,
-  startLocation,
-  locations,
-  guides
-}){
-  try {
-    
-    const token = localStorage.getItem("jwt");
-
-
-=======
-  summary,
-  description,
-  priceDiscount,
-  startDates,
-  startLocation,
-  secretTour,
-  guides
-}) {
+export async function createTourApi(formData) {
   try {
     const token = localStorage.getItem("jwt");
 
-    // Create FormData to handle file uploads
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("duration", duration);
-    formData.append("maxGroupSize", maxGroupSize);
-    formData.append("difficulty", difficulty);
-    formData.append("price", price);
-    formData.append("summary", summary);
-    formData.append("description", description);
-    formData.append("priceDiscount", priceDiscount);
-
-    // Append the cover image (file)
-    if (imageCover) {
-      formData.append("imageCover", imageCover);
-    }
-
-    // Append additional images (files)
-    if (images && images.length > 0) {
-      Array.from(images).forEach((image, index) => {
-        formData.append("images", image);
-      });
-    }
-
-    // Append other data
-    formData.append("startDates", JSON.stringify(startDates));
-    formData.append("startLocation", JSON.stringify(startLocation));
-    formData.append("secretTour", secretTour);
-    formData.append("guides", JSON.stringify(guides));
-
->>>>>>> Stashed changes
+    // Send the FormData directly to the API endpoint
     const response = await fetch("http://127.0.0.1:3000/api/v1/tours", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`, // Send token in headers
+        // Do not set 'Content-Type' to 'application/json', 
+        // as FormData automatically sets the correct 'multipart/form-data' boundary
       },
-      body: JSON.stringify({
-        name,
-        slug,
-        duration,
-        maxGroupSize,
-        difficulty,
-        price,
-        priceDiscount,
-        summary,
-        description,
-        imageCover,
-        images,
-        startDates,
-        secretTour,
-        startLocation,
-        locations,
-        guides
-      }),
+      body: formData // Use FormData for the request body
     });
 
     if (response.status === 401) {
@@ -147,14 +72,13 @@ export async function createTourApi({
     }
 
     if (!response.ok) {
-      const errorData = await response.json(); // Log more detailed error info
-      throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message || 'Unknown error'}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    // Parse the JSON response
     const data = await response.json();
-
     return data;
-    
+
   } catch (error) {
     console.error("Error in createTourApi:", error); // Log error for debugging
     throw new Error(error.message || "Something went wrong while creating the tour.");
