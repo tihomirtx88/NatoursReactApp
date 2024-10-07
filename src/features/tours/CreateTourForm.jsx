@@ -1,18 +1,14 @@
 import { useForm } from "react-hook-form";
-import useCreateTour from "./useCreateTour";
-import { useAuth } from "../../context/AuthContext";
-import FileInput from "./../user/FileInput";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useCreateTour from "./useCreateTour";
 
 const CreateTourForm = () => {
-
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { createTour, isloadingCreateTour } = useCreateTour();
-  const { user } = useAuth();
 
-  const [coverImage, setCoverImage] = useState(null); // State for cover image
-  const [tourImages, setTourImages] = useState([]); // State for additional images
+  const [coverImage, setCoverImage] = useState(null); 
+  const [tourImages, setTourImages] = useState([]); 
 
   // Handle cover image file selection
   const handleCoverImageChange = (e) => {
@@ -35,7 +31,7 @@ const CreateTourForm = () => {
     formData.append("priceDiscount", data.priceDiscount || 0); // Optional
     formData.append("summary", data.summary);
     formData.append("description", data.description);
-    
+  
     if (coverImage) {
       formData.append("imageCover", coverImage);
     }
@@ -46,47 +42,47 @@ const CreateTourForm = () => {
     });
   
     // Handle start dates
-  if (data.startDates) {
-    const dateArray = data.startDates.split(",").map((date) => {
-      // Try to parse only valid date strings
-      const parsedDate = new Date(date.trim());
-
-      // Check if it's a valid date, ignore if not
-      if (!isNaN(parsedDate.getTime())) {
-        return parsedDate.toISOString();
-      } else {
-        // Log invalid date and skip
-        console.error(`Invalid date format: ${date}`);
-        return null;  // Skip invalid date entries
-      }
-    }).filter(Boolean);  // Remove null entries from the array
-    formData.append("startDates", JSON.stringify(dateArray));
-  }
-
+    if (data.startDates) {
+      const dateArray = data.startDates.split(",").map((date) => {
+        const parsedDate = new Date(date.trim());
+        if (!isNaN(parsedDate.getTime())) {
+          return parsedDate.toISOString();
+        } else {
+          console.error(`Invalid date format: ${date}`);
+          return null;
+        }
+      }).filter(Boolean); // Remove nulls
+      formData.append("startDates", JSON.stringify(dateArray));
+    }
   
     formData.append("secretTour", data.secretTour || false);
-    formData.append("startLocation[description]", data.startLocationDescription);
   
-    if (data.coordinates) {
-      const coordinatesArray = data.coordinates.split(",").map((coord) => parseFloat(coord.trim()));
-      if (coordinatesArray.some(isNaN)) {
-        throw new Error("Invalid coordinates format");
-      }
-      formData.append("startLocation[coordinates]", JSON.stringify(coordinatesArray));
+    // Handle nested startLocation object
+    const startLocation = {
+      description: data.startLocationDescription || "", // Add default values if necessary
+      coordinates: data.coordinates
+        ? data.coordinates.split(",").map(coord => parseFloat(coord.trim()))
+        : [], // Handle empty or invalid coordinates gracefully
+      address: data.address || "" // Provide fallback
+    };
+
+
+  
+    if (startLocation.coordinates.some(isNaN)) {
+      throw new Error("Invalid coordinates format");
     }
-    
-    formData.append("startLocation[address]", data.address);
   
-    // Call create tour function with formData
-    createTour(formData, {
-      onSuccess: () => {
-        reset();
+    formData.append("startLocation", JSON.stringify(startLocation));
+  
+    // Call createTourApi with formData
+    createTour(formData)
+      .then(() => {
+        reset(); // Reset form fields after success
         toast.success("Tour successfully created!");
-      },
-      onError: (error) => {
+      })
+      .catch((error) => {
         toast.error(`Error: ${error.message}`);
-      },
-    });
+      });
   };
 
   return (
@@ -187,7 +183,6 @@ const CreateTourForm = () => {
               {/* Description */}
               <div className="form__tour-group">
                 <textarea
-<<<<<<< HEAD
                   className="form__input"
                   placeholder="Description"
                   {...register("description", { required: "Description is required" })}
@@ -196,44 +191,17 @@ const CreateTourForm = () => {
                 {errors.description && <p className="form__error">{errors.description.message}</p>}
               </div>
 
-           {/* Cover Image Upload */}
-           <div className="form__tour-group">
-                <FileInput
-                  photo={null} // No initial photo
-                  handleFileChange={handleCoverImageChange}
-                  isUpdatingUser={isloadingCreateTour}
-                  label="Cover Image"
-                />
-              </div>
-
-              {/* Multiple Images Upload */}
+              {/* Cover Image Upload */}
               <div className="form__tour-group">
+            
                 <input
                   type="file"
                   className="form__input"
                   multiple
-                  onChange={handleTourImagesChange}
+                  onChange={handleCoverImageChange}
                   disabled={isloadingCreateTour}
                 />
-                <label className="form__label">Images</label>
-              </div>
-
-                  className="form__input"
-                  placeholder="Description"
-                  {...register("description", { required: "Description is required" })}
-                />
-                <label className="form__label">Description</label>
-                {errors.description && <p className="form__error">{errors.description.message}</p>}
-              </div>
-
-           {/* Cover Image Upload */}
-           <div className="form__tour-group">
-                <FileInput
-                  photo={null} // No initial photo
-                  handleFileChange={handleCoverImageChange}
-                  isUpdatingUser={isloadingCreateTour}
-                  label="Cover Image"
-                />
+                <label className="form__label">Image Cover</label>
               </div>
 
               {/* Multiple Images Upload */}
@@ -268,9 +236,7 @@ const CreateTourForm = () => {
                   {...register("coordinates")}
                 />
                 <label className="form__label">Location Coordinates</label>
-                {errors.coordinates && (
-                  <p className="form__error">{errors.coordinates.message}</p>
-                )}
+                {errors.coordinates && <p className="form__error">{errors.coordinates.message}</p>}
               </div>
 
               {/* Location Address */}
@@ -282,9 +248,7 @@ const CreateTourForm = () => {
                   {...register("address")}
                 />
                 <label className="form__label">Location Address</label>
-                {errors.address && (
-                  <p className="form__error">{errors.address.message}</p>
-                )}
+                {errors.address && <p className="form__error">{errors.address.message}</p>}
               </div>
 
               {/* Location Description */}
@@ -296,11 +260,7 @@ const CreateTourForm = () => {
                   {...register("startLocationDescription")}
                 />
                 <label className="form__label">Location Description</label>
-                {errors.startLocationDescription && (
-                  <p className="form__error">
-                    {errors.startLocationDescription.message}
-                  </p>
-                )}
+                {errors.startLocationDescription && <p className="form__error">{errors.startLocationDescription.message}</p>}
               </div>
 
               {/* Secret Tour Checkbox */}
