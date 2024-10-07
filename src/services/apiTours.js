@@ -53,19 +53,12 @@ export async function getMontlyTours(year) {
 }
 
 export async function createTourApi({
-<<<<<<< Updated upstream
   name,
   slug,
-=======
-  imageCover,
-  images,
-  name,
->>>>>>> Stashed changes
   duration,
   maxGroupSize,
   difficulty,
   price,
-<<<<<<< Updated upstream
   priceDiscount,
   summary,
   description,
@@ -78,7 +71,9 @@ export async function createTourApi({
   guides
 }){
   try {
+    
     const token = localStorage.getItem("jwt");
+
 
 =======
   summary,
@@ -125,10 +120,8 @@ export async function createTourApi({
     const response = await fetch("http://127.0.0.1:3000/api/v1/tours", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-<<<<<<< Updated upstream
       body: JSON.stringify({
         name,
         slug,
@@ -147,9 +140,6 @@ export async function createTourApi({
         locations,
         guides
       }),
-=======
-      body: formData, // Send FormData instead of JSON
->>>>>>> Stashed changes
     });
 
     if (response.status === 401) {
@@ -162,12 +152,7 @@ export async function createTourApi({
     }
 
     const data = await response.json();
-<<<<<<< Updated upstream
 
-=======
-    console.log(data,'from api react');
-    
->>>>>>> Stashed changes
     return data;
     
   } catch (error) {

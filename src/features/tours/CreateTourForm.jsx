@@ -96,7 +96,7 @@ const CreateTourForm = () => {
           <div className="tours__form">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
               <div className="u-margin-bottom-medium title-tour-form">
-                <h2 className="heading-secondary ">Create New Tour</h2>
+                <h2 className="heading-secondary">Create New Tour</h2>
               </div>
 
               {/* Tour Name */}
@@ -105,6 +105,7 @@ const CreateTourForm = () => {
                   type="text"
                   className="form__input"
                   placeholder="Tour Name"
+                  {...register("name", { required: "Tour name is required" })}
                 />
                 <label className="form__label">Tour Name</label>
                 {errors.name && <p className="form__error">{errors.name.message}</p>}
@@ -155,6 +156,7 @@ const CreateTourForm = () => {
                   type="number"
                   className="form__input"
                   placeholder="Price"
+                  {...register("price", { required: "Price is required" })}
                 />
                 <label className="form__label">Price</label>
                 {errors.price && <p className="form__error">{errors.price.message}</p>}
@@ -166,13 +168,18 @@ const CreateTourForm = () => {
                   type="number"
                   className="form__input"
                   placeholder="Price Discount"
+                  {...register("priceDiscount")}
                 />
                 <label className="form__label">Price Discount</label>
               </div>
 
               {/* Summary */}
               <div className="form__tour-group">
-                <textarea className="form__input" placeholder="Summary" />
+                <textarea
+                  className="form__input"
+                  placeholder="Summary"
+                  {...register("summary", { required: "Summary is required" })}
+                />
                 <label className="form__label">Summary</label>
                 {errors.summary && <p className="form__error">{errors.summary.message}</p>}
               </div>
@@ -180,6 +187,7 @@ const CreateTourForm = () => {
               {/* Description */}
               <div className="form__tour-group">
                 <textarea
+<<<<<<< HEAD
                   className="form__input"
                   placeholder="Description"
                   {...register("description", { required: "Description is required" })}
@@ -209,12 +217,44 @@ const CreateTourForm = () => {
                 />
                 <label className="form__label">Images</label>
               </div>
+
+                  className="form__input"
+                  placeholder="Description"
+                  {...register("description", { required: "Description is required" })}
+                />
+                <label className="form__label">Description</label>
+                {errors.description && <p className="form__error">{errors.description.message}</p>}
+              </div>
+
+           {/* Cover Image Upload */}
+           <div className="form__tour-group">
+                <FileInput
+                  photo={null} // No initial photo
+                  handleFileChange={handleCoverImageChange}
+                  isUpdatingUser={isloadingCreateTour}
+                  label="Cover Image"
+                />
+              </div>
+
+              {/* Multiple Images Upload */}
+              <div className="form__tour-group">
+                <input
+                  type="file"
+                  className="form__input"
+                  multiple
+                  onChange={handleTourImagesChange}
+                  disabled={isloadingCreateTour}
+                />
+                <label className="form__label">Upload Additional Images</label>
+              </div>
+
               {/* Start Dates Field */}
               <div className="form__tour-group">
                 <input
                   type="text"
                   className="form__input"
                   placeholder="Start Dates (comma separated)"
+                  {...register("startDates")}
                 />
                 <label className="form__label">Start Dates</label>
               </div>
