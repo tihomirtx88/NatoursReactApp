@@ -18,6 +18,9 @@ const TourDetails = () => {
   const { tour, error } = useTour();
   const mapContainerRef = useRef(null);
 
+  console.log(tour);
+  
+
   useEffect(() => {
     if (!tour || !tour.data || error) {
       return;

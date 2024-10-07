@@ -14,8 +14,14 @@ export default function useCreateTour(){
           navigate("/dashboard", {replace: true});
       },
       onError: (err) => {
-        console.log('ERROR', err);
-        toast.error('During create tour something went wrong');
+        if (err.response) {
+          console.log('Server responded with an error:', err.response.data); 
+        } else if (err.request) {
+          console.log('Request was made but no response was received', err.request);
+        } else {
+          console.log('Something went wrong with the request setup', err.message);
+        }
+        toast.error(`Error creating tour: ${err.message}`);
     } 
     });
   
