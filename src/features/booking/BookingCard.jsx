@@ -66,6 +66,7 @@ export default function BookingCard({booking}){
             >
               Details
             </Link>
+           
           </div>
         </div>
       );

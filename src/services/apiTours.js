@@ -84,3 +84,26 @@ export async function createTourApi(formData) {
     throw new Error(error.message || "Something went wrong while creating the tour.");
   }
 }
+
+export async function deleteTourApi(tourId) {
+  try {
+    const token = localStorage.getItem('jwt');
+
+    const response = await fetch(`http://127.0.0.1:3000/api/v1/tours/${tourId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Tours could not be deleted");
+  }
+}

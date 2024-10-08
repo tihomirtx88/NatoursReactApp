@@ -2,6 +2,8 @@
 import { formatDate } from "../../utils/helper";
 import { HiArrowDownOnSquare } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import { MdDeleteForever } from "react-icons/md";
+
 
 const TourCard = ({ tour }) => {
 
@@ -73,6 +75,13 @@ const TourCard = ({ tour }) => {
         >
           Details
         </Link>
+        <Link
+              // to={`/bookings/${_id}`}
+              className="btn btn--red btn--small"
+              icon={<MdDeleteForever />}
+            >
+              Delete Booking
+            </Link>
       </div>
     </div>
   );
