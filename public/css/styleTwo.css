@@ -241,10 +241,20 @@ body {
   background-color: #fff;
 }
 
+.btn--red {
+  background-color: #eb3b05 !important;
+  color: #fff;
+}
 .btn--green {
   background-color: #55c57a;
   color: #fff;
 }
+
+.btn--red::after {
+  background-color: #924b4b;
+  color: #fff;
+}
+
 .btn--green::after {
   background-color: #55c57a;
 }
