@@ -3,11 +3,31 @@ import { formatDate } from "../../utils/helper";
 import { HiArrowDownOnSquare } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
-
+import { useDeleteTour } from "./useDeleteTour";
 
 const TourCard = ({ tour }) => {
+  const {
+    id,
+    imageCover,
+    name,
+    duration,
+    description,
+    startLocation,
+    locations,
+    maxGroupSize,
+    ratingsAverage,
+    price,
+  } = tour;
+  const { deleteTour, isDeleting } = useDeleteTour();
 
-  const { id, imageCover, name, duration, description, startLocation, locations, maxGroupSize, ratingsAverage, price } = tour;
+  const handleDelete = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the tour "${name}"?`
+    );
+    if (confirmDelete) {
+      deleteTour(id);
+    }
+  };
 
   return (
     <div className="card">
@@ -17,7 +37,7 @@ const TourCard = ({ tour }) => {
           <img
             src={`http://localhost:3000/img/tours/${imageCover}`}
             alt={tour.name}
-             crossOrigin="anonymous"
+            crossOrigin="anonymous"
             className="card__picture-img"
           />
         </div>
@@ -75,13 +95,15 @@ const TourCard = ({ tour }) => {
         >
           Details
         </Link>
-        <Link
-              // to={`/bookings/${_id}`}
-              className="btn btn--red btn--small"
-              icon={<MdDeleteForever />}
-            >
-              Delete Booking
-            </Link>
+        <button
+          // to={`/bookings/${_id}`}
+          className="btn btn--red btn--small"
+          onClick={handleDelete}
+          disabled={isDeleting}
+        >
+          {isDeleting ? "Deleting..." : "Delete Tour"}
+          <MdDeleteForever />
+        </button>
       </div>
     </div>
   );
