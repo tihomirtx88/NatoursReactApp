@@ -75,14 +75,16 @@ const CreateTourForm = () => {
     formData.append("startLocation", JSON.stringify(startLocation));
   
     // Call createTourApi with formData
-    createTour(formData)
-      .then(() => {
-        reset(); // Reset form fields after success
-        toast.success("Tour successfully created!");
-      })
-      .catch((error) => {
+    createTour(formData, {
+      onSuccess: () => {
+        reset();
+        toast.success("Booking successfully created!");
+      },
+      onError: (error) => {
         toast.error(`Error: ${error.message}`);
-      });
+      },
+    })
+      
   };
 
   return (
