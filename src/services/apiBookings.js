@@ -95,3 +95,26 @@ export async function getBookingApi(bookingId) {
     throw new Error("Booking could not be loaded");
   }
 }
+
+export async function deleteBookingApi(bookingId) {
+  try {
+    const token = localStorage.getItem('jwt');
+
+    const response = await fetch(`http://127.0.0.1:3000/api/v1/tours/${bookingId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Booking could not be deleted");
+  }
+}
