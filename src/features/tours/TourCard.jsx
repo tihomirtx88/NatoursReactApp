@@ -96,7 +96,6 @@ const TourCard = ({ tour }) => {
           Details
         </Link>
         <button
-          // to={`/bookings/${_id}`}
           className="btn btn--red btn--small"
           onClick={handleDelete}
           disabled={isDeleting}

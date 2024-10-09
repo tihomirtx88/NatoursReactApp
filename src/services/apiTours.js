@@ -60,11 +60,9 @@ export async function createTourApi(formData) {
     const response = await fetch("http://127.0.0.1:3000/api/v1/tours", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`, // Send token in headers
-        // Do not set 'Content-Type' to 'application/json', 
-        // as FormData automatically sets the correct 'multipart/form-data' boundary
+        Authorization: `Bearer ${token}`, 
       },
-      body: formData // Use FormData for the request body
+      body: formData 
     });
 
     if (response.status === 401) {
