@@ -1324,7 +1324,7 @@ body {
   background-size: cover;
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
-  height: 85rem; }
+  height: auto; }
 
 .tours {
   width: 100%; }
@@ -1343,14 +1343,114 @@ body {
   margin-bottom: 2rem;
   width: 48%;
   margin: 0 auto; }
+  .form__tour-group label {
+    font-size: 1.6rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 1rem;
+    color: #f7f7f7; }
   .form__tour-group--button {
     text-align: center; }
   .form__tour-group .form__error {
     color: red;
     font-size: 1.2rem; }
+  .form__tour-group input[type="checkbox"] {
+    margin-right: 1rem;
+    cursor: pointer; }
+  .form__tour-group h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #f7f7f7; }
+  .form__tour-group .location-input {
+    margin-bottom: 2rem;
+    /* Space between each location input */
+    display: flex;
+    /* Use flex to align inputs */
+    flex-direction: column;
+    /* Stack inputs vertically */ }
+    .form__tour-group .location-input input {
+      width: 100%;
+      /* Full width for input fields */
+      padding: 1.5rem;
+      /* Padding inside inputs */
+      font-size: 1.4rem;
+      /* Input font size */
+      border: 1px solid rgba(9, 136, 51, 0.5);
+      /* Greenish border */
+      border-radius: 5px;
+      /* Rounded corners */
+      background-color: #fff;
+      /* Light background color */
+      color: #098833;
+      /* Greenish text color */
+      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+      /* Subtle shadow */ }
+      .form__tour-group .location-input input:focus {
+        outline: none;
+        /* Remove default outline */
+        border-color: #098833;
+        /* Green border on focus */
+        box-shadow: 0 0.5rem 2rem rgba(9, 136, 51, 0.3);
+        /* Focus shadow */ }
+      .form__tour-group .location-input input + .form__tour-group .location-input input {
+        /* Add spacing between inputs */
+        margin-top: 1rem; }
+  .form__tour-group button {
+    margin-top: 1rem;
+    /* Space above button */
+    padding: 1rem 2rem;
+    /* Padding inside button */
+    font-size: 1.4rem;
+    /* Font size for button */
+    color: white;
+    /* Button text color */
+    background-color: #098833;
+    /* Green background color */
+    border: none;
+    /* Remove default border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Change cursor to pointer */ }
+    .form__tour-group button:hover {
+      background-color: #065821;
+      /* Darken on hover */ }
 
 .u-margin-bottom-medium {
   margin-bottom: 3rem; }
+
+.giudes-group {
+  width: 100%;
+  margin-bottom: 3rem;
+  margin-left: 0 !important; }
+  .giudes-group label {
+    font-size: 1.6rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 1rem;
+    color: #f7f7f7; }
+  .giudes-group select {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.4rem;
+    border: 1px solid rgba(9, 136, 51, 0.5);
+    border-radius: 5px;
+    background-color: #fff;
+    color: #098833;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    cursor: pointer; }
+    .giudes-group select option {
+      font-size: 1.4rem;
+      padding: 1rem;
+      color: #098833;
+      border-bottom: 1px solid rgba(9, 136, 51, 0.2); }
+    .giudes-group select:last-child {
+      border-bottom: none; }
+    .giudes-group select:focus {
+      outline: none;
+      border-color: #098833;
+      box-shadow: 0 0.5rem 2rem rgba(9, 136, 51, 0.3); }
 
 .header {
   height: 35vh;
