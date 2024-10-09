@@ -100,7 +100,7 @@ export async function deleteBookingApi(bookingId) {
   try {
     const token = localStorage.getItem('jwt');
 
-    const response = await fetch(`http://127.0.0.1:3000/api/v1/tours/${bookingId}`, {
+    const response = await fetch(`http://127.0.0.1:3000/api/v1/bookings/${bookingId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

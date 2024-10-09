@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreateTour from "./useCreateTour";
 
@@ -9,6 +9,26 @@ const CreateTourForm = () => {
 
   const [coverImage, setCoverImage] = useState(null); 
   const [tourImages, setTourImages] = useState([]); 
+  
+  //1
+  const [locations, setLocations] = useState([]);
+  const [guides, setGuides] = useState([]);
+  const [availableGuides, setAvailableGuides] = useState([]);
+   
+  //2
+   // Fetch guides when the component mounts
+   useEffect(() => {
+    async function loadGuides() {
+      try {
+        const data = await fetchGuides();
+        setAvailableGuides(data); // Assuming data is an array of guide objects
+      } catch (error) {
+        toast.error("Failed to load guides");
+      }
+    }
+    loadGuides();
+  }, []);
+
 
   // Handle cover image file selection
   const handleCoverImageChange = (e) => {
@@ -18,6 +38,23 @@ const CreateTourForm = () => {
   // Handle multiple tour images selection
   const handleTourImagesChange = (e) => {
     setTourImages([...e.target.files]);
+  };
+  //3.1
+  const handleAddLocation = () => {
+    setLocations([...locations, { description: "", coordinates: "", address: "", day: "" }]);
+  };
+
+  //3
+  const handleLocationChange = (index, field, value) => {
+    const updatedLocations = locations.map((loc, locIndex) => (
+      locIndex === index ? { ...loc, [field]: value } : loc
+    ));
+    setLocations(updatedLocations);
+  };
+  //4
+  const handleRemoveLocation = (index) => {
+    const updatedLocations = locations.filter((_, locIndex) => locIndex !== index);
+    setLocations(updatedLocations);
   };
 
   const onSubmit = (data) => {
@@ -66,13 +103,25 @@ const CreateTourForm = () => {
       address: data.address || "" // Provide fallback
     };
 
-
-  
     if (startLocation.coordinates.some(isNaN)) {
       throw new Error("Invalid coordinates format");
     }
   
     formData.append("startLocation", JSON.stringify(startLocation));
+    
+
+    //5
+     // Add multiple locations
+     const formattedLocations = locations.map(loc => ({
+      description: loc.description,
+      coordinates: loc.coordinates.split(",").map(coord => parseFloat(coord.trim())),
+      address: loc.address,
+      day: parseInt(loc.day)
+    }));
+    formData.append("locations", JSON.stringify(formattedLocations));
+    //6
+    // Add guides
+    formData.append("guides", JSON.stringify(data.guides));
   
     // Call createTourApi with formData
     createTour(formData, {
@@ -269,6 +318,59 @@ const CreateTourForm = () => {
               <div className="form__tour-group u-margin-bottom-medium">
                 <label className="form__label">Secret Tour</label>
                 <input type="checkbox" {...register("secretTour")} />
+              </div>
+
+               {/*8 Locations */}
+               <div className="form__tour-group">
+                <h3>Add Tour Locations</h3>
+                {locations.map((location, index) => (
+                  <div key={index} className="location-input">
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      value={location.description}
+                      onChange={(e) => handleLocationChange(index, "description", e.target.value)}
+                      className="form__input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Coordinates (comma separated)"
+                      value={location.coordinates}
+                      onChange={(e) => handleLocationChange(index, "coordinates", e.target.value)}
+                      className="form__input"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Address"
+                      value={location.address}
+                      onChange={(e) => handleLocationChange(index, "address", e.target.value)}
+                      className="form__input"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Day"
+                      value={location.day}
+                      onChange={(e) => handleLocationChange(index, "day", e.target.value)}
+                      className="form__input"
+                    />
+                    <button type="button" onClick={() => handleRemoveLocation(index)}>Remove Location</button>
+                  </div>
+                ))}
+                <button type="button" onClick={handleAddLocation}>Add Location</button>
+              </div>
+                 
+              {/*9 Guides */}
+              <div className="form__tour-group">
+                <label htmlFor="guides">Select Guides</label>
+                <select
+                  multiple
+                  {...register("guides")}
+                  className="form__input"
+                >
+                  {availableGuides.map((guide) => (
+                    <option key={guide._id} value={guide._id}>{guide.name}</option>
+                  ))}
+                </select>
               </div>
 
               {/* Submit Button */}
