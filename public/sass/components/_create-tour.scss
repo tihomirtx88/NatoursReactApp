@@ -18,9 +18,8 @@
   background-size: cover;
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba($color-black, 0.2);
-  height: 85rem;
+  height: auto;
 }
-
 
 .tours {
   width: 100%;
@@ -45,6 +44,14 @@
   width: 48%;
   margin: 0 auto;
 
+  label {
+    font-size: 1.6rem; 
+    font-weight: bold; 
+    display: block;
+    margin-bottom: 1rem; 
+    color: $color-gray-light-1; 
+  }
+
   &--button {
     text-align: center;
   }
@@ -53,8 +60,106 @@
     color: red;
     font-size: 1.2rem;
   }
+
+
+  input[type="checkbox"] {
+    margin-right: 1rem;
+    cursor: pointer; 
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem; 
+    color: $color-gray-light-1; 
+  }
+
+  .location-input {
+    margin-bottom: 2rem; /* Space between each location input */
+    display: flex; /* Use flex to align inputs */
+    flex-direction: column; /* Stack inputs vertically */
+
+    input {
+      width: 100%; /* Full width for input fields */
+      padding: 1.5rem; /* Padding inside inputs */
+      font-size: 1.4rem; /* Input font size */
+      border: 1px solid rgba($color-primary-dark, 0.5); /* Greenish border */
+      border-radius: 5px; /* Rounded corners */
+      background-color: $color-light; /* Light background color */
+      color: $color-primary-dark; /* Greenish text color */
+      box-shadow: 0 0.5rem 1.5rem rgba($color-black, 0.1); /* Subtle shadow */
+
+      &:focus {
+        outline: none; /* Remove default outline */
+        border-color: $color-primary-dark; /* Green border on focus */
+        box-shadow: 0 0.5rem 2rem rgba($color-primary-dark, 0.3); /* Focus shadow */
+      }
+
+      & + & { /* Add spacing between inputs */
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  button {
+    margin-top: 1rem; /* Space above button */
+    padding: 1rem 2rem; /* Padding inside button */
+    font-size: 1.4rem; /* Font size for button */
+    color: white; /* Button text color */
+    background-color: $color-primary-dark; /* Green background color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+
+    &:hover {
+      background-color: darken($color-primary-dark, 10%); /* Darken on hover */
+    }
+  }
 }
 
 .u-margin-bottom-medium {
   margin-bottom: 3rem;
+}
+
+.giudes-group {
+  width: 100%; 
+  margin-bottom: 3rem; 
+  margin-left: 0 !important;
+  
+  label {
+    font-size: 1.6rem; 
+    font-weight: bold; 
+    display: block;
+    margin-bottom: 1rem; 
+    color: $color-gray-light-1;
+  }
+
+  select {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.4rem;
+    border: 1px solid rgba($color-primary-dark, 0.5); 
+    border-radius: 5px;
+    background-color: $color-light;
+    color: $color-primary-dark; 
+    box-shadow: 0 0.5rem 1.5rem rgba($color-black, 0.1);
+    cursor: pointer;
+    
+    option {
+      font-size: 1.4rem;
+      padding: 1rem;
+      color: $color-primary-dark; 
+      border-bottom: 1px solid rgba($color-primary-dark, 0.2); 
+    }
+
+      &:last-child {
+        border-bottom: none; 
+      }
+
+    &:focus {
+      outline: none; 
+      border-color: $color-primary-dark; 
+      box-shadow: 0 0.5rem 2rem rgba($color-primary-dark, 0.3); 
+    }
+  }
 }

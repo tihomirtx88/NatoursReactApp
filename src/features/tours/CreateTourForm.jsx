@@ -2,32 +2,31 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreateTour from "./useCreateTour";
+import { useUsers } from "../user/useUsers";
 
 const CreateTourForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { createTour, isloadingCreateTour } = useCreateTour();
+  const { allUsers, isLoadingUsers } = useUsers();
+  const usersArray = allUsers?.data?.users || [];
 
   const [coverImage, setCoverImage] = useState(null); 
   const [tourImages, setTourImages] = useState([]); 
   
   //1
   const [locations, setLocations] = useState([]);
-  const [guides, setGuides] = useState([]);
   const [availableGuides, setAvailableGuides] = useState([]);
    
   //2
    // Fetch guides when the component mounts
    useEffect(() => {
-    async function loadGuides() {
-      try {
-        const data = await fetchGuides();
-        setAvailableGuides(data); // Assuming data is an array of guide objects
-      } catch (error) {
-        toast.error("Failed to load guides");
-      }
+    if (!isLoadingUsers && allUsers) {
+      const filteredGuides = usersArray.filter(
+        (user) => user.role === "guide" || user.role === "lead-guide"
+      );
+      setAvailableGuides(filteredGuides);
     }
-    loadGuides();
-  }, []);
+  }, [allUsers, isLoadingUsers]);
 
 
   // Handle cover image file selection
@@ -45,6 +44,7 @@ const CreateTourForm = () => {
   };
 
   //3
+  // Update location fields
   const handleLocationChange = (index, field, value) => {
     const updatedLocations = locations.map((loc, locIndex) => (
       locIndex === index ? { ...loc, [field]: value } : loc
@@ -52,7 +52,8 @@ const CreateTourForm = () => {
     setLocations(updatedLocations);
   };
   //4
-  const handleRemoveLocation = (index) => {
+   // Remove location
+   const handleRemoveLocation = (index) => {
     const updatedLocations = locations.filter((_, locIndex) => locIndex !== index);
     setLocations(updatedLocations);
   };
@@ -360,7 +361,8 @@ const CreateTourForm = () => {
               </div>
                  
               {/*9 Guides */}
-              <div className="form__tour-group">
+              {/* Guides (filtered users) */}
+              <div className="form__tour-group giudes-group">
                 <label htmlFor="guides">Select Guides</label>
                 <select
                   multiple
@@ -368,7 +370,9 @@ const CreateTourForm = () => {
                   className="form__input"
                 >
                   {availableGuides.map((guide) => (
-                    <option key={guide._id} value={guide._id}>{guide.name}</option>
+                    <option key={guide._id} value={guide._id}>
+                      {guide.name} ({guide.role})
+                    </option>
                   ))}
                 </select>
               </div>
