@@ -75,6 +75,8 @@ export async function createTourApi(formData) {
 
     // Parse the JSON response
     const data = await response.json();
+    console.log(data, 'from api front end' );
+    
     return data;
 
   } catch (error) {
