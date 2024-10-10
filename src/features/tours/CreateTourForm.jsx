@@ -13,12 +13,9 @@ const CreateTourForm = () => {
   const [coverImage, setCoverImage] = useState(null); 
   const [tourImages, setTourImages] = useState([]); 
   
-  //1
   const [locations, setLocations] = useState([]);
   const [availableGuides, setAvailableGuides] = useState([]);
    
-  //2
-   // Fetch guides when the component mounts
    useEffect(() => {
     if (!isLoadingUsers && allUsers) {
       const filteredGuides = usersArray.filter(
@@ -38,20 +35,32 @@ const CreateTourForm = () => {
   const handleTourImagesChange = (e) => {
     setTourImages([...e.target.files]);
   };
-  //3.1
   const handleAddLocation = () => {
-    setLocations([...locations, { description: "", coordinates: "", address: "", day: "" }]);
+    setLocations([...locations, { description: "", coordinates: [], address: "", day: "" }]);
   };
 
-  //3
   // Update location fields
   const handleLocationChange = (index, field, value) => {
-    const updatedLocations = locations.map((loc, locIndex) => (
-      locIndex === index ? { ...loc, [field]: value } : loc
-    ));
+    const updatedLocations = locations.map((loc, locIndex) => {
+      if (locIndex === index) {
+        if (field === "coordinates") {
+          const parsedCoordinates = value.split(",").map((coord) => parseFloat(coord.trim()));
+          
+          if (parsedCoordinates.length === 2 && !parsedCoordinates.some(isNaN)) {
+            return { ...loc, [field]: parsedCoordinates };  
+          } else {
+            console.error("Invalid coordinates format");
+            return { ...loc, [field]: [] };  
+          }
+        } else {
+          return { ...loc, [field]: value };
+        }
+      }
+      return loc;
+    });
     setLocations(updatedLocations);
   };
-  //4
+
    // Remove location
    const handleRemoveLocation = (index) => {
     const updatedLocations = locations.filter((_, locIndex) => locIndex !== index);
@@ -89,7 +98,7 @@ const CreateTourForm = () => {
           console.error(`Invalid date format: ${date}`);
           return null;
         }
-      }).filter(Boolean); // Remove nulls
+      }).filter(Boolean); 
       formData.append("startDates", JSON.stringify(dateArray));
     }
   
@@ -97,11 +106,11 @@ const CreateTourForm = () => {
   
     // Handle nested startLocation object
     const startLocation = {
-      description: data.startLocationDescription || "", // Add default values if necessary
+      description: data.startLocationDescription || "", 
       coordinates: data.coordinates
         ? data.coordinates.split(",").map(coord => parseFloat(coord.trim()))
-        : [], // Handle empty or invalid coordinates gracefully
-      address: data.address || "" // Provide fallback
+        : [], 
+      address: data.address || "" 
     };
 
     if (startLocation.coordinates.some(isNaN)) {
@@ -110,17 +119,24 @@ const CreateTourForm = () => {
   
     formData.append("startLocation", JSON.stringify(startLocation));
     
-
-    //5
      // Add multiple locations
-     const formattedLocations = locations.map(loc => ({
-      description: loc.description,
-      coordinates: loc.coordinates.split(",").map(coord => parseFloat(coord.trim())),
-      address: loc.address,
-      day: parseInt(loc.day)
-    }));
+     const formattedLocations = locations.map((loc) => {
+      const parsedCoordinates = loc.coordinates;
+  
+      if (parsedCoordinates.length === 2 && !parsedCoordinates.some(isNaN)) {
+        return {
+          description: loc.description,
+          coordinates: parsedCoordinates,
+          address: loc.address,
+          day: parseInt(loc.day, 10)
+        };
+      } else {
+        throw new Error("Invalid coordinates format in location");
+      }
+    });
+
     formData.append("locations", JSON.stringify(formattedLocations));
-    //6
+
     // Add guides
     formData.append("guides", JSON.stringify(data.guides));
   
@@ -333,13 +349,13 @@ const CreateTourForm = () => {
                       onChange={(e) => handleLocationChange(index, "description", e.target.value)}
                       className="form__input"
                     />
-                    <input
-                      type="text"
-                      placeholder="Coordinates (comma separated)"
-                      value={location.coordinates}
-                      onChange={(e) => handleLocationChange(index, "coordinates", e.target.value)}
-                      className="form__input"
-                    />
+                  <input
+                    type="text"
+                    placeholder="Coordinates (comma separated)"
+                    value={Array.isArray(location.coordinates) ? location.coordinates.join(',') : ''} // Safely handle non-array values
+                    onChange={(e) => handleLocationChange(index, "coordinates", e.target.value)}
+                    className="form__input"
+                  />
                     <input
                       type="text"
                       placeholder="Address"
@@ -360,7 +376,6 @@ const CreateTourForm = () => {
                 <button type="button" onClick={handleAddLocation}>Add Location</button>
               </div>
                  
-              {/*9 Guides */}
               {/* Guides (filtered users) */}
               <div className="form__tour-group giudes-group">
                 <label htmlFor="guides">Select Guides</label>
