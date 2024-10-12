@@ -55,7 +55,7 @@ const TourCard = ({ tour }) => {
           <svg className="card__icon">
             <use href="img/icons.svg#icon-map-pin" />
           </svg>
-          <span>{startLocation.description}</span>
+          <span>{startLocation?.description}</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">

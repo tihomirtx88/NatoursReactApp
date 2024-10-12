@@ -88,7 +88,7 @@ const TourDetails = () => {
         // Add popup
         new mapboxgl.Popup({ offset: 30 })
           .setLngLat(coordinates)
-          .setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`)
+          .setHTML(`<p>Day ${loc.day}: ${loc?.description}</p>`)
           .addTo(map);
 
         // Extend bounds
@@ -163,7 +163,7 @@ const TourDetails = () => {
                 <use href="/img/icons.svg#icon-map-pin" />
               </svg>
               <span className="heading-box__text">
-                {startLocation.description}
+                {startLocation?.description}
               </span>
             </div>
           </div>

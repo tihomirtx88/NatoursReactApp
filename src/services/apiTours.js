@@ -112,6 +112,7 @@ export async function updateTourApi(formData, tourId) {
   try {
 
     const token = localStorage.getItem("jwt");
+    console.log(formData,'from api form data ');
 
     if (!token) {
       throw new Error("JWT token not found");
@@ -133,7 +134,7 @@ export async function updateTourApi(formData, tourId) {
     }
 
     const data = await response.json();
-
+  
 
     return data;
   } catch (error) {
