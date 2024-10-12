@@ -264,6 +264,15 @@ body {
   font-size: 1.4rem !important;
 }
 
+.btn--orange {
+  background-color: #c58129;
+  color: #fff;
+}
+
+.btn--orange::after {
+  background-color: #df9306;
+}
+
 .btn-small,
 .btn-small:link,
 .btn-small:visited {

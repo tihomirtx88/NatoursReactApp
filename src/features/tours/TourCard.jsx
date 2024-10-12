@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { formatDate } from "../../utils/helper";
 import { HiArrowDownOnSquare } from "react-icons/hi2";
+import { MdOutlineSecurityUpdate } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { useDeleteTour } from "./useDeleteTour";
+import { useUpdateTour } from "./useUpdateTour";
 
 const TourCard = ({ tour }) => {
   const {
@@ -19,6 +21,7 @@ const TourCard = ({ tour }) => {
     price,
   } = tour;
   const { deleteTour, isDeleting } = useDeleteTour();
+  const { isTourUpdating } = useUpdateTour();
 
   const handleDelete = () => {
     const confirmDelete = window.confirm(
@@ -103,6 +106,14 @@ const TourCard = ({ tour }) => {
           {isDeleting ? "Deleting..." : "Delete Tour"}
           <MdDeleteForever />
         </button>
+        <Link
+          className="btn btn--orange btn--small"
+          to={`/updateTour/${id}`}
+          disabled={isTourUpdating}
+        >
+          {isTourUpdating ? "Updating..." : "Updating Tour"}
+          <MdOutlineSecurityUpdate />
+        </Link>
       </div>
     </div>
   );
