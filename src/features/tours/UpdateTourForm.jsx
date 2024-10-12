@@ -1,27 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import useUpdateTour from "./useUpdateTour";
+import { useUpdateTour } from "./useUpdateTour";
 import { useUsers } from "../user/useUsers";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useTour } from "./useTour";
 
-export default function UpdateTourForm({ tourData }) {
+export default function UpdateTourForm() {
+    const { error, tour, isLoadingtour } = useTour(); // Using useTour hook to fetch tour data
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
-    defaultValues: {
-      ...tourData,
-      coordinates: tourData?.startLocation?.coordinates.join(", ") || "",
-      startDates:
-        tourData?.startDates
-          ?.map((date) => new Date(date).toISOString().split("T")[0])
-          .join(", ") || "",
-      guides: tourData?.guides?.map((guide) => guide._id) || [],
-    },
-  });
+  } = useForm();
+
+  console.log(tour, 'from update componet');
+  
 
   const { updateTour, isTourUpdating } = useUpdateTour();
   const { allUsers, isLoadingUsers } = useUsers();
@@ -29,7 +24,7 @@ export default function UpdateTourForm({ tourData }) {
 
   const [coverImage, setCoverImage] = useState(null);
   const [tourImages, setTourImages] = useState([]);
-  const [locations, setLocations] = useState(tourData.locations || []);
+  const [locations, setLocations] = useState([]);
   const [availableGuides, setAvailableGuides] = useState([]);
 
   useEffect(() => {
@@ -41,8 +36,48 @@ export default function UpdateTourForm({ tourData }) {
     }
   }, [allUsers, isLoadingUsers]);
 
-   // Handle cover image file selection
-   const handleCoverImageChange = (e) => {
+  // Populate form fields with existing tour data when available
+  useEffect(() => {
+    if (tour && tour?.data?.data) {
+      const {
+        name,
+        duration,
+        maxGroupSize,
+        difficulty,
+        price,
+        priceDiscount,
+        summary,
+        description,
+        startDates,
+        startLocation,
+        secretTour,
+        guides,
+        locations: tourLocations,
+      } = tour.data.data;
+  
+      reset({
+        name,
+        duration,
+        maxGroupSize,
+        difficulty,
+        price,
+        priceDiscount,
+        summary,
+        description,
+        startDates: startDates?.join(", ") || "",
+        coordinates: startLocation?.coordinates?.join(", ") || "",
+        address: startLocation?.address || "",
+        startLocationDescription: startLocation?.description || "",
+        secretTour,
+        guides: guides?.map((guide) => guide._id) || [],
+      });
+  
+      setLocations(tourLocations || []);
+    }
+  }, [tour, reset]);
+
+  // Handle cover image file selection
+  const handleCoverImageChange = (e) => {
     setCoverImage(e.target.files[0]);
   };
 
@@ -53,7 +88,10 @@ export default function UpdateTourForm({ tourData }) {
 
   // Add a new location
   const handleAddLocation = () => {
-    setLocations([...locations, { description: "", coordinates: [], address: "", day: "" }]);
+    setLocations([
+      ...locations,
+      { description: "", coordinates: [], address: "", day: "" },
+    ]);
   };
 
   // Update location fields
@@ -61,13 +99,15 @@ export default function UpdateTourForm({ tourData }) {
     const updatedLocations = locations.map((loc, locIndex) => {
       if (locIndex === index) {
         if (field === "coordinates") {
-          const parsedCoordinates = value.split(",").map((coord) => parseFloat(coord.trim()));
-          
+          const parsedCoordinates = value
+            .split(",")
+            .map((coord) => parseFloat(coord.trim()));
+
           if (parsedCoordinates.length === 2 && !parsedCoordinates.some(isNaN)) {
-            return { ...loc, [field]: parsedCoordinates };  
+            return { ...loc, [field]: parsedCoordinates };
           } else {
             console.error("Invalid coordinates format");
-            return { ...loc, [field]: [] };  
+            return { ...loc, [field]: [] };
           }
         } else {
           return { ...loc, [field]: value };
@@ -107,15 +147,18 @@ export default function UpdateTourForm({ tourData }) {
 
     // Handle start dates
     if (data.startDates) {
-      const dateArray = data.startDates.split(",").map((date) => {
-        const parsedDate = new Date(date.trim());
-        if (!isNaN(parsedDate.getTime())) {
-          return parsedDate.toISOString();
-        } else {
-          console.error(`Invalid date format: ${date}`);
-          return null;
-        }
-      }).filter(Boolean);
+      const dateArray = data.startDates
+        .split(",")
+        .map((date) => {
+          const parsedDate = new Date(date.trim());
+          if (!isNaN(parsedDate.getTime())) {
+            return parsedDate.toISOString();
+          } else {
+            console.error(`Invalid date format: ${date}`);
+            return null;
+          }
+        })
+        .filter(Boolean);
       formData.append("startDates", JSON.stringify(dateArray));
     }
 
@@ -123,11 +166,11 @@ export default function UpdateTourForm({ tourData }) {
 
     // Handle nested startLocation object
     const startLocation = {
-      description: data.startLocationDescription || "", 
+      description: data.startLocationDescription || "",
       coordinates: data.coordinates
-        ? data.coordinates.split(",").map(coord => parseFloat(coord.trim()))
-        : [], 
-      address: data.address || "" 
+        ? data.coordinates.split(",").map((coord) => parseFloat(coord.trim()))
+        : [],
+      address: data.address || "",
     };
 
     if (startLocation.coordinates.some(isNaN)) {
@@ -145,7 +188,7 @@ export default function UpdateTourForm({ tourData }) {
           description: loc.description,
           coordinates: parsedCoordinates,
           address: loc.address,
-          day: parseInt(loc.day, 10)
+          day: parseInt(loc.day, 10),
         };
       } else {
         throw new Error("Invalid coordinates format in location");
@@ -169,6 +212,9 @@ export default function UpdateTourForm({ tourData }) {
     });
   };
 
+  if (isLoadingtour) return <p>Loading tour data...</p>;
+  if (error) return <p>{error.message}</p>;
+
   return (
     <section className="section-tours">
       <div className="row">
@@ -176,7 +222,7 @@ export default function UpdateTourForm({ tourData }) {
           <div className="tours__form">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
               <div className="u-margin-bottom-medium title-tour-form">
-                <h2 className="heading-secondary">Create New Tour</h2>
+                <h2 className="heading-secondary">Update Tour</h2>
               </div>
 
               {/* Tour Name */}
@@ -185,6 +231,7 @@ export default function UpdateTourForm({ tourData }) {
                   type="text"
                   className="form__input"
                   placeholder="Tour Name"
+                  defaultValue={tour.data?.name} // Set default value from tour data
                   {...register("name", { required: "Tour name is required" })}
                 />
                 <label className="form__label">Tour Name</label>
@@ -199,6 +246,7 @@ export default function UpdateTourForm({ tourData }) {
                   type="number"
                   className="form__input"
                   placeholder="Duration (in days)"
+                  defaultValue={tour.data?.duration} // Set default value from tour data
                   {...register("duration", {
                     required: "Duration is required",
                   })}
@@ -215,6 +263,7 @@ export default function UpdateTourForm({ tourData }) {
                   type="number"
                   className="form__input"
                   placeholder="Max Group Size"
+                  defaultValue={tour.data?.maxGroupSize} // Set default value from tour data
                   {...register("maxGroupSize", {
                     required: "Max group size is required",
                   })}
@@ -228,12 +277,13 @@ export default function UpdateTourForm({ tourData }) {
               {/* Difficulty */}
               <div className="form__tour-group">
                 <select
-                  className="form__input"
+                  className="form__select"
+                  defaultValue={tour.data?.difficulty} // Set default value from tour data
                   {...register("difficulty", {
                     required: "Difficulty is required",
                   })}
                 >
-                  <option value="">Select difficulty</option>
+                  <option value="">Select Difficulty</option>
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
                   <option value="difficult">Difficult</option>
@@ -250,6 +300,7 @@ export default function UpdateTourForm({ tourData }) {
                   type="number"
                   className="form__input"
                   placeholder="Price"
+                  defaultValue={tour.data?.price} // Set default value from tour data
                   {...register("price", { required: "Price is required" })}
                 />
                 <label className="form__label">Price</label>
@@ -264,6 +315,7 @@ export default function UpdateTourForm({ tourData }) {
                   type="number"
                   className="form__input"
                   placeholder="Price Discount"
+                  defaultValue={tour.data?.priceDiscount || 0} // Set default value from tour data
                   {...register("priceDiscount")}
                 />
                 <label className="form__label">Price Discount</label>
@@ -274,6 +326,7 @@ export default function UpdateTourForm({ tourData }) {
                 <textarea
                   className="form__input"
                   placeholder="Summary"
+                  defaultValue={tour.data?.summary} // Set default value from tour data
                   {...register("summary", { required: "Summary is required" })}
                 />
                 <label className="form__label">Summary</label>
@@ -287,9 +340,8 @@ export default function UpdateTourForm({ tourData }) {
                 <textarea
                   className="form__input"
                   placeholder="Description"
-                  {...register("description", {
-                    required: "Description is required",
-                  })}
+                  defaultValue={tour.data?.description} // Set default value from tour data
+                  {...register("description", { required: "Description is required" })}
                 />
                 <label className="form__label">Description</label>
                 {errors.description && (
@@ -297,149 +349,109 @@ export default function UpdateTourForm({ tourData }) {
                 )}
               </div>
 
-              {/* Cover Image Upload */}
-              <div className="form__tour-group">
-                <input
-                  type="file"
-                  className="form__input"
-                  multiple
-                  onChange={handleCoverImageChange}
-                  disabled={isTourUpdating}
-                />
-                <label className="form__label">Image Cover</label>
-              </div>
-
-              {/* Multiple Images Upload */}
-              <div className="form__tour-group">
-                <input
-                  type="file"
-                  className="form__input"
-                  multiple
-                  onChange={handleTourImagesChange}
-                  disabled={isTourUpdating}
-                />
-                <label className="form__label">Upload Additional Images</label>
-              </div>
-
-              {/* Start Dates Field */}
+              {/* Start Dates */}
               <div className="form__tour-group">
                 <input
                   type="text"
                   className="form__input"
                   placeholder="Start Dates (comma separated)"
+                  defaultValue={tour.data?.startDates?.join(", ") || ""} // Set default value from tour data
                   {...register("startDates")}
                 />
                 <label className="form__label">Start Dates</label>
               </div>
 
-              {/* Location Coordinates */}
+              {/* Start Location */}
               <div className="form__tour-group">
                 <input
                   type="text"
                   className="form__input"
-                  placeholder="Coordinates (comma separated)"
+                  placeholder="Coordinates (latitude, longitude)"
+                  defaultValue={tour.data?.startLocation?.coordinates?.join(", ") || ""} // Set default value from tour data
                   {...register("coordinates")}
                 />
-                <label className="form__label">Location Coordinates</label>
-                {errors.coordinates && (
-                  <p className="form__error">{errors.coordinates.message}</p>
-                )}
+                <label className="form__label">Coordinates</label>
               </div>
-
-              {/* Location Address */}
+              
               <div className="form__tour-group">
                 <input
                   type="text"
                   className="form__input"
-                  placeholder="Location Address"
+                  placeholder="Address"
+                  defaultValue={tour.data?.startLocation?.address || ""} // Set default value from tour data
                   {...register("address")}
                 />
-                <label className="form__label">Location Address</label>
-                {errors.address && (
-                  <p className="form__error">{errors.address.message}</p>
-                )}
+                <label className="form__label">Address</label>
               </div>
 
-              {/* Location Description */}
               <div className="form__tour-group">
                 <input
                   type="text"
                   className="form__input"
-                  placeholder="Location Description"
+                  placeholder="Start Location Description"
+                  defaultValue={tour.data?.startLocation?.description || ""} // Set default value from tour data
                   {...register("startLocationDescription")}
                 />
-                <label className="form__label">Location Description</label>
-                {errors.startLocationDescription && (
-                  <p className="form__error">
-                    {errors.startLocationDescription.message}
-                  </p>
-                )}
+                <label className="form__label">Start Location Description</label>
               </div>
 
-              {/* Secret Tour Checkbox */}
-              <div className="form__tour-group u-margin-bottom-medium">
-                <label className="form__label">Secret Tour</label>
-                <input type="checkbox" {...register("secretTour")} />
-              </div>
-
-              {/*8 Locations */}
               <div className="form__tour-group">
-                <h3>Add Tour Locations</h3>
-                {locations.map((location, index) => (
-                  <div key={index} className="location-input">
+                <input
+                  type="checkbox"
+                  className="form__input"
+                  defaultChecked={tour.data?.secretTour} // Set default value from tour data
+                  {...register("secretTour")}
+                />
+                <label className="form__label">Secret Tour</label>
+              </div>
+
+              {/* Guides Selection */}
+              <div className="form__tour-group">
+                <select
+                  multiple
+                  {...register("guides")}
+                  defaultValue={tour.data?.data?.guides.map((guide) => guide._id) || []} // Set default value from tour data
+                >
+                  {availableGuides.map((guide) => (
+                    <option key={guide._id} value={guide._id}>
+                      {guide.name}
+                    </option>
+                  ))}
+                </select>
+                <label className="form__label">Guides</label>
+              </div>
+
+              {/* Location Management */}
+              <div>
+                <h3>Locations</h3>
+                {tour?.data?.data?.locations.map((location, index) => (
+                  <div key={index} className="location-form">
                     <input
                       type="text"
-                      placeholder="Description"
+                      placeholder="Location Description"
                       value={location.description}
-                      onChange={(e) =>
-                        handleLocationChange(
-                          index,
-                          "description",
-                          e.target.value
-                        )
-                      }
-                      className="form__input"
+                      onChange={(e) => handleLocationChange(index, "description", e.target.value)}
                     />
                     <input
                       type="text"
-                      placeholder="Coordinates (comma separated)"
-                      value={
-                        Array.isArray(location.coordinates)
-                          ? location.coordinates.join(",")
-                          : ""
-                      } // Safely handle non-array values
-                      onChange={(e) =>
-                        handleLocationChange(
-                          index,
-                          "coordinates",
-                          e.target.value
-                        )
-                      }
-                      className="form__input"
+                      placeholder="Coordinates (latitude, longitude)"
+                      value={location.coordinates.join(", ") || ""}
+                      onChange={(e) => handleLocationChange(index, "coordinates", e.target.value)}
                     />
                     <input
                       type="text"
                       placeholder="Address"
                       value={location.address}
-                      onChange={(e) =>
-                        handleLocationChange(index, "address", e.target.value)
-                      }
-                      className="form__input"
+                      onChange={(e) => handleLocationChange(index, "address", e.target.value)}
                     />
                     <input
-                      type="number"
+                      type="text"
                       placeholder="Day"
                       value={location.day}
-                      onChange={(e) =>
-                        handleLocationChange(index, "day", e.target.value)
-                      }
-                      className="form__input"
+                      onChange={(e) => handleLocationChange(index, "day", e.target.value)}
                     />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveLocation(index)}
-                    >
-                      Remove Location
+                    <button type="button" onClick={() => handleRemoveLocation(index)}>
+                      Remove
                     </button>
                   </div>
                 ))}
@@ -448,32 +460,28 @@ export default function UpdateTourForm({ tourData }) {
                 </button>
               </div>
 
-              {/* Guides (filtered users) */}
-              <div className="form__tour-group giudes-group">
-                <label htmlFor="guides">Select Guides</label>
-                <select
-                  multiple
-                  {...register("guides")}
-                  className="form__input"
-                >
-                  {availableGuides.map((guide) => (
-                    <option key={guide._id} value={guide._id}>
-                      {guide.name} ({guide.role})
-                    </option>
-                  ))}
-                </select>
+              {/* Cover Image */}
+              <div>
+                <input
+                  type="file"
+                  onChange={handleCoverImageChange}
+                  accept="image/*"
+                />
               </div>
 
-              {/* Submit Button */}
-              <div className="form__tour-group--button">
-                <button
-                  type="submit"
-                  className="btn btn--green"
-                  disabled={isTourUpdating}
-                >
-                  {isTourUpdating ? "Updating..." : "Update Tour"}
-                </button>
+              {/* Tour Images */}
+              <div>
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleTourImagesChange}
+                  accept="image/*"
+                />
               </div>
+
+              <button type="submit" className="btn btn--green">
+                Update Tour
+              </button>
             </form>
           </div>
         </div>

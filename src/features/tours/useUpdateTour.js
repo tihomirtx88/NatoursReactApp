@@ -3,7 +3,7 @@ import { updateTourApi } from "../../services/apiTours";
 import toast from "react-hot-toast";
 import { useParams } from "react-router";
 
-export default function useUpdateTour(){
+export  function useUpdateTour(){
     const queryClient = useQueryClient();
 
     const {tourId} = useParams();
