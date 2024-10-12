@@ -107,3 +107,36 @@ export async function deleteTourApi(tourId) {
     throw new Error("Tours could not be deleted");
   }
 }
+
+export async function updateTourApi(formData, tourId) {
+  try {
+
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      throw new Error("JWT token not found");
+    }
+
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/tours/${tourId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData, 
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+
+    return data;
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
+}
