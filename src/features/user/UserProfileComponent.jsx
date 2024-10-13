@@ -124,6 +124,7 @@ export default function UserProfileComponent() {
           {/* <NavItem icon="icon-briefcase" text="My bookings" href="/create/booking" /> */}
           <NavItem icon="icon-settings" text="Settings" />
           <NavItem icon="icon-briefcase" href="/bookings" text="My bookings" />
+          <NavItem icon="icon-briefcase" href="/myTours" text="My tours" />
           <NavItem icon="icon-star" text="My reviews" />
           <NavItem icon="icon-credit-card" text="Billing" />
         </ul>
