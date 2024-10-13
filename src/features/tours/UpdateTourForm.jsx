@@ -8,10 +8,7 @@ import { useTour } from "./useTour";
 
 export default function UpdateTourForm() {
   const { error, tour, isLoadingtour } = useTour(); 
-  const [formInfo, setData] = useState();
-  console.log(formInfo);
-  
-  
+
   const {
     register,
     handleSubmit,
@@ -73,8 +70,6 @@ export default function UpdateTourForm() {
         guides: guides?.map((guide) => guide._id) || [],
       });
 
-      console.log("reset form")
-
       setLocations(tourLocations || []);
     }
   }, [tour, reset]);
@@ -134,7 +129,6 @@ export default function UpdateTourForm() {
 
   const onSubmit = (data) => {
 
-    setData(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("slug", data.name.toLowerCase().replace(/ /g, "-"));
@@ -210,10 +204,6 @@ export default function UpdateTourForm() {
     // Add guides
     formData.append("guides", JSON.stringify(data.guides));
 
-  
-    
-    console.log(" is undefined ??")
-    console.log(formData)
     // Call updateTourApi with formData
     updateTour({formData, tourId: tour?.data?.data?.id }, {
       onSuccess: () => {

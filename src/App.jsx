@@ -22,6 +22,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PageNotFound from "./pages/PageNotFound";
 import CreateTourForm from "./features/tours/CreateTourForm";
 import UpdateTourForm from "./features/tours/UpdateTourForm";
+import Mytours from "./features/tours/MyTours";
 
 function App() {
   const queryClient = new QueryClient({
@@ -40,6 +41,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="montly-plan/:year" element={<MontlyPlanTours />} />
             <Route path="tours" element={<Tours />} />
+            <Route path="myTours" element={<Mytours />} />
             <Route path="create/booking" element={<Book/>}/>
             <Route path="updateTour/:tourId" element={<UpdateTourForm />} />
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
