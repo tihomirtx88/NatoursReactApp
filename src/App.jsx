@@ -42,14 +42,14 @@ function App() {
             <Route path="montly-plan/:year" element={<MontlyPlanTours />} />
             <Route path="tours" element={<Tours />} />
             <Route path="myTours" element={<Mytours />} />
-            <Route path="create/booking" element={<Book/>}/>
             <Route path="updateTour/:tourId" element={<UpdateTourForm />} />
+            <Route path="create/tour" element={<CreateTourForm/>}/>
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
-            <Route path="profile" element={<UserProfilePage/>}/>
-            <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
+            <Route path="create/booking" element={<Book/>}/>
             <Route path="bookings" element={<BookingsPage/>}/>
             <Route path="bookings/:bookingId" element={<BookingsDetailsPage/>}/>
-            <Route path="create/tour" element={<CreateTourForm/>}/>
+            <Route path="profile" element={<UserProfilePage/>}/>
+            <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
