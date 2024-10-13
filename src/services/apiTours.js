@@ -54,8 +54,14 @@ export async function getMontlyTours(year) {
 
 export async function getMytoursApi() {
   try {
+    const token = localStorage.getItem("jwt");
     const response = await fetch(
-      `http://127.0.0.1:3000/api/v1/tours/my-tours`
+      `http://127.0.0.1:3000/api/v1/tours/my-tours`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      }
     );
 
     if (!response.ok) {
