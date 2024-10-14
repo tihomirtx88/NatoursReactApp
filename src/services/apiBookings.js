@@ -96,6 +96,30 @@ export async function getBookingApi(bookingId) {
   }
 }
 
+export async function getMyBookingApi() {
+  try {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch(
+      `http://127.0.0.1:3000/api/v1/bookings/my-bookings`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Bookings could not be loaded");
+  }
+}
+
 export async function deleteBookingApi(bookingId) {
   try {
     const token = localStorage.getItem('jwt');

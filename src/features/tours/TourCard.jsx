@@ -71,7 +71,7 @@ const TourCard = ({ tour }) => {
           <svg className="card__icon">
             <use href="img/icons.svg#icon-flag" />
           </svg>
-          <span>{locations.length} stops</span>
+          <span>{locations?.length} stops</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">

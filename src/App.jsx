@@ -23,6 +23,7 @@ import PageNotFound from "./pages/PageNotFound";
 import CreateTourForm from "./features/tours/CreateTourForm";
 import UpdateTourForm from "./features/tours/UpdateTourForm";
 import Mytours from "./features/tours/MyTours";
+import MyBookings from "./features/booking/MyBookings";
 
 function App() {
   const queryClient = new QueryClient({
@@ -47,6 +48,7 @@ function App() {
             <Route path="tours/:tourId" element={<TourDetailsPage />} />
             <Route path="create/booking" element={<Book/>}/>
             <Route path="bookings" element={<BookingsPage/>}/>
+            <Route path="myBookings" element={<MyBookings/>}/>
             <Route path="bookings/:bookingId" element={<BookingsDetailsPage/>}/>
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
