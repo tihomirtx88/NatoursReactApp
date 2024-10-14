@@ -5,7 +5,6 @@ export default function Mytours() {
   const { myTours } = useMyTours();
   const readingData = myTours?.data?.tours || [];
 
-  console.log(myTours, "from tours");
   return (
     <div className="card-container">
       {readingData.length > 0 ? (
