@@ -3,7 +3,7 @@ import { getStatsTourApi } from "../../services/apiTours";
 
 export function useTourStats() {
 
-    const { data: tourStats = [], error } = useQuery({
+    const { data: tourStats = [],  error, isLoading, isFetching } = useQuery({
       queryKey: ["tours"],
       queryFn: () => getStatsTourApi(),
       retry: false,
@@ -11,5 +11,5 @@ export function useTourStats() {
       staleTime: 0,  
     });
   
-    return { error, tourStats };
+    return { tourStats, error, isLoading, isFetching };
   }

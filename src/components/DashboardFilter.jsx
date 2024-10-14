@@ -2,20 +2,35 @@ import { useTourStats } from "../features/tours/useTourStats";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell
 } from 'recharts';
+import Spinner from "./Spinner";
 
 export default function Dashboardfilter(){
-    const { tourStats } = useTourStats();
+    const { tourStats, isLoading, isFetching, error } = useTourStats();
     const stats = tourStats?.data?.stats || [];
-     console.log(stats);
-     
+
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-    
+    console.log(isFetching, 'isFetcginh');
+    // console.log(isLoading, 'isLoading');
+  
+   if (isLoading) {
+    return <Spinner />;  
+    }
+
+    if (isFetching && stats.length === 0) { 
+      return <Spinner />;
+    }
+
+    if (error) {
+        return <div>Error loading data</div>;  
+    }
+
     return (
         <div className="dashboard-view">
+           {isFetching && <Spinner />}
           <div className="dashboard-view__header">
             <h1>Tour Stats Dashboard</h1>
           </div>
-    
+
           {/* Bar Chart for Average Price per Difficulty */}
           <div className="dashboard-view__chart-container">
             <h3>Average Price by Difficulty</h3>
@@ -30,7 +45,7 @@ export default function Dashboardfilter(){
               </BarChart>
             </ResponsiveContainer>
           </div>
-    
+
           {/* Line Chart for Average Rating per Difficulty */}
           <div className="dashboard-view__chart-container">
             <h3>Average Rating by Difficulty</h3>
@@ -45,7 +60,7 @@ export default function Dashboardfilter(){
               </LineChart>
             </ResponsiveContainer>
           </div>
-    
+
           {/* Pie Chart for Number of Tours per Difficulty */}
           <div className="dashboard-view__chart-container">
             <h3>Number of Tours by Difficulty</h3>
@@ -70,7 +85,7 @@ export default function Dashboardfilter(){
               </PieChart>
             </ResponsiveContainer>
           </div>
-    
+
           {/* Additional Chart: Bar chart for Min and Max Price */}
           <div className="dashboard-view__chart-container">
             <h3>Price Range (Min and Max) by Difficulty</h3>
