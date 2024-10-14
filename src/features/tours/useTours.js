@@ -7,6 +7,8 @@ export function useTours() {
     queryKey: ["tours"],
     queryFn: () => getTours(),
     retry: false,
+    refetchOnMount: true,  
+    staleTime: 0,  
   });
 
   return { error, tours };
