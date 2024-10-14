@@ -7,6 +7,8 @@ export function useTourStats() {
       queryKey: ["tours"],
       queryFn: () => getStatsTourApi(),
       retry: false,
+      refetchOnMount: true,  
+      staleTime: 0,  
     });
   
     return { error, tourStats };

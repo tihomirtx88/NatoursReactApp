@@ -24,6 +24,7 @@ import CreateTourForm from "./features/tours/CreateTourForm";
 import UpdateTourForm from "./features/tours/UpdateTourForm";
 import Mytours from "./features/tours/MyTours";
 import MyBookings from "./features/booking/MyBookings";
+import Dashboardfilter from "./components/DashboardFilter";
 
 function App() {
   const queryClient = new QueryClient({
@@ -43,6 +44,7 @@ function App() {
             <Route path="montly-plan/:year" element={<MontlyPlanTours />} />
             <Route path="tours" element={<Tours />} />
             <Route path="myTours" element={<Mytours />} />
+            <Route path="tourStats" element={<Dashboardfilter/>}/>
             <Route path="updateTour/:tourId" element={<UpdateTourForm />} />
             <Route path="create/tour" element={<CreateTourForm/>}/>
             <Route path="tours/:tourId" element={<TourDetailsPage />} />

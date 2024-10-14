@@ -35,6 +35,13 @@ const Navigation = () => {
       navigate('/create/booking');
     }, 0);
   };
+  
+  const handleNavigateStats = () => {
+    setIsChecked(false);
+    setTimeout(()=> {
+       navigate('/tourStats');
+    }, 0);
+  };
 
   const handleNavigateTour = () => {
     setIsChecked(false);
@@ -85,9 +92,9 @@ const Navigation = () => {
             </a>
           </li>
           <li className="navigation__item">
-            <a href="#" className="navigation__link">
-              <span>04</span>Stories
-            </a>
+          <Link to='/create/booking' onClick={handleNavigateStats} className="navigation__link">
+              <span>05</span>Get Tour Stats
+            </Link>
           </li>
           <li className="navigation__item">
             <Link to='/create/booking' onClick={handleNavigateBooking} className="navigation__link">
