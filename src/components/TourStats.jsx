@@ -4,16 +4,14 @@ import {
 } from 'recharts';
 import Spinner from "./Spinner";
 
-export default function Dashboardfilter(){
+export default function TourStats(){
     const { tourStats, isLoading, isFetching, error } = useTourStats();
     const stats = tourStats?.data?.stats || [];
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-    console.log(isFetching, 'isFetcginh');
-    // console.log(isLoading, 'isLoading');
-  
-   if (isLoading) {
-    return <Spinner />;  
+
+    if (isLoading) {
+      return <Spinner />;  
     }
 
     if (isFetching && stats.length === 0) { 
@@ -26,7 +24,7 @@ export default function Dashboardfilter(){
 
     return (
         <div className="dashboard-view">
-           {isFetching && <Spinner />}
+          {isFetching && <Spinner />}
           <div className="dashboard-view__header">
             <h1>Tour Stats Dashboard</h1>
           </div>
@@ -86,7 +84,7 @@ export default function Dashboardfilter(){
             </ResponsiveContainer>
           </div>
 
-          {/* Additional Chart: Bar chart for Min and Max Price */}
+          {/* Bar Chart for Min and Max Price */}
           <div className="dashboard-view__chart-container">
             <h3>Price Range (Min and Max) by Difficulty</h3>
             <ResponsiveContainer width="100%" height={400}>
@@ -101,6 +99,51 @@ export default function Dashboardfilter(){
               </BarChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Bar Chart for Total Duration per Difficulty */}
+          <div className="dashboard-view__chart-container">
+            <h3>Total Duration by Difficulty</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={stats}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="_id" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="totalDuration" fill="#8884d8" name="Total Duration" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Line Chart for Average Group Size per Difficulty */}
+          <div className="dashboard-view__chart-container">
+            <h3>Average Group Size by Difficulty</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart data={stats}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="_id" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="avgGroupSize" stroke="#82ca9d" name="Average Group Size" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Bar Chart for Total Revenue per Difficulty */}
+          <div className="dashboard-view__chart-container">
+            <h3>Total Revenue by Difficulty</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={stats}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="_id" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="totalRevenue" fill="#FF8042" name="Total Revenue" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      );
-};
+    );
+}
