@@ -62,22 +62,24 @@
 
     .btn-pagination {
       background-color: #28b487;
-      border: none;
       color: #fff;
-      padding: 1rem 2rem;
-      margin: 0 1rem;
-      cursor: pointer;
       font-size: 1.6rem;
+      padding: 1rem 2rem;
+      border: none;
       border-radius: 5px;
-      transition: background-color 0.3s;
-
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  
+      &:hover {
+        background-color: #55c57a;
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
       }
-
-      &:hover:not(:disabled) {
-        background-color: #7dd56f;
+  
+      &:disabled {
+        background-color: #bbb;
+        cursor: not-allowed;
+        box-shadow: none;
       }
     }
 
