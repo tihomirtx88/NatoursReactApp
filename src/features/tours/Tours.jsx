@@ -10,6 +10,8 @@ const Tours = () => {
   // State for pagination instance and current page
   const [pagination, setPagination] = useState(new Pagination([], 9));
   const [page, setPage] = useState(1); // Track current page for rendering
+  console.log(page);
+  
 
   // Whenever `readingData` changes, reset the pagination
   useEffect(() => {
