@@ -1496,6 +1496,47 @@ body {
     .dashboard-view__chart-container {
       padding: 20px; } }
 
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem; }
+  .pagination-controls button {
+    padding: 1rem 2rem;
+    margin: 0 1rem;
+    background-color: #28b487;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease; }
+    .pagination-controls button:hover {
+      background-color: #1e8a6d; }
+    .pagination-controls button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed; }
+  .pagination-controls span {
+    font-size: 1.6rem;
+    color: #333;
+    align-self: center; }
+
+.go-to-page {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem; }
+  .go-to-page label {
+    margin-right: 1rem;
+    font-weight: 600;
+    text-transform: uppercase; }
+  .go-to-page input {
+    width: 5rem;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.6rem; }
+
 .header {
   height: 35vh;
   background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(9, 136, 51, 0.8)), url(../img/hero.jpg);
