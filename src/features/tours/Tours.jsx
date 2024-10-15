@@ -11,7 +11,6 @@ const Tours = () => {
   const [pagination, setPagination] = useState(new Pagination([], 9));
   const [page, setPage] = useState(1); // Track current page for rendering
   console.log(page);
-  
 
   // Whenever `readingData` changes, reset the pagination
   useEffect(() => {
@@ -46,25 +45,44 @@ const Tours = () => {
 
   return (
     <div className="tours-page">
-      <div className="card-container">
-        {paginatedTours.length > 0 ? (
-          paginatedTours.map((tour) => (
-            <TourCard key={tour._id} tour={tour} />
-          ))
-        ) : (
-          <div className="TODO">No Tours Available</div>
-        )}
+      <div className="section-header">
+        <div className="header__hero">
+          <div className="header__hero-overlay"></div>
+          {/* Replace the following image src with a relevant background image */}
+          <img src="tour-header.jpg" alt="Tour Header" className="header__hero-img" />
+        </div>
+        <div className="heading-box">
+          <h1 className="heading-box__group">Explore Our Tours</h1>
+        </div>
+      </div>
+
+      <div className="section-description">
+        <div className="card-container">
+          {paginatedTours.length > 0 ? (
+            paginatedTours.map((tour) => <TourCard key={tour._id} tour={tour} />)
+          ) : (
+            <div className="TODO">No Tours Available</div>
+          )}
+        </div>
       </div>
 
       {/* Pagination Controls */}
       <div className="pagination-controls">
-        <button onClick={handlePreviousPage} disabled={pagination.isFirstPage()}>
+        <button
+          className="btn-pagination"
+          onClick={handlePreviousPage}
+          disabled={pagination.isFirstPage()}
+        >
           Previous
         </button>
-        <span>
+        <span className="pagination-info">
           Page {pagination.currentPage} of {pagination.totalPages}
         </span>
-        <button onClick={handleNextPage} disabled={pagination.isLastPage()}>
+        <button
+          className="btn-pagination"
+          onClick={handleNextPage}
+          disabled={pagination.isLastPage()}
+        >
           Next
         </button>
       </div>
@@ -73,6 +91,7 @@ const Tours = () => {
       <div className="go-to-page">
         <label>Go to Page: </label>
         <input
+          className="go-to-page-input"
           type="number"
           value={pagination.currentPage}
           onChange={(e) => handleGoToPage(Number(e.target.value))}
