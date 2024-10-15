@@ -4,9 +4,9 @@ import { useTours } from "../../features/tours/useTours";
 const Tours = () => {
   const { tours } = useTours();
   const readingData = tours?.data?.tours || [];
+  console.log(tours);
+  
 
-
- 
   return (
     <div className="card-container">
       {readingData.length > 0 ? (
