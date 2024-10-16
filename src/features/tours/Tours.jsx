@@ -9,10 +9,9 @@ const Tours = () => {
 
   // State for pagination instance and current page
   const [pagination, setPagination] = useState(new Pagination([], 9));
-  const [page, setPage] = useState(1); // Track current page for rendering
+  const [page, setPage] = useState(1); 
   console.log(readingData);
 
-  // Whenever `readingData` changes, reset the pagination
   useEffect(() => {
     setPagination(new Pagination(readingData, 9));
   }, [readingData]);
@@ -48,7 +47,6 @@ const Tours = () => {
       <div className="section-header">
         <div className="header__hero">
           <div className="header__hero-overlay"></div>
-          {/* Replace the following image src with a relevant background image */}
           <img src="tour-header.jpg" alt="Tour Header" className="header__hero-img" />
         </div>
         <div className="heading-box">
