@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import Pagination from "../../utils/paginations";
 import TourCard from "../../features/tours/TourCard";
 import { useTours } from "../../features/tours/useTours";
+import { sortTours } from "../../utils/tourSorting";
 
 const Tours = () => {
   const { tours } = useTours();
   const readingData = tours?.data?.tours || [];
 
-  // State for pagination instance and current page
   const [pagination, setPagination] = useState(new Pagination([], 9));
-  const [page, setPage] = useState(1); 
-  console.log(readingData);
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
-    setPagination(new Pagination(readingData, 9));
-  }, [readingData]);
+    const sortedData = sortTours(readingData, sortBy);
+    console.log(sortedData, 'from sorted data');
+    
+    setPagination(new Pagination(sortedData, 9));
+  }, [readingData, sortBy]);
 
   // Get paginated tours for the current page
   const paginatedTours = pagination.getPaginatedItems();
@@ -44,24 +47,26 @@ const Tours = () => {
 
   return (
     <div className="tours-page">
-      <div className="section-header">
-        <div className="header__hero">
-          <div className="header__hero-overlay"></div>
-          <img src="tour-header.jpg" alt="Tour Header" className="header__hero-img" />
-        </div>
-        <div className="heading-box">
-          <h1 className="heading-box__group">Explore Our Tours</h1>
-        </div>
+      <div className="section-controls">
+        <label htmlFor="sortTours">Sort By:</label>
+        <select
+          id="sortTours"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="">Select...</option>
+          <option value="price">Price</option>
+          <option value="duration">Duration</option>
+          <option value="difficulty">Difficulty</option>
+        </select>
       </div>
 
-      <div className="section-description">
-        <div className="card-container">
-          {paginatedTours.length > 0 ? (
-            paginatedTours.map((tour) => <TourCard key={tour._id} tour={tour} />)
-          ) : (
-            <div className="TODO">No Tours Available</div>
-          )}
-        </div>
+      <div className="card-container">
+        {paginatedTours.length > 0 ? (
+          paginatedTours.map((tour) => <TourCard key={tour._id} tour={tour} />)
+        ) : (
+          <div className="TODO">No Tours Available</div>
+        )}
       </div>
 
       {/* Pagination Controls */}
