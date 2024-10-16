@@ -1,49 +1,41 @@
-import { useEffect, useState } from "react";
-import Pagination from "../../utils/paginations";
+import { useState } from "react";
 import TourCard from "../../features/tours/TourCard";
 import { useTours } from "../../features/tours/useTours";
-import { sortTours } from "../../utils/tourSorting";
+
 
 const Tours = () => {
-  const { tours } = useTours();
-  const readingData = tours?.data?.tours || [];
-
-  const [pagination, setPagination] = useState(new Pagination([], 9));
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState('');
 
-  useEffect(() => {
-    const sortedData = sortTours(readingData, sortBy);
-    console.log(sortedData, 'from sorted data');
-    
-    setPagination(new Pagination(sortedData, 9));
-  }, [readingData, sortBy]);
-
-  // Get paginated tours for the current page
-  const paginatedTours = pagination.getPaginatedItems();
+  const { paginatedTours, totalPages, currentPage, isFetching, error } = useTours(sortBy, page);
+  console.log(paginatedTours, 'dsadsadsa');
+  
 
   const handleNextPage = () => {
-    // Create a new instance of Pagination with updated currentPage
-    const newPagination = new Pagination(pagination.items, pagination.pageSize);
-    newPagination.goToPage(pagination.currentPage + 1);
-    setPagination(newPagination);
-    setPage(newPagination.currentPage);
+    if (page < totalPages) {
+      setPage((prevPage) => prevPage + 1);
+    }
   };
 
   const handlePreviousPage = () => {
-    const newPagination = new Pagination(pagination.items, pagination.pageSize);
-    newPagination.goToPage(pagination.currentPage - 1);
-    setPagination(newPagination);
-    setPage(newPagination.currentPage);
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
   };
 
   const handleGoToPage = (pageNumber) => {
-    // Create a new instance of Pagination with the specified page
-    const newPagination = new Pagination(pagination.items, pagination.pageSize);
-    newPagination.goToPage(pageNumber);
-    setPagination(newPagination);
-    setPage(newPagination.currentPage);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setPage(pageNumber);
+    }
   };
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading tours</div>;
+  }
 
   return (
     <div className="tours-page">
@@ -74,17 +66,17 @@ const Tours = () => {
         <button
           className="btn-pagination"
           onClick={handlePreviousPage}
-          disabled={pagination.isFirstPage()}
+          disabled={page === 1}
         >
           Previous
         </button>
         <span className="pagination-info">
-          Page {pagination.currentPage} of {pagination.totalPages}
+          Page {currentPage} of {totalPages}
         </span>
         <button
           className="btn-pagination"
           onClick={handleNextPage}
-          disabled={pagination.isLastPage()}
+          disabled={page === totalPages}
         >
           Next
         </button>
@@ -96,10 +88,10 @@ const Tours = () => {
         <input
           className="go-to-page-input"
           type="number"
-          value={pagination.currentPage}
+          value={currentPage}
           onChange={(e) => handleGoToPage(Number(e.target.value))}
           min="1"
-          max={pagination.totalPages}
+          max={totalPages}
         />
       </div>
     </div>
