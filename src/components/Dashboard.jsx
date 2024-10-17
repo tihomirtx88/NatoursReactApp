@@ -1,4 +1,4 @@
-import Stories from "./Stories";
+import Stories from "../features/reviews/Stories";
 
 const Dashboard = () => {
     return(
