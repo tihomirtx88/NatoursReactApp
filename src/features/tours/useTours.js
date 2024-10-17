@@ -4,7 +4,7 @@ import { sortTours } from "../../utils/tourSorting";
 import { useMemo } from "react";
 import Pagination from "../../utils/paginations";
 
-export function useTours(sortBy, page, pageSize = 9) {
+export function useTours(sortBy, page, searchQuery , pageSize = 9) {
 
   const { data: toursData = [], error, isFetching } = useQuery({
     queryKey: ["tours"],
@@ -20,8 +20,14 @@ export function useTours(sortBy, page, pageSize = 9) {
 
   // Memoize the sorted and paginated data
   const sortedAndPaginatedTours = useMemo(() => {
+
+    const filteredTours = tours.filter(tour => 
+      tour.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      tour.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tour.difficulty.toLowerCase().includes(searchQuery.toLowerCase())
+    );
  
-    const sortedTours = sortTours(tours, sortBy);
+    const sortedTours = sortTours(filteredTours, sortBy);
 
     const pagination = new Pagination(sortedTours, pageSize);
 
@@ -32,7 +38,7 @@ export function useTours(sortBy, page, pageSize = 9) {
       totalPages: pagination.totalPages,
       currentPage: pagination.currentPage,
     };
-  }, [tours, sortBy, page, pageSize]);
+  }, [tours, sortBy, searchQuery, page, pageSize]);
 
   return {
     ...sortedAndPaginatedTours,
