@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { useReviews } from "./useReviews";
 
 const Stories = () => {
   const { reviewsData } = useReviews();
   const reviews = reviewsData?.data?.reviews || [];
+
+  const [visibleReviewsCount, setVisibleReviewsCount] = useState(4);
+
+  const handleLoadMoreReviews = () => {
+    setVisibleReviewsCount((prevCount) => prevCount + 10);
+  };
+
+  console.log(reviews);
   
   
   return (
@@ -18,7 +27,7 @@ const Stories = () => {
       </div>
       <div className="row">
         {reviews.length > 0 ? (
-          reviews.slice(0, 4).map((review) => (
+          reviews.slice(0, visibleReviewsCount).map((review) => (
             <div key={review._id} className="story">
               <figure className="story__shape">
                 <img
@@ -37,6 +46,11 @@ const Stories = () => {
                 </h3>
                 <p>{review.review}</p> 
               </div>
+              <div className="story__text">
+                <h3 className="heading-tertirary u-margin-bottom-small">
+                  Tour name: {review.tour.name}
+                </h3>
+              </div>
             </div>
           ))
         ) : (
@@ -44,9 +58,11 @@ const Stories = () => {
         )}
       </div>
       <div className="u-center-text u-margin-top-huge">
-        <a href="#" className="btn btn-text">
-          Read All Stories
-        </a>
+        {visibleReviewsCount < reviews.length && (
+          <button onClick={handleLoadMoreReviews} className="btn btn-text">
+            Read More Reviews
+          </button>
+        )}
       </div>
     </section>
   );
