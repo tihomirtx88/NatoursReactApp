@@ -26,11 +26,9 @@
     width: 15rem;
     height: 15rem;
     float: left;
-    //Make circle
     -webkit-shape-outside: circle(50% at 50% 50%);
     shape-outside: circle(50% at 50% 50%);
 
-    //To do not go outside the circle
     -webkit-clip-path: circle(50% at 50% 50%);
     clip-path: circle(50% at 50% 50%);
 
@@ -41,7 +39,6 @@
   &__img {
     height: 100%;
     transform: translateX(0) scale(1.4);
-    // Fixing byg with borken circle
     backface-visibility: hidden;
     transition: all 0.5s;
   }
@@ -61,7 +58,6 @@
     text-align: center;
     opacity: 0;
     transition: all 0.5s;
-    // Fix shaking problem on animation affter hoover
     backface-visibility: hidden;
   }
 
