@@ -67,6 +67,35 @@
     }
   }
 
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    width: 50%;
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.6rem;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      background-color: #fff;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #28b487;
+      }
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+  }
+
 
   .pagination-controls,
   .go-to-page {

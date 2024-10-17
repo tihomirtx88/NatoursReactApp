@@ -6,10 +6,9 @@ import { useTours } from "../../features/tours/useTours";
 const Tours = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const { paginatedTours, totalPages, currentPage, isFetching, error } = useTours(sortBy, page);
-  console.log(paginatedTours, 'dsadsadsa');
-  
+  const { paginatedTours, totalPages, currentPage, isFetching, error } = useTours(sortBy, page, searchQuery);
 
   const handleNextPage = () => {
     if (page < totalPages) {
@@ -51,6 +50,16 @@ const Tours = () => {
           <option value="duration">Duration</option>
           <option value="difficulty">Difficulty</option>
         </select>
+      </div>
+
+          {/* Search bar */}
+          <div className="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search tours..." 
+          value={searchQuery} 
+          onChange={(e) => setSearchQuery(e.target.value)} 
+        />
       </div>
 
       <div className="card-container">
