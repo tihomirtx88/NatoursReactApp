@@ -11,9 +11,6 @@ const Stories = () => {
     setVisibleReviewsCount((prevCount) => prevCount + 10);
   };
 
-  console.log(reviews);
-  
-  
   return (
     <section className="section-stories">
       <div className="bg-video">
@@ -32,7 +29,7 @@ const Stories = () => {
               <figure className="story__shape">
                 <img
                 crossOrigin="anonymous"
-                  src={`http://localhost:3000/img/users/${review.user.photo}`}  // Use the user's photo dynamically
+                  src={`http://localhost:3000/img/users/${review.user.photo}`} 
                   alt={`Photo of ${review.user.name}`}
                   className="story__img"
                 />

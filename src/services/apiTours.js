@@ -80,7 +80,6 @@ export async function createTourApi(formData) {
   try {
     const token = localStorage.getItem("jwt");
 
-    // Send the FormData directly to the API endpoint
     const response = await fetch("http://127.0.0.1:3000/api/v1/tours", {
       method: "POST",
       headers: {
@@ -97,14 +96,11 @@ export async function createTourApi(formData) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    // Parse the JSON response
     const data = await response.json();
-    console.log(data, 'from api front end' );
     
     return data;
 
   } catch (error) {
-    console.error("Error in createTourApi:", error); // Log error for debugging
     throw new Error(error.message || "Something went wrong while creating the tour.");
   }
 }
