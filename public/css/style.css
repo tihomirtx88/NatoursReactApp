@@ -1677,6 +1677,46 @@ body {
 .u-margin-bottom-medium {
   margin-bottom: 3rem; }
 
+.custom-dropdown {
+  position: relative;
+  width: 100%; }
+
+.dropdown-trigger {
+  width: 100%;
+  display: flex; }
+
+.dropdown-trigger button {
+  width: 100%;
+  padding: 10px; }
+
+.dropdown-list {
+  position: absolute;
+  z-index: 10;
+  background-color: white;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none; }
+
+.dropdown-list.active {
+  display: block; }
+
+.dropdown-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer; }
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; }
+
+.dropdown-item-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 10px; }
+
 .header {
   height: 35vh;
   background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(9, 136, 51, 0.8)), url(../img/hero.jpg);

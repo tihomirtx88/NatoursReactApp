@@ -6,7 +6,11 @@ import toast from "react-hot-toast";
 export default function useCreateReveiw(){
     const navigate = useNavigate();
     const { mutate: createReview, isLoading: isloadingCreateReview } = useMutation({
-      mutationFn: createReveiwApi,
+      mutationFn: async ({ reviewData, tourId }) => {
+       
+        console.log("Review Data being sent:", reviewData); 
+        return await createReveiwApi(tourId, reviewData);
+      },
       onSuccess: () => {
           toast.success(
               "Review successfully created!"
