@@ -20,18 +20,18 @@ export async function getReviewsApi() {
   }
 }
 
-export async function createReveiwApi(tourId, formData) {
+export async function createReveiwApi(tourId, reviewData) {
   try {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(`http://127.0.0.1:3000/api/v1/tours/${tourId}/reviews`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
       },
-      body: formData,
-    });
-
+      body: JSON.stringify(reviewData),
+  });
     if (response.status === 401) {
       throw new Error("Unauthorized. Please check your credentials.");
     }

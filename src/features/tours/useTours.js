@@ -6,7 +6,7 @@ import Pagination from "../../utils/paginations";
 
 export function useTours(sortBy, page, searchQuery , pageSize = 9) {
 
-  const { data: toursData = [], error, isFetching } = useQuery({
+  const { data: toursData = [], error, isFetching, isLoading } = useQuery({
     queryKey: ["tours"],
     queryFn: () => getTours(),
     retry: false,
@@ -14,17 +14,15 @@ export function useTours(sortBy, page, searchQuery , pageSize = 9) {
     staleTime: 0,  
   });
 
-  console.log(toursData, 'API Response Data'); // Debug the response here
-
   const tours = toursData?.data?.tours || [];
 
   // Memoize the sorted and paginated data
   const sortedAndPaginatedTours = useMemo(() => {
 
     const filteredTours = tours.filter(tour => 
-      tour.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      tour.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tour.difficulty.toLowerCase().includes(searchQuery.toLowerCase())
+      tour?.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      tour?.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tour?.difficulty?.toLowerCase().includes(searchQuery.toLowerCase())
     );
  
     const sortedTours = sortTours(filteredTours, sortBy);
@@ -44,5 +42,7 @@ export function useTours(sortBy, page, searchQuery , pageSize = 9) {
     ...sortedAndPaginatedTours,
     error,
     isFetching,
+    isLoading,
+    toursData
   };
 }
