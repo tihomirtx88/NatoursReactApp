@@ -75,27 +75,27 @@
   }
 
   .location-input {
-    margin-bottom: 2rem; /* Space between each location input */
-    display: flex; /* Use flex to align inputs */
-    flex-direction: column; /* Stack inputs vertically */
+    margin-bottom: 2rem; 
+    display: flex; 
+    flex-direction: column; 
 
     input {
-      width: 100%; /* Full width for input fields */
-      padding: 1.5rem; /* Padding inside inputs */
-      font-size: 1.4rem; /* Input font size */
-      border: 1px solid rgba($color-primary-dark, 0.5); /* Greenish border */
-      border-radius: 5px; /* Rounded corners */
-      background-color: $color-light; /* Light background color */
-      color: $color-primary-dark; /* Greenish text color */
-      box-shadow: 0 0.5rem 1.5rem rgba($color-black, 0.1); /* Subtle shadow */
+      width: 100%; 
+      padding: 1.5rem; 
+      font-size: 1.4rem; 
+      border: 1px solid rgba($color-primary-dark, 0.5); 
+      border-radius: 5px; 
+      background-color: $color-light; 
+      color: $color-primary-dark; 
+      box-shadow: 0 0.5rem 1.5rem rgba($color-black, 0.1); 
 
       &:focus {
-        outline: none; /* Remove default outline */
-        border-color: $color-primary-dark; /* Green border on focus */
-        box-shadow: 0 0.5rem 2rem rgba($color-primary-dark, 0.3); /* Focus shadow */
+        outline: none; 
+        border-color: $color-primary-dark; 
+        box-shadow: 0 0.5rem 2rem rgba($color-primary-dark, 0.3); 
       }
 
-      & + & { /* Add spacing between inputs */
+      & + & { 
         margin-top: 1rem;
       }
     }

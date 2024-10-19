@@ -258,7 +258,7 @@ const TourDetails = () => {
             alt="Tour Picture"
             className="cta__img cta__img--2"
           />
-          <div className="cta__content">
+          <div className="cta__content cta_content-button">
             <h2 className="heading-secondary">What yuo think about tour?</h2>
             <p className="cta__text">
               {`${duration} days. 1 adventure. Infinite memories. Make it yours today!`}
