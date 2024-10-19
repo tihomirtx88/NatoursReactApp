@@ -25,6 +25,7 @@ import UpdateTourForm from "./features/tours/UpdateTourForm";
 import Mytours from "./features/tours/MyTours";
 import MyBookings from "./features/booking/MyBookings";
 import TourStats from "./components/TourStats";
+import CreateReveiwForm from "./features/reviews/CreateReveiwForm";
 
 function App() {
   const queryClient = new QueryClient({
@@ -54,6 +55,7 @@ function App() {
             <Route path="bookings/:bookingId" element={<BookingsDetailsPage/>}/>
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
+            <Route path="create/review" element={<CreateReveiwForm/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />

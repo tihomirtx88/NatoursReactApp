@@ -6,6 +6,7 @@ import { useTour } from "./useTour";
 import { formatDate } from "../../utils/helper";
 
 import mapboxgl from "mapbox-gl"; // Import the Mapbox GL library
+import { Link } from "react-router-dom";
 
 // Mapbox access token
 mapboxgl.accessToken =
@@ -258,13 +259,13 @@ const TourDetails = () => {
             className="cta__img cta__img--2"
           />
           <div className="cta__content">
-            <h2 className="heading-secondary">What are you waiting for?</h2>
+            <h2 className="heading-secondary">What yuo think about tour?</h2>
             <p className="cta__text">
               {`${duration} days. 1 adventure. Infinite memories. Make it yours today!`}
             </p>
-            <button className="btn btn--green span-all-rows">
-              Book tour now!
-            </button>
+            <Link to="/create/review" className="btn btn--green span-all-rows">
+             Left your Review now!
+            </Link>
           </div>
         </div>
       </section>
