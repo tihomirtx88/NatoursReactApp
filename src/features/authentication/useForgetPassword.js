@@ -7,10 +7,12 @@ export default function useForgetPassword(){
     const navigate = useNavigate();
     const { mutate: forgotPassword, isLoading: isforgotPasswordLoading } = useMutation({
       mutationFn: forgotPasswordApi,
-      onSuccess: () => {
+      onSuccess: (data) => {
           toast.success(
               "You will recive email wth new token and reset password"
           );
+          console.log(data, 'from dsaDasd');
+          
           navigate("/dashboard", {replace: true});
       },
       onError: (err) => {
