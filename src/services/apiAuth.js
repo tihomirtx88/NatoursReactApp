@@ -113,7 +113,7 @@ export async function updatePasswordApi({
   }
 }
 
-export async function forggotPasswordApi({ email }) {
+export async function forgotPasswordApi({ email }) {
   try {
     const token = localStorage.getItem("jwt");
     const response = await fetch(
