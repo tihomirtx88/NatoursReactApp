@@ -74,6 +74,9 @@ const Login = () => {
         <div>
           <Link className="form__group__navigation--link" to="/dashboard"> If you dont have account yet</Link>
         </div>
+        <div>
+          <Link className="form__group__navigation--link" to="/dashboard"> You forrget you password?</Link>
+        </div>
       </form>
     </div>
   );
