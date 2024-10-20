@@ -779,6 +779,7 @@ body {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
+  color: rgb(17, 17, 17) !important;
 }
 
 .form__photo-upload {
