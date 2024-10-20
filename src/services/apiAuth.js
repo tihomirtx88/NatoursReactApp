@@ -95,7 +95,6 @@ export async function updatePasswordApi({
       }
     );
 
-
     if (response.status === 401) {
       throw new Error("Unauthorized. Please check your credentials.");
     }
@@ -108,6 +107,39 @@ export async function updatePasswordApi({
 
     return data;
   } catch (error) {
-    throw new Error(error.message || "Something went wrong while updating the password.");
+    throw new Error(
+      error.message || "Something went wrong while updating the password."
+    );
+  }
+}
+
+export async function forggotPasswordApi({ email }) {
+  try {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch(
+      "http://127.0.0.1:3000/api/v1/users/forgotPassword",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error(result.message);
+      throw new Error(result.message);
+    }
+
+    return result;
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Request can be exexuted");
   }
 }
