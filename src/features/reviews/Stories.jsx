@@ -3,6 +3,7 @@ import { useReviews } from "./useReviews";
 
 const Stories = () => {
   const { reviewsData } = useReviews();
+
   const reviews = reviewsData?.data?.reviews || [];
 
   const [visibleReviewsCount, setVisibleReviewsCount] = useState(4);
