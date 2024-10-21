@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem("userInfo");
     localStorage.removeItem("jwt");
+    logoutFn();
   };
 
   return (
