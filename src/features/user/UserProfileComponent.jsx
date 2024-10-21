@@ -133,7 +133,7 @@ export default function UserProfileComponent() {
             <h5 className="admin-nav__heading">Admin</h5>
             <ul className="side-nav">
               <NavItem icon="icon-map" text="Manage tours" />
-              <NavItem icon="icon-users" text="Manage users" />
+              <NavItem href="/all/users" icon="icon-users" text="Manage users" />
               <NavItem icon="icon-star" text="Manage reviews" />
               <NavItem icon="icon-briefcase" text="Manage bookings" />
             </ul>

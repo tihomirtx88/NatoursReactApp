@@ -4,11 +4,11 @@ import { getCurrentUser } from "../../services/apiUser";
 
 export function useUser() {
  
-  const { data: currentUser = {}, error } = useQuery({
+  const { data: currentUser = {}, error, isLoading: isLoadingUsers } = useQuery({
     queryKey: ["currentUser"],
     queryFn: getCurrentUser,
     retry: false,
   });
 
-  return { error, currentUser };
+  return { error, currentUser, isLoadingUsers };
 }
