@@ -27,6 +27,9 @@ import MyBookings from "./features/booking/MyBookings";
 import TourStats from "./components/TourStats";
 import CreateReveiwForm from "./features/reviews/CreateReveiwForm";
 
+// Users
+import AllUsers from "./features/user/AllUsers";
+
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -53,6 +56,7 @@ function App() {
             <Route path="bookings" element={<BookingsPage/>}/>
             <Route path="myBookings" element={<MyBookings/>}/>
             <Route path="bookings/:bookingId" element={<BookingsDetailsPage/>}/>
+            <Route path="all/users" element={<AllUsers/>}/>
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
             <Route path="create/review" element={<CreateReveiwForm/>}/>
