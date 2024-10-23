@@ -6,17 +6,17 @@
  * @returns {Array} - The sorted array of users.
  */
 
-export const sortTours = (users, sortBy) => {
-    const sortedUsers = [...users];
-  
-    switch (sortBy) {
-      case "price":
-        return sortedUsers.sort((a, b) => a.name - b.name);
-      case "duration":
-        return sortedUsers.sort((a, b) => a.email - b.email);
-      case "difficulty":
-        return sortedUsers.sort((a, b) => a.role - b.role);
-      default:
-        return users; 
-    }
-  };
+export const sortUsers = (users, sortBy) => {
+  const sortedUsers = [...users];
+
+  switch (sortBy) {
+    case "name":
+      return sortedUsers.sort((a, b) => a.name.localeCompare(b.name));
+    case "email":
+      return sortedUsers.sort((a, b) => a.email.localeCompare(b.email));
+    case "role":
+      return sortedUsers.sort((a, b) => a.role.localeCompare(b.role));
+    default:
+      return users; 
+  }
+};
