@@ -1526,7 +1526,6 @@ body {
     align-items: center;
     margin-bottom: 2rem;
     position: relative;
-    z-index: 1000;
     background-color: #f7f7f7;
     padding: 2rem;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
