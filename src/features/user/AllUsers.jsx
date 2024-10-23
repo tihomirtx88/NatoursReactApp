@@ -10,6 +10,8 @@ export default function AllUsers() {
   }
 
   const users = allUsers?.data?.users || [];
+  console.log(users);
+  
 
   return (
     <section className={styles.section}>
