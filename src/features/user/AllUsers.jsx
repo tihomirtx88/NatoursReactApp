@@ -37,8 +37,6 @@ export default function AllUsers() {
     return <div>Error loading tours</div>;
   }
 
-  console.log(paginatedUsers);
-
   return (
     <section className={styles.section}>
       <div className={styles.heading}>
@@ -53,9 +51,9 @@ export default function AllUsers() {
             onChange={(e) => setSortBy(e.target.value)}
           >
             <option value="">Select...</option>
-            <option value="price">Price</option>
-            <option value="duration">Duration</option>
-            <option value="difficulty">Difficulty</option>
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+            <option value="role">Role</option>
           </select>
         </div>
 
@@ -109,7 +107,7 @@ export default function AllUsers() {
       </div>
 
       {/* Pagination Controls */}
-      <div className="pagination-controls">
+      <div className={styles.paginationControls}>
         <button
           className="btn-pagination"
           onClick={handlePreviousPage}
@@ -130,7 +128,7 @@ export default function AllUsers() {
       </div>
 
       {/* Optionally, a way to go to a specific page */}
-      <div className="go-to-page">
+      <div className={styles.goToPage}>
         <label>Go to Page: </label>
         <input
           className="go-to-page-input"
