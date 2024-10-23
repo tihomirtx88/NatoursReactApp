@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getallUsersApi } from "../../services/apiUser";
 import { useMemo } from "react";
 import { sortTours } from "../../utils/usersSorting";
+import Pagination from "../../utils/paginations";
 
 export function useUsers(sortBy, page, searchQuery , pageSize = 9) {
   const {
@@ -29,6 +30,8 @@ export function useUsers(sortBy, page, searchQuery , pageSize = 9) {
     const sortedUsers = sortTours(filteredUsers, sortBy);
 
     const pagination = new Pagination(sortedUsers, pageSize);
+
+    pagination.goToPage(page);
 
     return {
       paginatedUsers: pagination.getPaginatedItems(),

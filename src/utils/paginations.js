@@ -1,8 +1,8 @@
 export default class Pagination {
   constructor(items = [], pageSize = 9) {
-    this.items = items; // List of items
-    this.pageSize = pageSize; // Number of items per page
-    this.currentPage = 1; // Default to first page
+    this.items = items; 
+    this.pageSize = pageSize; 
+    this.currentPage = 1; 
     this.totalPages = Math.ceil(this.items.length / this.pageSize);
   }
 
