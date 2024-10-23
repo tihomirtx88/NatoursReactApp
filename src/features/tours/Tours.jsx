@@ -2,13 +2,13 @@ import { useState } from "react";
 import TourCard from "../../features/tours/TourCard";
 import { useTours } from "../../features/tours/useTours";
 
-
 const Tours = () => {
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const { paginatedTours, totalPages, currentPage, isFetching, error } = useTours(sortBy, page, searchQuery);
+  const { paginatedTours, totalPages, currentPage, isFetching, error } =
+    useTours(sortBy, page, searchQuery);
 
   const handleNextPage = () => {
     if (page < totalPages) {
@@ -52,13 +52,13 @@ const Tours = () => {
         </select>
       </div>
 
-          {/* Search bar */}
-          <div className="search-bar">
-        <input 
-          type="text" 
-          placeholder="Search tours..." 
-          value={searchQuery} 
-          onChange={(e) => setSearchQuery(e.target.value)} 
+      {/* Search bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search tours..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
 
