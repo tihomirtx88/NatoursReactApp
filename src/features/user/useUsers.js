@@ -28,10 +28,8 @@ export function useUsers(sortBy, page, searchQuery , pageSize = 9) {
       user?.role?.toLowerCase().includes(searchQuery.toLowerCase())
     );
     
-    console.log(filteredUsers, 'filtered users');
     const sortedUsers = sortUsers(filteredUsers, sortBy);
-    console.log(sortedUsers, 'sortedusers');
-
+  
     const pagination = new Pagination(sortedUsers, pageSize);
 
     pagination.goToPage(page);

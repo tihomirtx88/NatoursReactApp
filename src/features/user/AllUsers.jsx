@@ -4,6 +4,7 @@ import styles from "./AllUsers.module.scss";
 import { useState } from "react";
 import { UserCard } from "./UserCard";
 
+
 export default function AllUsers() {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
@@ -62,7 +63,7 @@ export default function AllUsers() {
         <div className="search-bar">
           <input
             type="text"
-            placeholder="Search tours..."
+            placeholder="Search users..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
