@@ -87,3 +87,25 @@ export async function getallUsersApi() {
   }
 }
 
+export async function deleteUserApi(userId) {
+  try {
+    const token = localStorage.getItem('jwt');
+
+    const response = await fetch(`http://127.0.0.1:3000/api/v1/users/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("User could not be deleted");
+  }
+}
