@@ -2,6 +2,7 @@ import SpinnerMini from "../../components/SpinnerMini";
 import { useUsers } from "./useUsers";
 import styles from "./AllUsers.module.scss";
 import { useState } from "react";
+import { UserCard } from "./UserCard";
 
 export default function AllUsers() {
   const [page, setPage] = useState(1);
@@ -71,38 +72,17 @@ export default function AllUsers() {
       <div className={styles.container}>
         {paginatedUsers.length > 0 ? (
           paginatedUsers.map(({ _id, name, email, photo, role }) => (
-            <div key={_id} className={styles.card}>
-              <div className={styles["card__header"]}>
-                <img
-                  className={styles["card__avatar"]}
-                  src={`http://localhost:3000/img/users/${photo}`}
-                  alt={`${name} avatar`}
-                  crossOrigin="anonymous"
-                />
-                <h2 className={styles["card__name"]}>{name}</h2>
-              </div>
-
-              <div className={styles["card__details"]}>
-                <p className={styles["card__detail"]}>
-                  <span>Email:</span> {email}
-                </p>
-                <p className={styles["card__detail"]}>
-                  <span>Role:</span> {role}
-                </p>
-              </div>
-
-              <div className={styles["card__actions"]}>
-                <button className={`${styles.btn} ${styles["btn--update"]}`}>
-                  Update
-                </button>
-                <button className={`${styles.btn} ${styles["btn--delete"]}`}>
-                  Delete
-                </button>
-              </div>
-            </div>
+            <UserCard
+              key={_id}
+              _id={_id}
+              name={name}
+              email={email}
+              photo={photo}
+              role={role}
+            />
           ))
         ) : (
-          <div className="TODO">No Tours Available</div>
+          <div className="TODO">No Users Available</div>
         )}
       </div>
 
