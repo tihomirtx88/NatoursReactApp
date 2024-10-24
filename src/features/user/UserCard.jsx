@@ -1,7 +1,19 @@
 /* eslint-disable react/prop-types */
+import { useDeleteUser } from "./useDeleteUser";
 import styles from "./UserCard.module.scss";
 
 export const UserCard = ({ _id, name, email, photo, role }) => {
+  const { isDeletingUser, deleteUser } = useDeleteUser();
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${name}?`
+    );
+    if (confirmDelete) {
+      deleteUser(_id);
+    }
+  };
+
   return (
     <div key={_id} className={styles.card}>
       <div className={styles["card__header"]}>
@@ -27,8 +39,12 @@ export const UserCard = ({ _id, name, email, photo, role }) => {
         <button className={`${styles.btn} ${styles["btn--update"]}`}>
           Update
         </button>
-        <button className={`${styles.btn} ${styles["btn--delete"]}`}>
-          Delete
+        <button
+          className={`${styles.btn} ${styles["btn--delete"]}`}
+          onClick={handleDelete}
+          disabled={isDeletingUser}
+        >
+          {isDeletingUser ? "Deleting..." : "Delete"}
         </button>
       </div>
     </div>

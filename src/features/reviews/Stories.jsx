@@ -30,12 +30,12 @@ const Stories = () => {
               <figure className="story__shape">
                 <img
                 crossOrigin="anonymous"
-                  src={`http://localhost:3000/img/users/${review.user.photo}`} 
-                  alt={`Photo of ${review.user.name}`}
+                  src={`http://localhost:3000/img/users/${review?.user?.photo}`} 
+                  alt={`Photo of ${review?.user?.name}`}
                   className="story__img"
                 />
                 <figcaption className="story__caption">
-                  {review.user.name} 
+                  {review?.user?.name} 
                 </figcaption>
               </figure>
               <div className="story__text">
@@ -46,7 +46,7 @@ const Stories = () => {
               </div>
               <div className="story__text">
                 <h3 className="heading-tertirary u-margin-bottom-small">
-                  Tour name: {review.tour.name}
+                  Tour name: {review?.tour?.name}
                 </h3>
               </div>
             </div>
