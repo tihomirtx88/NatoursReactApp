@@ -3,8 +3,10 @@ import useUpdateOtherUser from "./useUpdateOtherUser";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
+import { useParams } from "react-router";
 
 export default function UpdateUserForm() {
+  const { userId } = useParams();
   const { updateUser, isUpdatingUser } = useUpdateOtherUser();
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -29,7 +31,7 @@ export default function UpdateUserForm() {
     formData.append("email", email);
     if (selectedFile) formData.append("photo", selectedFile);
 
-    updateUser(formData, {
+    updateUser({ formData, userId }, {
       onSettled: () => reset(),
       onSuccess: () => toast.success("User updated successfully!"),
       onError: (error) => toast.error("Update failed: " + error.message),
