@@ -29,6 +29,7 @@ import CreateReveiwForm from "./features/reviews/CreateReveiwForm";
 
 // Users
 import AllUsers from "./features/user/AllUsers";
+import UpdateUserForm from "./features/user/UpdateUserForm";
 
 function App() {
   const queryClient = new QueryClient({
@@ -59,6 +60,7 @@ function App() {
             <Route path="all/users" element={<AllUsers/>}/>
             <Route path="profile" element={<UserProfilePage/>}/>
             <Route path="resetPassword/:token" element={<ResetPasswordPage/>}/>
+            <Route path="updateUser/:userId" element={<UpdateUserForm />} />
             <Route path="create/review" element={<CreateReveiwForm/>}/>
           </Route>
           <Route path="login" element={<LoginPage />} />
