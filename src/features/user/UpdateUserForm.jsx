@@ -1,5 +1,115 @@
-export default function UpdateUserForm(){
-    return(
-        <div>updated user</div>
-    );
-};
+import { useState } from "react";
+import useUpdateOtherUser from "./useUpdateOtherUser";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import Spinner from "../../components/Spinner";
+
+export default function UpdateUserForm() {
+  const { updateUser, isUpdatingUser } = useUpdateOtherUser();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const handleFileChange = (event) => {
+    if (event.target.files) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const onSubmit = (data) => {
+    const { name, email } = data;
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    if (selectedFile) formData.append("photo", selectedFile);
+
+    updateUser(formData, {
+      onSettled: () => reset(),
+      onSuccess: () => toast.success("User updated successfully!"),
+      onError: (error) => toast.error("Update failed: " + error.message),
+    });
+  };
+
+  return (
+    <div className="user-view__form-container">
+      <h2 className="heading-secondary ma-bt-md">Update User Info</h2>
+
+      <form className="form form-user-data" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form__group">
+          <label className="form__label" htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            className="form__input"
+            {...register("name", { required: "Name is required" })}
+            disabled={isUpdatingUser}
+          />
+          {errors.name && (
+            <p className="form__error">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div className="form__group">
+          <label className="form__label" htmlFor="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            className="form__input"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Please enter a valid email address",
+              },
+            })}
+            disabled={isUpdatingUser}
+          />
+          {errors.email && (
+            <p className="form__error">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/* File input for uploading a profile photo */}
+        <div className="form__group">
+          <label className="form__label" htmlFor="photo">Profile Photo</label>
+          <input
+            type="file"
+            id="photo"
+            className="form__input"
+            onChange={handleFileChange}
+            disabled={isUpdatingUser}
+          />
+        </div>
+
+        <div className="form__group right">
+          {isUpdatingUser ? (
+            <Spinner />
+          ) : (
+            <>
+              <button className="btn btn--green" type="submit">
+                Save Changes
+              </button>
+              <button
+                className="btn btn--orange"
+                type="reset"
+                onClick={() => {
+                  reset();
+                  setSelectedFile(null);
+                }}
+                disabled={isUpdatingUser}
+              >
+                Reset
+              </button>
+            </>
+          )}
+        </div>
+      </form>
+    </div>
+  );
+}
