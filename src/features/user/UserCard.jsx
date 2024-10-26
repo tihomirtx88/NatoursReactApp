@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 import { useDeleteUser } from "./useDeleteUser";
 import styles from "./UserCard.module.scss";
+export const UserCard = ({ _id, name, email, photo, role, openModal }) => {
 
-export const UserCard = ({ _id, name, email, photo, role }) => {
+  
   const { isDeletingUser, deleteUser } = useDeleteUser();
 
   const handleDelete = () => {
@@ -37,12 +37,13 @@ export const UserCard = ({ _id, name, email, photo, role }) => {
       </div>
 
       <div className={styles["card__actions"]}>
-        <Link
-          to={`/updateUser/${_id}`}
+      <button
+          onClick={() => openModal(_id)} // Call openModal with the _id
           className={`${styles.btn} ${styles["btn--update"]}`}
         >
           Update
-        </Link>
+        </button>
+    
         <button
           className={`${styles.btn} ${styles["btn--delete"]}`}
           onClick={handleDelete}

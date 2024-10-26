@@ -61,6 +61,10 @@ export async function updateUserApi(formData) {
 
 export async function updateUsersApi(formData, userId) {
   try {
+    console.log(formData, 'form  from api fuunction');
+    console.log(userId, ' id from api function');
+    
+    
 
     const token = localStorage.getItem("jwt");
 

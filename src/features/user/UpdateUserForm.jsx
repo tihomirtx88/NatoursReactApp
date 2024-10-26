@@ -1,13 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import useUpdateOtherUser from "./useUpdateOtherUser";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
-import { useParams } from "react-router";
 
-export default function UpdateUserForm() {
-  const { userId } = useParams();
-  const { updateUser, isUpdatingUser } = useUpdateOtherUser();
+
+export default function UpdateUserForm({userId}) {
+  const { updateOtherUser, isUpdatingOtherUser } = useUpdateOtherUser();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const {
@@ -25,13 +25,13 @@ export default function UpdateUserForm() {
 
   const onSubmit = (data) => {
     const { name, email } = data;
-
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
-    if (selectedFile) formData.append("photo", selectedFile);
 
-    updateUser({ formData, userId }, {
+    if (selectedFile) formData.append("photo", selectedFile);
+  
+    updateOtherUser({ formData, userId }, {
       onSettled: () => reset(),
       onSuccess: () => toast.success("User updated successfully!"),
       onError: (error) => toast.error("Update failed: " + error.message),
@@ -50,7 +50,7 @@ export default function UpdateUserForm() {
             id="name"
             className="form__input"
             {...register("name", { required: "Name is required" })}
-            disabled={isUpdatingUser}
+            disabled={isUpdatingOtherUser}
           />
           {errors.name && (
             <p className="form__error">{errors.name.message}</p>
@@ -70,7 +70,7 @@ export default function UpdateUserForm() {
                 message: "Please enter a valid email address",
               },
             })}
-            disabled={isUpdatingUser}
+            disabled={isUpdatingOtherUser}
           />
           {errors.email && (
             <p className="form__error">{errors.email.message}</p>
@@ -85,12 +85,12 @@ export default function UpdateUserForm() {
             id="photo"
             className="form__input"
             onChange={handleFileChange}
-            disabled={isUpdatingUser}
+            disabled={isUpdatingOtherUser}
           />
         </div>
 
         <div className="form__group right">
-          {isUpdatingUser ? (
+          {isUpdatingOtherUser ? (
             <Spinner />
           ) : (
             <>
@@ -104,7 +104,7 @@ export default function UpdateUserForm() {
                   reset();
                   setSelectedFile(null);
                 }}
-                disabled={isUpdatingUser}
+                disabled={isUpdatingOtherUser}
               >
                 Reset
               </button>

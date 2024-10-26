@@ -3,15 +3,30 @@ import { useUsers } from "./useUsers";
 import styles from "./AllUsers.module.scss";
 import { useState } from "react";
 import { UserCard } from "./UserCard";
-
+import Modal from "./Modal";
+import UpdateUserForm from "./UpdateUserForm";
 
 export default function AllUsers() {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Manage modal state and the active userId
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeUserId, setActiveUserId] = useState(null);
+
   const { paginatedUsers, totalPages, currentPage, isLoadingUsers, error } =
     useUsers(sortBy, page, searchQuery);
+
+  const openModal = (userId) => {
+    setIsModalOpen(true);
+    setActiveUserId(userId);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setActiveUserId(null);
+  };
 
   const handleNextPage = () => {
     if (page < totalPages) {
@@ -80,12 +95,20 @@ export default function AllUsers() {
               email={email}
               photo={photo}
               role={role}
+              openModal={() => openModal(_id)}
             />
           ))
         ) : (
           <div className="TODO">No Users Available</div>
         )}
       </div>
+
+      {/* Modal with UpdateUserForm */}
+      {isModalOpen && activeUserId && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <UpdateUserForm userId={activeUserId} />
+        </Modal>
+      )}
 
       {/* Pagination Controls */}
       <div className={styles.paginationControls}>
