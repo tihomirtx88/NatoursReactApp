@@ -7,10 +7,14 @@ export default function useUpdateOtherUser(){
 
     const { mutate: updateOtherUser, isLoading: isUpdatingOtherUser } = useMutation({
         mutationFn: (newUser) => {
+     
             const { formData, userId } = newUser;
-            updateUsersApi(formData, userId);
+            for (let [key, value] of formData.entries()) {
+              console.log(`${key}: ${value}`);
+            }
+             return updateUsersApi(formData, userId);
         },
-        onSuccess: ({user}) => {
+        onSuccess: (user) => {
           //Set manual data in query cache
             queryClient.setQueryData(['user'], user);
             queryClient.invalidateQueries({ queryKey: ["user"] });
