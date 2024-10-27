@@ -9,6 +9,8 @@ import Spinner from "../../components/Spinner";
 export default function UpdateUserForm({userId}) {
   const { updateOtherUser, isUpdatingOtherUser } = useUpdateOtherUser();
   const [selectedFile, setSelectedFile] = useState(null);
+  console.log(userId, 'from modal passed to form');
+  
 
   const {
     register,
