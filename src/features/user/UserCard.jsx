@@ -2,7 +2,6 @@
 import { useDeleteUser } from "./useDeleteUser";
 import styles from "./UserCard.module.scss";
 export const UserCard = ({ _id, name, email, photo, role, openModal }) => {
-
   
   const { isDeletingUser, deleteUser } = useDeleteUser();
 
@@ -38,7 +37,7 @@ export const UserCard = ({ _id, name, email, photo, role, openModal }) => {
 
       <div className={styles["card__actions"]}>
       <button
-          onClick={() => openModal(_id)} // Call openModal with the _id
+          onClick={() => openModal(_id)} 
           className={`${styles.btn} ${styles["btn--update"]}`}
         >
           Update

@@ -9,9 +9,8 @@ export default function useUpdateOtherUser(){
         mutationFn: (newUser) => {
      
             const { formData, userId } = newUser;
-            for (let [key, value] of formData.entries()) {
-              console.log(`${key}: ${value}`);
-            }
+            console.log(userId, 'from hook id');
+            
              return updateUsersApi(formData, userId);
         },
         onSuccess: (user) => {

@@ -33,7 +33,7 @@ export default function AllUsers() {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
+  
   const handlePreviousPage = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
@@ -112,7 +112,7 @@ export default function AllUsers() {
 
       {/* Pagination Controls */}
       <div className={styles.paginationControls}>
-        <button
+        <button type="button"
           className="btn-pagination"
           onClick={handlePreviousPage}
           disabled={page === 1}
@@ -126,6 +126,7 @@ export default function AllUsers() {
           className="btn-pagination"
           onClick={handleNextPage}
           disabled={page === totalPages}
+          type="button"
         >
           Next
         </button>
@@ -137,7 +138,7 @@ export default function AllUsers() {
         <input
           className="go-to-page-input"
           type="number"
-          value={currentPage}
+          value={page}
           onChange={(e) => handleGoToPage(Number(e.target.value))}
           min="1"
           max={totalPages}
