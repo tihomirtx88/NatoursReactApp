@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 
 const ReviewCard = ({singleReview}) => {
-    const { review, user, raitng} = singleReview;
-    const { name, photo } = user;
+ 
+  
+  const {
+    review = "No review provided",
+    user = null, 
+    raitng = 0
+  } = singleReview || {};
 
+  console.log(raitng, 'from review card');
+  const { name = "Anonymous", photo = "default.png" } = user ?? {};
   return (
     <div className="reviews__card">
       <div className="reviews__avatar">

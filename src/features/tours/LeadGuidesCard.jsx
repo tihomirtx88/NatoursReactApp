@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 const LeadGuidesCard = ({guide}) => {
     const { name, photo, role } = guide;
-    console.log(guide, 'from guide');
     
   return (
     <div className="overview-box__detail">
