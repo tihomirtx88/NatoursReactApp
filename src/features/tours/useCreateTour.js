@@ -7,7 +7,9 @@ export default function useCreateTour(){
     const navigate = useNavigate();
     const { mutate: createTour, isLoading: isloadingCreateTour } = useMutation({
       mutationFn: createTourApi,
-      onSuccess: () => {
+      onSuccess: (tour) => {
+          console.log(tour, 'from create tour');
+          
           toast.success(
               "Tour successfully created!"
           );

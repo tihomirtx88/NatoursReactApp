@@ -936,7 +936,7 @@ body {
 
 .section-header {
   position: relative;
-  height: 38vw;
+  height: 25vw;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%); }
 
@@ -958,7 +958,7 @@ body {
 
 .heading-box {
   position: absolute;
-  bottom: 13vw;
+  bottom: 15vw;
   left: 50%;
   top: 35%;
   transform: translate(-50%, -50%); }
@@ -1189,7 +1189,7 @@ body {
 
 .section-header {
   position: relative;
-  height: 38vw;
+  height: 25vw;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%); }
 
@@ -1211,7 +1211,7 @@ body {
 
 .heading-box {
   position: absolute;
-  bottom: 13vw;
+  bottom: 15vw;
   left: 50%;
   top: 35%;
   transform: translate(-50%, -50%); }
