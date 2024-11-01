@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useCreateBooking from "./useCreateBooking";
 import toast from "react-hot-toast";
-import { useTours } from "../tours/useTours";
+import { useToursWithoutSorting } from "../tours/useToursWithoutSorting";
 import { useAuth } from "../../context/AuthContext";
 
 const Book = () => {
@@ -13,8 +13,8 @@ const Book = () => {
     reset,
   } = useForm();
 
-  const { tours } = useTours();
-  const readingData = tours?.data?.tours || [];
+  const { toursData } = useToursWithoutSorting();
+  const readingData = toursData?.data?.tours || [];
   const { user } = useAuth();
 
    const { createBooking, isloadingCreateBooking } = useCreateBooking();

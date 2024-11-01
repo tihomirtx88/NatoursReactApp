@@ -44,12 +44,9 @@ export default function CreateReveiwForm() {
 
   const handleTourSelect = (tour) => {
     setSelectedTour(tour);
-    setDropdownOpen(false); // Close the dropdown after selecting
+    setDropdownOpen(false); 
   };
 
-//   console.log(toursArray, "tours from reviews");
-//   console.log(usersArray, "users from reviews");
-//   console.log(user, "user from reveiw");
 
   const onSubmit = (data) => {
     if (!selectedTour) {
@@ -59,7 +56,7 @@ export default function CreateReveiwForm() {
     }
     const reviewData = {
       review: data.review,
-      rating: data.rating, // Ensure the key is 'rating'
+      raitng: Number(data.raitng), 
       tour: selectedTour._id,
       user: user._id,
     };
@@ -101,23 +98,23 @@ export default function CreateReveiwForm() {
               </div>
 
               {/* Rating */}
-              <div className="form__group">
-                <select
-                  className="form__input"
-                  {...register("raitng", { required: "Rating is required" })}
-                >
-                  <option value="">Select rating</option>
-                  <option value="1">1 - Poor</option>
-                  <option value="2">2 - Fair</option>
-                  <option value="3">3 - Good</option>
-                  <option value="4">4 - Very Good</option>
-                  <option value="5">5 - Excellent</option>
-                </select>
-                <label className="form__label">Rating</label>
-                {errors.rating && (
-                  <p className="form__error">{errors.rating.message}</p>
-                )}
-              </div>
+               <div className="form__group">
+                  <select
+                    className="form__input"
+                    {...register("raitng", { required: "Rating is required" })} // Corrected typo here
+                  >
+                    <option value="">Select rating</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="3">3 - Good</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="5">5 - Excellent</option>
+                  </select>
+                  <label className="form__label">Rating</label>
+                  {errors.rating && (
+                    <p className="form__error">{errors.rating.message}</p>
+                  )}
+                </div>
 
               {/* Tour Selection */}
 

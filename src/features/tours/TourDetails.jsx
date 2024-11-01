@@ -19,9 +19,6 @@ const TourDetails = () => {
   const { tour, error } = useTour();
   const mapContainerRef = useRef(null);
 
-  console.log(tour);
-  
-
   useEffect(() => {
     if (!tour || !tour.data || error) {
       return;
@@ -237,7 +234,7 @@ const TourDetails = () => {
 
       <section className="section-reviews">
         <div className="reviews">
-          {reviews.map((singleReview) => (
+          {reviews?.map((singleReview) => (
             <ReviewCard singleReview={singleReview} key={singleReview._id} />
           ))}
         </div>
