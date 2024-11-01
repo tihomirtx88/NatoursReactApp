@@ -753,6 +753,10 @@ body {
   display: -ms-flexbox;
   display: flex;
   padding: 30px 0; }
+  .user-view__buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center; }
   .user-view__menu {
     -webkit-box-flex: 32rem;
     -ms-flex: 32rem 0 0px;
@@ -1366,7 +1370,8 @@ body {
 .form {
   width: 100%;
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  flex-direction: column; }
 
 .form__tour-group {
   margin-bottom: 2rem;

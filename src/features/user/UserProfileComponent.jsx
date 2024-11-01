@@ -165,7 +165,7 @@ export default function UserProfileComponent() {
               error={accountErrors.email}
               disabled={isUpdatingUser}
             />
-            <div className="form__group right">
+            <div className="user-view__buttons">
               {isUpdatingUser ? (
                 <Spinner />
               ) : (
@@ -201,7 +201,7 @@ export default function UserProfileComponent() {
               handleFileChange={handleFileChange}
               isUpdatingUser={isUpdatingUser}
             />
-            <div className="form__group right">
+            <div className=" right">
               {isUpdatingUser ? (
                 <Spinner />
               ) : (
@@ -247,7 +247,7 @@ export default function UserProfileComponent() {
                 "Passwords must match"
               }
             />
-            <div className="form__group right">
+            <div className=" right">
               {isUpdatingUserPassword ? (
                 <Spinner />
               ) : (

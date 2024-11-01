@@ -131,6 +131,9 @@ const TourDetails = () => {
     guides,
   } = tour.data.data;
 
+  console.log(images, 'from details page');
+  
+
   const splitDescription = description.split("\n");
   
   return (
@@ -140,8 +143,8 @@ const TourDetails = () => {
           <div className="header__hero-overlay"></div>
           <img
             src={`http://localhost:3000/img/tours/${imageCover}`}
+             crossOrigin="anonymous"
             alt={`${name}`}
-              crossOrigin="anonymous"
             className="header__hero-img"
           />
         </div>
@@ -232,26 +235,32 @@ const TourDetails = () => {
         <div id="map" ref={mapContainerRef} />
       </section>
 
-      <section className="section-reviews">
-        <div className="reviews">
-          {reviews?.map((singleReview) => (
-            <ReviewCard singleReview={singleReview} key={singleReview._id} />
-          ))}
-        </div>
-      </section>
+      {reviews && reviews.length > 0 && (
+        <section className="section-reviews">
+          <div className="reviews">
+            {reviews.map((singleReview) => (
+              <ReviewCard singleReview={singleReview} key={singleReview._id} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section-cta">
         <div className="cta">
           <div className="cta__img cta__img--logo">
-            <img src="/img/logo-white.png" alt="Natours logo" />
+            <img 
+            src="/img/logo-white.png" 
+            alt="Natours logo" />
           </div>
           <img
-            src={`/img/tours/${images[1]}`}
+            src={`http://localhost:3000/img/tours/${images[0]}`}
             alt="Tour Picture"
+            crossOrigin="anonymous"
             className="cta__img cta__img--1"
           />
-          <img
-            src={`/img/tours/${images[2]}`}
+          <img 
+             crossOrigin="anonymous"
+            src={`http://localhost:3000/img/tours/${images[1]}`}
             alt="Tour Picture"
             className="cta__img cta__img--2"
           />
