@@ -2,16 +2,16 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreateTour from "./useCreateTour";
-import { useUsers } from "../user/useUsers";
+import { useUsersWithoutPagination } from "../user/useUsersWithoutPagination";
 
 const CreateTourForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { createTour, isloadingCreateTour } = useCreateTour();
-  const { allUsers, isLoadingUsers } = useUsers();
+  const { allUsers, isLoadingUsers } = useUsersWithoutPagination();
   const usersArray = allUsers?.data?.users || [];
 
   const [coverImage, setCoverImage] = useState(null); 
-  const [tourImages, setTourImages] = useState([]); 
+  const [tourImages, setTourImages] = useState([{ id: Date.now(), file: null }]); 
   
   const [locations, setLocations] = useState([]);
   const [availableGuides, setAvailableGuides] = useState([]);
@@ -31,10 +31,23 @@ const CreateTourForm = () => {
     setCoverImage(e.target.files[0]);
   };
 
-  // Handle multiple tour images selection
-  const handleTourImagesChange = (e) => {
-    setTourImages([...e.target.files]);
+   // Handle file change for each dynamic image input
+   const handleTourImageChange = (index, e) => {
+    const newTourImages = [...tourImages];
+    newTourImages[index].file = e.target.files[0];
+    setTourImages(newTourImages);
   };
+
+  // Add a new file input for additional image
+  const addTourImageField = () => {
+    setTourImages([...tourImages, { id: Date.now(), file: null }]);
+  };
+
+  // Remove a specific file input
+  const removeTourImageField = (index) => {
+    setTourImages(tourImages.filter((_, i) => i !== index));
+  };
+
   const handleAddLocation = () => {
     setLocations([...locations, { description: "", coordinates: [], address: "", day: "" }]);
   };
@@ -84,8 +97,10 @@ const CreateTourForm = () => {
     }
   
     // Add multiple images to the form data
-    tourImages.forEach((image) => {
-      formData.append("images", image);
+     tourImages.forEach((img) => {
+      if (img.file) {
+        formData.append("images", img.file);
+      }
     });
   
     // Handle start dates
@@ -261,7 +276,6 @@ const CreateTourForm = () => {
 
               {/* Cover Image Upload */}
               <div className="form__tour-group">
-            
                 <input
                   type="file"
                   className="form__input"
@@ -274,15 +288,29 @@ const CreateTourForm = () => {
 
               {/* Multiple Images Upload */}
               <div className="form__tour-group">
-                <input
-                  type="file"
-                  className="form__input"
-                  multiple
-                  onChange={handleTourImagesChange}
-                  disabled={isloadingCreateTour}
-                />
                 <label className="form__label">Upload Additional Images</label>
+                {tourImages.map((imageField, index) => (
+                  <div key={imageField.id} className="tour-image-field">
+                    <input
+                      type="file"
+                      className="form__input"
+                      onChange={(e) => handleTourImageChange(index, e)}
+                      disabled={isloadingCreateTour}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeTourImageField(index)}
+                      disabled={tourImages.length <= 1}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <button type="button" onClick={addTourImageField}>
+                  Add Image
+                </button>
               </div>
+
 
               {/* Start Dates Field */}
               <div className="form__tour-group">
