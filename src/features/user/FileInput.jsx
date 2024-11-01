@@ -2,7 +2,7 @@
 
 export default function FileInput({ photo, handleFileChange, isUpdatingUser }) {
   return (
-    <div className="form__group form__photo-upload">
+    <div className=" form__photo-upload">
       <img
         src={`http://localhost:3000/img/users/${photo}`}
         alt="User photo"

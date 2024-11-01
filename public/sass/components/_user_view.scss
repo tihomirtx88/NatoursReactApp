@@ -12,6 +12,12 @@
   display: flex;
   padding: 30px 0;
 
+  &__buttons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
   &__menu {
     -webkit-box-flex: 32rem;
     -ms-flex: 32rem 0 0px;
