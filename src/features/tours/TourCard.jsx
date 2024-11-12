@@ -81,16 +81,7 @@ const TourCard = ({ tour }) => {
         </div>
       </div>
       <div className="card__footer">
-        <p>
-          <span className="card__footer-value">\${price}</span>
-          <span className="card__footer-text">per person</span>
-        </p>
-        <p className="card__ratings">
-          <span className="card__footer-value">{ratingsAverage}</span>
-          <span className="card__footer-text">
-            rating ({tour.ratingsQuantity})
-          </span>
-        </p>
+        <div className="card__footer__container">
         <Link
           to={`/tours/${id}`}
           className="btn btn--green btn--small"
@@ -114,6 +105,19 @@ const TourCard = ({ tour }) => {
           {isTourUpdating ? "Updating..." : "Updating Tour"}
           <MdOutlineSecurityUpdate />
         </Link>
+        </div>
+        <div className="card__footer--container">
+          <p>
+            <span className="card__footer-value">\${price}</span>
+            <span className="card__footer-text">per person</span>
+          </p>
+          <p className="card__ratings">
+            <span className="card__footer-value">{ratingsAverage}</span>
+            <span className="card__footer-text">
+              rating ({tour.ratingsQuantity})
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
