@@ -7,7 +7,7 @@ import ForgotPasswordForm from "./ForgotPasswordForm";
 
 
 const Login = () => {
-  const [ email, setEmail ] = useState("baraban@abv.bg");
+  const [ email, setEmail ] = useState("pastarma@abv.bg@abv.bg");
   const [ password, setPassword ] = useState("12345678");
   const [showForgotPassword, setShowForgotPassword] = useState(false); 
 

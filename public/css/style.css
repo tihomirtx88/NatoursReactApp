@@ -920,23 +920,34 @@ body {
     padding: 2rem;
     background-color: #f7f7f7;
     border-top: 1px solid #e1e1e1; }
-    .card__footer .card__footer-value {
-      font-size: 2rem;
-      font-weight: bold; }
-    .card__footer .btn {
-      text-decoration: none;
-      font-size: 1.4rem;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      background-color: #55c57a;
-      color: #fff;
+    .card__footer--container {
       display: flex;
-      align-items: center;
-      gap: 0.5rem; }
-      .card__footer .btn--small {
-        font-size: 1.2rem; }
-      .card__footer .btn:hover {
-        background-color: #28b487; }
+      width: 100%;
+      justify-content: space-evenly;
+      padding: 1rem; }
+    .card__footer__container {
+      width: 100%;
+      display: flex;
+      gap: 20px; }
+      .card__footer__container .card__footer-value {
+        font-size: 2rem;
+        font-weight: bold; }
+      .card__footer__container .btn {
+        text-decoration: none;
+        font-size: 1.4rem;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        background-color: #55c57a;
+        color: #fff;
+        display: flex !important;
+        align-items: center;
+        gap: 0.5rem; }
+        .card__footer__container .btn svg {
+          font-size: 2.0rem; }
+        .card__footer__container .btn--small {
+          font-size: 1.2rem; }
+        .card__footer__container .btn:hover {
+          background-color: #28b487; }
 
 .section-header {
   position: relative;
@@ -1877,6 +1888,9 @@ body {
     transform: translateY(-50%);
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px; }
+
+.login-form .form__group {
+  width: 100%; }
 
 .header {
   height: 35vh;
