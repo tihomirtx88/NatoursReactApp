@@ -54,6 +54,8 @@ $ npm install
 # Execute the appliction with this command
 $ npm run dev
 
+```
+
 
 ## Authors
 
