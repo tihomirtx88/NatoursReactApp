@@ -40,6 +40,8 @@ $ npm run dev
 
 For back end the App using https://github.com/tihomirtx88/Natours-Api. This is custom API with one i created using Node.js, Mongoose and using MongoDB
 
+```bash
+
 # Clone the repository
 $ git clone https://github.com/tihomirtx88/Natours-Api
 
