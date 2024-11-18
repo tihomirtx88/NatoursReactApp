@@ -7,6 +7,7 @@
   padding: 6rem;
   padding-left: 9rem;
   font-size: $default-font-size;
+  overflow: hidden;
 
   transform: skewX(-12deg);
   opacity: 0; 
@@ -22,6 +23,29 @@
     animation-name: slideInFromRight;
   }
 
+  @media (max-width: 1024px) {
+    width: 85%;
+    padding: 5rem;
+    padding-left: 7rem;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding: 4rem;
+    padding-left: 5rem;
+    font-size: 1.3rem;
+    transform: none;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+    padding: 3rem;
+    padding-left: 3rem;
+    font-size: 1.2rem;
+    transform: none;
+  }
+
   &__shape {
     width: 15rem;
     height: 15rem;
@@ -34,6 +58,18 @@
 
     transform: translateX(-3rem) skewX(12deg);
     position: relative;
+
+    @media (max-width: 768px) {
+      width: 12rem;
+      height: 12rem;
+      transform: translateX(-2rem);
+    }
+
+    @media (max-width: 480px) {
+      width: 10rem;
+      height: 10rem;
+      transform: none;
+    }
   }
 
   &__img {
@@ -41,10 +77,22 @@
     transform: translateX(0) scale(1.4);
     backface-visibility: hidden;
     transition: all 0.5s;
+
+    @media (max-width: 768px) {
+      transform: translateX(0) scale(1.2);
+    }
+
+    @media (max-width: 480px) {
+      transform: translateX(0) scale(1);
+    }
   }
 
   &__text {
     transform: skewX(12deg);
+
+    @media (max-width: 768px) {
+      transform: none;
+    }
   }
 
   &__caption {
@@ -59,6 +107,14 @@
     opacity: 0;
     transition: all 0.5s;
     backface-visibility: hidden;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+    }
   }
 
   &:hover &__caption {
