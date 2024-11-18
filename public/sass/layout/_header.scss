@@ -1,6 +1,7 @@
-
 .header {
-  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  height: 55vh;
   background-image: linear-gradient(
       to right bottom,
       rgba($color-primary-light, 0.8),
@@ -16,38 +17,63 @@
   position: relative;
 
   &__logo-box {
-    position: absolute;
-    top: 4rem;
-    left: 0;
-    width: 94%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 2rem;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      align-items: center;
+      justify-content: initial;
+    }
   }
 
   &__logo {
     height: 3.5rem;
+
+    @media (max-width: 768px) {
+      height: 2.8rem;
+    }
   }
 
   &__text-box {
-    position: absolute;
-    /* Center box in center */
     display: flex;
-    flex-direction: column;
     align-items: center;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    flex-direction: column;
     text-align: center;
 
-    a{
+    a {
       max-width: 50rem;
       margin: 10px auto;
+
+
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        max-width: 80%;
+      }
+      @media (max-width: 480px) {
+        font-size: 1.2rem;
+        margin-left: 4rem;
+      }
     }
   }
   &__container {
     display: flex;
     gap: 20px;
+
+    @media (max-width: 768px) {
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-end;
+    }
 
     &--login,
     &--register {
@@ -57,12 +83,18 @@
       letter-spacing: 0.3rem;
       text-decoration: none;
       color: $color-light;
-      
+
+      @media (max-width: 768px) {
+        font-size: 1.6rem;
+      }
+      @media (max-width: 480px) {
+        font-size: 1.4rem;
+      }
     }
 
-    &--avatar-name{
-      font-size: 2.2rem;  
-      color: #f7f7f7;  
+    &--avatar-name {
+      font-size: 2.2rem;
+      color: #f7f7f7;
       font-weight: 700;
       max-width: 600px;
       line-height: 1.8;
@@ -70,12 +102,19 @@
       align-self: center;
       text-decoration: none;
 
-      &:hover{
+      &:hover {
         background-position: 100%;
         color: $color-grey-dark;
         transform: translateX(1rem);
       }
+
+      @media (max-width: 768px) {
+        font-size: 1.8rem;
+        max-width: 90%;
+      }
+      @media (max-width: 480px) {
+        font-size: 1.5rem;
+      }
     }
-    
   }
 }
