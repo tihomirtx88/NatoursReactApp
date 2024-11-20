@@ -60,15 +60,37 @@ body {
 }
 
 .heading-secondary {
-  font-size: 3.5rem;
+  font-size: 1.2rem; 
+  font-weight: 600;
   text-transform: uppercase;
-  font-weight: 700;
   display: inline-block;
   background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
   -webkit-background-clip: text;
   color: transparent;
   letter-spacing: 2px;
   transition: all 0.2s;
+  line-height: 1.2; 
+  word-wrap: break-word; 
+  overflow: visible; 
+  white-space: normal;
+
+  span {
+    display: inline; 
+    font-size: inherit; 
+    font-weight: inherit;
+    color: inherit;
+
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem; 
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem; 
+    line-height: 1.5;
+  }
 
   &:hover {
     transform: skewY(2deg) skewX(15deg) scale(1.1);

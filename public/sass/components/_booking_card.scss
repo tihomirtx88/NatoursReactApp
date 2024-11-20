@@ -67,6 +67,11 @@
       width: 100%;
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+
+      @media (max-width: 1380px) {
+        justify-content: center;
+      }
       .card__footer-value {
         font-size: 2rem;
         font-weight: bold;
