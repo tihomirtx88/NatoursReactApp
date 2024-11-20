@@ -161,6 +161,7 @@ body {
 .heading-primary-second span,
 .heading-tertirary-second span {
   width: 100%;
+  word-break: break-all;
   display: inline-block;
   padding: 1rem 1.5rem;
   line-height: 1;
@@ -219,6 +220,15 @@ body {
   cursor: pointer;
 }
 
+@media (max-width: 1520px) {
+  .btn,
+  .btn:link,
+  .btn:visited {
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
 @media (max-width: 600px) {
   .btn,
   .btn:link,
@@ -271,6 +281,11 @@ body {
 .btn--small {
   /* padding: 1.25rem 3rem !important; */
   font-size: 1.4rem !important;
+}
+@media (max-width: 1520px) {
+  .btn--small {
+    font-size: 1.1rem !important;
+  }
 }
 
 .btn--orange {
