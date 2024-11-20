@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "compile:sass": "sass --watch public/sass/main.scss public/css/style.css",
-    "start": "live-server --port=8080 --no-browser"
+    "start": "live-server --port=8080 --no-browser",
+    "build-css": "sass --no-source-map src/scss:src/css"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",

@@ -1985,6 +1985,8 @@ body {
   grid-gap: 2rem;
   padding: 2rem;
   flex-grow: 1;
+  max-width: 100%;
+  overflow: hidden;
 }
 @media (max-width: 1600px) {
   .tours-page .card-container {
