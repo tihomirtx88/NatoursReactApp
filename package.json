@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w",
+    "compile:sass": "sass --watch public/sass/main.scss public/css/style.css",
     "start": "live-server --port=8080 --no-browser"
   },
   "dependencies": {
@@ -25,7 +25,9 @@
     "react-router": "^6.23.0",
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
-    "recharts": "^2.13.0"
+    "recharts": "^2.13.0",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
@@ -38,7 +40,6 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "live-server": "^1.2.2",
-    "node-sass": "^9.0.0",
     "sass-embedded": "^1.80.3",
     "vite": "^5.4.0"
   }
