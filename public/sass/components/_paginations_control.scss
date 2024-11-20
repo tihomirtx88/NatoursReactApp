@@ -10,6 +10,8 @@
     grid-gap: 2rem; 
     padding: 2rem;
     flex-grow: 1;
+    max-width: 100%; 
+    overflow: hidden;
 
     @media (max-width: 1600px) {
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
