@@ -101,7 +101,7 @@ export default function UserProfileComponent() {
       updateUser(formData, {
         onSettled: () => {
           resetPhoto();
-          setSelectedFile(null); // Clear the file input after upload
+          setSelectedFile(null); 
         },
         onSuccess: (response) => {
           if (response?.data) {
@@ -146,7 +146,7 @@ export default function UserProfileComponent() {
         <div className="user-view__form-container">
           <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
           <form
-            className="form form-user-data"
+            className="form"
             onSubmit={handleSubmitAccount(onSubmitAccount)}
           >
             <InputField

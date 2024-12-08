@@ -2,7 +2,7 @@
 
 export default function InputField({ id, label, type, register, error, disabled = false, required = true }){
     return (
-        <div className="form__group">
+        <div id="profile-group" className="form__group">
           <label htmlFor={id} className="form__label">
             {label}
           </label>
