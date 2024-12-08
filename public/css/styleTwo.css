@@ -596,9 +596,12 @@ body {
   /* max-width: 120rem; */
   /* margin: 0 auto; */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); 
   grid-gap: 7rem;
   padding: 3rem;
+  flex-grow: 1;
+  max-width: 100%; 
+  overflow: hidden;
 }
 
 .card {
