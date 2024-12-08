@@ -19,7 +19,7 @@ const MontlyPlanTours = () => {
   }
 
   return (
-    <div className="card-container">
+    <div id="montly-bookings-container" className="card-container ">
       {displayedTours.length > 0 ? (
         displayedTours.map((tour, index) => (
           <MontlyToursCard key={index} tour={tour} />

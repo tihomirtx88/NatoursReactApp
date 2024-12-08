@@ -2531,6 +2531,24 @@ body {
   width: 100%;
 }
 
+@media (max-width: 550px) {
+  #montly-bookings-container {
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  #montly-bookings-container .tours-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  #montly-bookings-container .tours-info__heading, #montly-bookings-container .tours-info__description, #montly-bookings-container .tours-info__list {
+    width: 100%;
+  }
+  #montly-bookings-container .tours-info__item {
+    word-break: break-all;
+    width: 100%;
+  }
+}
 .header {
   display: flex;
   flex-direction: column;
