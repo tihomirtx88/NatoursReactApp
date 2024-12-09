@@ -5,7 +5,6 @@ import { useToursWithoutSorting } from "../tours/useToursWithoutSorting";
 import { useAuth } from "../../context/AuthContext";
 
 const Book = () => {
-  // Initialize react-hook-form
   const {
     register,
     handleSubmit,
@@ -99,7 +98,7 @@ const Book = () => {
                      {...register("groupSize", { required: true })}
                      defaultChecked
                   />
-                  <label htmlFor="small" className="form__radio-label">
+                  <label id="radio-small" htmlFor="small" className="form__radio-label">
                     Small tour group
                     <span className="form__radio-button" />
                   </label>
@@ -112,7 +111,7 @@ const Book = () => {
                     value="large"
                     {...register("groupSize", { required: true })}
                   />
-                  <label htmlFor="large" className="form__radio-label">
+                  <label id="radio-large" htmlFor="large" className="form__radio-label">
                     Large tour group
                     <span className="form__radio-button" />
                   </label>
